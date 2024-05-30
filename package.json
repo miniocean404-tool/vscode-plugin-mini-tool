@@ -15,11 +15,19 @@
     "commands": [
       {
         "command": "mini-tool.addRegionToSelection",
-        "title": "addRegionToSelection"
+        "title": "add Region To Selection"
       },
       {
         "command": "mini-tool.addCssPxIgnore",
-        "title": "addCssPxIgnore"
+        "title": "add css ignore"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "mini-tool.addRegionToSelection",
+        "key": "ctrl+l s",
+        "mac": "cmd+l s",
+        "when": "editorTextFocus"
       }
     ]
   },
