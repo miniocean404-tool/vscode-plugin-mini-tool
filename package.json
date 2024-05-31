@@ -51,6 +51,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@vue/compiler-dom": "^3.4.27",
     "postcss": "^8.4.38",
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.9",

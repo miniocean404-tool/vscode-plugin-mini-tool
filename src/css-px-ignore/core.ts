@@ -28,11 +28,15 @@ function plugin(options: PostcssPrettierIgnore) {
       return {
         Declaration(decl) {
           decl.value = decl.value.replace(pxReg, (matchStr, num) => {
-            if (props.includes(decl.prop as keyof CSS.PropertiesHyphen)) {
+            if (
+              props.includes(decl.prop as keyof CSS.PropertiesHyphen) &&
+              !decl.raws.before?.includes("// prettier-ignore")
+            ) {
               decl.raws.before = `${decl.raws.before}// prettier-ignore\n${decl.raws.before?.replaceAll("\n", "")}`
+              return num + "Px"
+            } else {
+              return matchStr
             }
-
-            return num + "Px"
           })
         },
         Rule(node) {},

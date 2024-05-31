@@ -1,13 +1,29 @@
-import * as compiler from "vue-template-compiler"
 import type { CssFileInfo, FileTypes } from "./index.d"
+import * as compiler from "@vue/compiler-dom"
+import { NodeTypes } from "@vue/compiler-dom"
 
 export function parseVueCss(text: string): CssFileInfo {
-  const sfcDescriptor = compiler.parseComponent(text)
-  const { styles } = sfcDescriptor
+  const ast = compiler.parse(text)
+
+  let lang = ""
+  let css = ""
+
+  const style = ast.children.find((node) => node.type === NodeTypes.ELEMENT && node.tag === "style")
+  if (style?.type === NodeTypes.ELEMENT) {
+    const langAst = style?.props.find((attr) => attr.name === "lang")
+
+    if (langAst?.type === NodeTypes.ATTRIBUTE && langAst?.value) {
+      lang = langAst.value.content
+    }
+
+    if (style.children[0].type === NodeTypes.TEXT) {
+      css = style.children[0].content
+    }
+  }
 
   return {
-    css: styles[0].content || "",
-    lang: (styles[0].lang as FileTypes) || "css",
+    css,
+    lang: lang as FileTypes,
   }
 }
 
