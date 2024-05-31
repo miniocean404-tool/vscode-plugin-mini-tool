@@ -1,0 +1,11 @@
+{
+    "for循环": {
+        "prefix": "for",
+        "body": [
+            "for (const ${2:value} of ${1:iterable}) {",
+            "\t$0",
+            "}"
+        ],
+        "description": "for循环"
+    }
+}

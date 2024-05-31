@@ -1,5 +1,5 @@
+import { COMMAND_ADD_REGION_TO_SELECTION } from "src/constant/command"
 import * as vscode from "vscode"
-import { COMMAND_ADD_REGION_TO_SELECTION } from "../constant/command"
 
 export function addRegionToSelection(): vscode.Disposable {
   const disposable = vscode.commands.registerCommand(COMMAND_ADD_REGION_TO_SELECTION, () => {

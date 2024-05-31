@@ -2,7 +2,7 @@ import * as vscode from "vscode"
 import { parseVueCss, replaceVueCss } from "./parse"
 import { postcssPrettierIgnore } from "./core"
 import type { CssFileInfo, CssHyphenKey, FileTypes } from "./index.d"
-import { COMMAND_ADD_CSS_PX_IGNORE } from "../constant/command"
+import { COMMAND_ADD_CSS_PX_IGNORE } from "src/constant/command"
 // import { commands, window } from "vscode"
 
 export function addCssPxIgnoreCommand(): vscode.Disposable {
