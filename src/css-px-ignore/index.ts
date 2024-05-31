@@ -2,9 +2,10 @@ import * as vscode from "vscode"
 import { parseVueCss } from "./parse"
 import { postcssPrettierIgnore } from "./core"
 import type { CssFileInfo, CssHyphenKey, FileTypes } from "./index.d"
+import { commands, window } from "vscode"
 
 export function addCssPxIgnoreCommand(): vscode.Disposable {
-  const disposable = vscode.commands.registerCommand("mini-tool.addCssPxIgnore", async () => {
+  const disposable = commands.registerCommand("mini-tool.addCssPxIgnore", async () => {
     // 获取当前活动的编辑器
     const editor = vscode.window.activeTextEditor
 
@@ -26,6 +27,7 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
       // const cssList: CssHyphenKey = vscode.workspace.getConfiguration().get("gitmoji.addCustomEmoji") || []
 
       const css = await postcssPrettierIgnore(info.css, info.lang, ["font-size", "line-height"])
+      console.log(css)
 
       editor.edit((editBuilder) => {
         // 获取选中文本的结束位置
