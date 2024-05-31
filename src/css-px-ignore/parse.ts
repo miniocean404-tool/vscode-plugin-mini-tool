@@ -1,4 +1,4 @@
-import compiler from "vue-template-compiler"
+import * as compiler from "vue-template-compiler"
 import type { CssFileInfo, FileTypes } from "./index.d"
 
 export function parseVueCss(text: string): CssFileInfo {

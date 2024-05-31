@@ -2,10 +2,10 @@ import * as vscode from "vscode"
 import { parseVueCss, replaceVueCss } from "./parse"
 import { postcssPrettierIgnore } from "./core"
 import type { CssFileInfo, CssHyphenKey, FileTypes } from "./index.d"
-import { commands, window } from "vscode"
+// import { commands, window } from "vscode"
 
 export function addCssPxIgnoreCommand(): vscode.Disposable {
-  const disposable = commands.registerCommand("mini-tool.addCssPxIgnore", async () => {
+  const disposable = vscode.commands.registerCommand("mini-tool.addCssPxIgnore", async () => {
     // 获取当前活动的编辑器
     const editor = vscode.window.activeTextEditor
 

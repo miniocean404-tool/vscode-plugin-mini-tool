@@ -7,8 +7,8 @@ export function activate(context: vscode.ExtensionContext) {
   const addRegion = addRegionToSelection()
   const addCssPxIgnore = addCssPxIgnoreCommand()
 
-  context.subscriptions.push(addRegion)
-  context.subscriptions.push(addCssPxIgnore)
+  context.subscriptions.push(addCssPxIgnore, )
+  context.subscriptions.push(addRegion, )
 }
 
 export function deactivate() {}
