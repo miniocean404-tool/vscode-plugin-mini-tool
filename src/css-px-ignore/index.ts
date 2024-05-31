@@ -1,5 +1,5 @@
 import * as vscode from "vscode"
-import { parseVueCss } from "./parse"
+import { parseVueCss, replaceVueCss } from "./parse"
 import { postcssPrettierIgnore } from "./core"
 import type { CssFileInfo, CssHyphenKey, FileTypes } from "./index.d"
 import { commands, window } from "vscode"
@@ -10,7 +10,7 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
     const editor = vscode.window.activeTextEditor
 
     if (editor) {
-      const text = editor?.document.getText()
+      let text = editor?.document.getText()
       const language = editor?.document.languageId
       let info: CssFileInfo
 
@@ -27,7 +27,12 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
       // const cssList: CssHyphenKey = vscode.workspace.getConfiguration().get("gitmoji.addCustomEmoji") || []
 
       const css = await postcssPrettierIgnore(info.css, info.lang, ["font-size", "line-height"])
-      console.log(css)
+
+      if (language === "vue") {
+        text = replaceVueCss(text, info.css, css)
+      } else {
+        text = css
+      }
 
       editor.edit((editBuilder) => {
         // 获取选中文本的结束位置
@@ -40,11 +45,8 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
         // 	editBuilder.insert(nextLine, selectedText + '\n');
 
         // 从开始到结束，全量替换
-        // const end = new vscode.Position(editor.document.lineCount + 1, 0)
-        // const text = "新替换的内容"
-        // editBuilder.replace(new vscode.Range(new vscode.Position(0, 0), end), text)
-
-        vscode.window.showInformationMessage(`${editor.document.languageId}`)
+        const end = new vscode.Position(editor.document.lineCount + 1, 0)
+        editBuilder.replace(new vscode.Range(new vscode.Position(0, 0), end), text)
       })
 
       // 快速选择

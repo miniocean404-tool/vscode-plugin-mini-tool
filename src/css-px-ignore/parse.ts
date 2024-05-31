@@ -10,3 +10,7 @@ export function parseVueCss(text: string): CssFileInfo {
     lang: (styles[0].lang as FileTypes) || "css",
   }
 }
+
+export function replaceVueCss(file: string, origin: string, replace: string) {
+  return file.replace(origin, replace)
+}
