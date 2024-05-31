@@ -2,35 +2,33 @@ import * as vscode from "vscode"
 import { parseVueCss, replaceVueCss } from "./parse"
 import { postcssPrettierIgnore } from "./core"
 import type { CssFileInfo, CssHyphenKey, FileTypes } from "./index.d"
+import { COMMAND_ADD_CSS_PX_IGNORE } from "../constant/command"
 // import { commands, window } from "vscode"
 
 export function addCssPxIgnoreCommand(): vscode.Disposable {
-  const disposable = vscode.commands.registerCommand("mini-tool.addCssPxIgnore", async () => {
+  const disposable = vscode.commands.registerCommand(COMMAND_ADD_CSS_PX_IGNORE, async () => {
     // 获取当前活动的编辑器
     const editor = vscode.window.activeTextEditor
 
     if (editor) {
-      let text = editor?.document.getText()
-      const language = editor?.document.languageId
-      let info: CssFileInfo
-
-      if (language === "vue") {
-        info = parseVueCss(text)
-      } else {
-        info = {
-          css: text,
-          lang: language as FileTypes,
-        }
-      }
-
       // 获取 setting.json 配置
       // const cssList: CssHyphenKey = vscode.workspace.getConfiguration().get("gitmoji.addCustomEmoji") || []
 
-      const css = await postcssPrettierIgnore(info.css, info.lang, ["font-size", "line-height"])
+      let text = editor?.document.getText()
+      const language = editor?.document.languageId
 
       if (language === "vue") {
+        const info = parseVueCss(text)
+
+        const css = await postcssPrettierIgnore(info.css, info.lang, ["font-size", "line-height"])
         text = replaceVueCss(text, info.css, css)
       } else {
+        const info = {
+          css: text,
+          lang: language as FileTypes,
+        }
+
+        const css = await postcssPrettierIgnore(info.css, info.lang, ["font-size", "line-height"])
         text = css
       }
 
