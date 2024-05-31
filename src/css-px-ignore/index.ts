@@ -1,7 +1,7 @@
 import * as vscode from "vscode"
 import { parseVueCss } from "./parse"
 import { postcssPrettierIgnore } from "./core"
-import type { CssFileInfo, FileTypes } from "./index.d"
+import type { CssFileInfo, CssHyphenKey, FileTypes } from "./index.d"
 
 export function addCssPxIgnoreCommand(): vscode.Disposable {
   const disposable = vscode.commands.registerCommand("mini-tool.addCssPxIgnore", async () => {
@@ -21,6 +21,9 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
           lang: language as FileTypes,
         }
       }
+
+      // 获取 setting.json 配置
+      // const cssList: CssHyphenKey = vscode.workspace.getConfiguration().get("gitmoji.addCustomEmoji") || []
 
       const css = await postcssPrettierIgnore(info.css, info.lang, ["font-size", "line-height"])
 
@@ -42,12 +45,14 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
         vscode.window.showInformationMessage(`${editor.document.languageId}`)
       })
 
+      // 快速选择
+      // vscode.window.showQuickPick(items)
+
       // vscode.window.showInformationMessage('是否要打开愧怍的小站？', '是', '否', '不再提示').then((result) => {
       //   if (result === '是') {
       //     import { exec } from 'child_process'
       //     exec(`start 'https://kuizuo.cn'`)
       //   } else if (result === '不再提示') {
-      //     // 其他操作 后文会说
       //   }
       // })
 
