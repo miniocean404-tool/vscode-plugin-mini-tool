@@ -29,6 +29,11 @@ let Gitmoji: Array<GitmojiInfo> = [
     description: vscode.l10n.t("Fix a bug"),
   },
   {
+    emoji: "🔥",
+    code: ":fire:",
+    description: vscode.l10n.t("Remove code or files"),
+  },
+  {
     emoji: "🎉",
     code: ":tada:",
     description: vscode.l10n.t("Begin a project"),
@@ -77,11 +82,6 @@ let Gitmoji: Array<GitmojiInfo> = [
     emoji: "⚡️",
     code: ":zap:",
     description: vscode.l10n.t("Improve performance"),
-  },
-  {
-    emoji: "🔥",
-    code: ":fire:",
-    description: vscode.l10n.t("Remove code or files"),
   },
 
   {
