@@ -1,6 +1,6 @@
 import * as vscode from "vscode"
 import * as fs from "fs"
-import { COMMAND_NEW_FILE } from "src/constant/command"
+import { COMMAND_NEW_FILE } from "../../constant/command"
 
 export function newFileCommand() {
   return vscode.commands.registerCommand(COMMAND_NEW_FILE, (uri: vscode.Uri) => {

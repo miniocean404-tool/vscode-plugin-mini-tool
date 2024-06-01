@@ -4,24 +4,27 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "debug-tsc-watch",
+      "label": "npm: watch:tsc",
       "type": "npm",
-      "script": "watch",
-      "problemMatcher": "$tsc-watch",
-      "isBackground": true,
-      "presentation": {
-        "reveal": "never"
-      },
+      "script": "watch:tsc",
       "group": {
         "kind": "build",
         // 设置当前任务为默认任务
         "isDefault": true
+      },
+      // $tsc-watch 是一个预定义的问题匹配器
+      // $tsc-watch 问题匹配器会解析任务输出中的错误和警告信息，并将其显示在 VSCode 的问题面板中
+      "problemMatcher": "$tsc-watch",
+      "isBackground": true,
+      "presentation": {
+        "group": "watch",
+        "reveal": "never"
       }
     },
     {
       "label": "watch-build",
       // 执行其他任务
-      "dependsOn": ["npm: watch:tsc", "npm: watch:esbuild"],
+      "dependsOn": ["npm: watch:tsc"],
       "isBackground": true,
       "presentation": {
         "reveal": "never"
@@ -32,18 +35,6 @@
       "runOptions": {
         // 对该任务何时运行进行配置。如果设置为 folderOpen，那么该任务将在文件夹打开时自动运行
         "runOn": "folderOpen"
-      }
-    },
-    {
-      "label": "npm: watch:tsc",
-      "type": "npm",
-      "script": "watch:tsc",
-      "group": "build",
-      "problemMatcher": "$tsc-watch",
-      "isBackground": true,
-      "presentation": {
-        "group": "watch",
-        "reveal": "never"
       }
     }
   ]

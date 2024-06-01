@@ -1,5 +1,5 @@
 import * as vscode from "vscode"
-import type { GitExtension, Repository } from "src/command/gitmoji/git"
+import type { GitExtension, Repository } from "../../command/gitmoji/git"
 import Gitmoji, { type GitmojiInfo } from "./gitmoji"
 import {
   CONFIG_ADD_CUSTOM_EMOJI,
@@ -7,8 +7,8 @@ import {
   CONFIG_ONLY_USE_CUSTOM_EMOJI,
   CONFIG_OUTPUT_TYPE,
   CONFIG_SHOW_EMOJI_CODE,
-} from "src/constant/configuration"
-import { COMMAND_SHOW_GITMOJI } from "src/constant/command"
+} from "../../constant/configuration"
+import { COMMAND_SHOW_GITMOJI } from "../../constant/command"
 
 export function addShowGitmojiCommand(): vscode.Disposable {
   const disposable = vscode.commands.registerCommand(COMMAND_SHOW_GITMOJI, (uri?) => {

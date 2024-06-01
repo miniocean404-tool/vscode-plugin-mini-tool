@@ -32,7 +32,15 @@ function plugin(options: PostcssPrettierIgnore) {
               props.includes(decl.prop as keyof CSS.PropertiesHyphen) &&
               !decl.raws.before?.includes("// prettier-ignore")
             ) {
-              decl.raws.before = `${decl.raws.before}// prettier-ignore\n${decl.raws.before?.replaceAll("\n", "")}`
+              const symbolReg = /(?<symbol>[\t\n]{1,2})(?<whitespace>[\s]+)/
+              const match = symbolReg.exec(decl.raws.before || "")
+
+              if (match && match.groups) {
+                const symbol = match?.groups?.symbol
+                const whitespace = match?.groups?.whitespace
+                decl.raws.before = `${decl.raws.before}// prettier-ignore${symbol}${whitespace}`
+              }
+
               return num + "Px"
             } else {
               return matchStr

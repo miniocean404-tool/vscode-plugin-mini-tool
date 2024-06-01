@@ -5,6 +5,7 @@
 1. [一个 VSCode 插件](https://juejin.cn/post/7119095066810908679)
 2. [Vscode 插件视图树 Demo](https://github.com/microsoft/vscode-extension-samples/blob/main/tree-view-sample/src/extension.ts)
 3. [视图树 Tree View](https://juejin.cn/post/6973944949003780104)
+4. [VS Code 插件开发 Loghuu——Console、Region 快捷插件](https://juejin.cn/post/7324011403026366515?share_token=838449be-669a-4a7d-b03d-79690fdb9f86)
 
 ### 未看完
 
