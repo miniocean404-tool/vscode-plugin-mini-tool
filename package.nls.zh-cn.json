@@ -13,5 +13,9 @@
     "mini-tool.config.outputType.emoji-code": "输出表情 :代码",
     "mini-tool.config.showEmojiCode": "开启通过简码搜索表情符号功能",
     "mini-tool.config.asSuffix": "开启在消息末尾插入表情符号功能",
-    "mini-tool.config.cssIgnoreList": "css 忽略清单"
+    "mini-tool.config.cssIgnoreList": "css 忽略清单",
+    "mini-tool.config.dotLogConfig.description": "自定义 Dot Log 的快捷命令",
+    "mini-tool.config.dotLogConfig.default.log": "快速 console.log 结果",
+    "mini-tool.config.dotLogConfig.default.logw": "快速 console.warn 结果",
+    "mini-tool.config.dotLogConfig.default.logr": "快速 console.err 结果"
 }

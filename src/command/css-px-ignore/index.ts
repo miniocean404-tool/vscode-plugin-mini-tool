@@ -3,7 +3,8 @@ import { parseVueCss, replaceVueCss } from "./parse"
 import { postcssPrettierIgnore } from "./core"
 import type { CssFileInfo, CssHyphenKey, FileTypes } from "./index.d"
 import { COMMAND_ADD_CSS_PX_IGNORE } from "../../constant/command"
-import { CONFIG_CSS_IGNORE_LIST } from "src/constant/configuration"
+import { CONFIG_CSS_IGNORE_LIST } from "../../constant/configuration"
+import { regexpParse } from "./regexp"
 // import { commands, window } from "vscode"
 
 export function addCssPxIgnoreCommand(): vscode.Disposable {
@@ -13,10 +14,7 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
 
     if (editor) {
       // 获取 setting.json 配置
-      const cssList: CssHyphenKey[] = vscode.workspace.getConfiguration().get(CONFIG_CSS_IGNORE_LIST) || [
-        "font-size",
-        "line-height",
-      ]
+      const cssList = vscode.workspace.getConfiguration().get<CssHyphenKey[]>(CONFIG_CSS_IGNORE_LIST) || []
 
       let text = editor?.document.getText()
       const language = editor?.document.languageId

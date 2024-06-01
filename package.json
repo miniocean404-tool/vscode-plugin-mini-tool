@@ -15,7 +15,9 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "icon": "assets/logo.png",
   "main": "./dist/extension.js",
   "l10n": "./languages",
@@ -91,7 +93,10 @@
         },
         "mini-tool.cssIgnoreList": {
           "type": "array",
-          "default": [],
+          "default": [
+            "font-size",
+            "line-height"
+          ],
           "scope": "window",
           "description": "%mini-tool.config.cssIgnoreList%"
         },
@@ -144,6 +149,44 @@
           "type": "boolean",
           "default": false,
           "description": "%mini-tool.config.asSuffix%"
+        },
+        "mini-tool.dotLogConfig": {
+          "type": "array",
+          "description": "%mini-tool.config.dotLogConfig.description%",
+          "default": [
+            {
+              "trigger": "log",
+              "description": "%mini-tool.config.dotLogConfig.default.log%",
+              "format": "console.log"
+            },
+            {
+              "trigger": "logw",
+              "description": "%mini-tool.config.dotLogConfig.default.logw%",
+              "format": "console.warn"
+            },
+            {
+              "trigger": "loge",
+              "description": "%mini-tool.config.dotLogConfig.default.loge%",
+              "format": "console.error"
+            }
+          ],
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "trigger": {
+                "type": "string",
+                "required": true
+              },
+              "description": {
+                "type": "string",
+                "required": true
+              },
+              "format": {
+                "type": "string",
+                "required": true
+              }
+            }
+          }
         }
       }
     }

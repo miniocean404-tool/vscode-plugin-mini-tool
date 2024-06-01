@@ -4,9 +4,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "npm: watch:tsc",
+      "label": "npm: watch",
       "type": "npm",
-      "script": "watch:tsc",
+      "script": "watch",
       "group": {
         "kind": "build",
         // 设置当前任务为默认任务

@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "module": "Node16",
-    "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "sourceMap": true,
-    "esModuleInterop": true,
-    "rootDir": "./src",
+    "rootDir": "src",
     "outDir": "dist",
-    "strict": true
+    "strict": true,
+
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   }
 }

@@ -13,5 +13,9 @@
     "mini-tool.config.outputType.emoji-code": "Output expression: code",
     "mini-tool.config.showEmojiCode": "Enable searching gitmojis by emoji code (example: ambulance will return hotfix)",
     "mini-tool.config.asSuffix": "Insertion of Gitmoji at the end of messages",
-    "mini-tool.config.cssIgnoreList": "css Ignore List"
+    "mini-tool.config.cssIgnoreList": "css Ignore List",
+    "mini-tool.config.dotLogConfig.description": "Customize how to log the result.",
+    "mini-tool.config.dotLogConfig.default.log": "quick console.log result",
+    "mini-tool.config.dotLogConfig.default.logw": "quick console.warn result",
+    "mini-tool.config.dotLogConfig.default.logr": "quick console.err result"
 }
