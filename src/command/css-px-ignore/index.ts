@@ -3,6 +3,7 @@ import { parseVueCss, replaceVueCss } from "./parse"
 import { postcssPrettierIgnore } from "./core"
 import type { CssFileInfo, CssHyphenKey, FileTypes } from "./index.d"
 import { COMMAND_ADD_CSS_PX_IGNORE } from "../../constant/command"
+import { CONFIG_CSS_IGNORE_LIST } from "src/constant/configuration"
 // import { commands, window } from "vscode"
 
 export function addCssPxIgnoreCommand(): vscode.Disposable {
@@ -12,7 +13,10 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
 
     if (editor) {
       // 获取 setting.json 配置
-      // const cssList: CssHyphenKey = vscode.workspace.getConfiguration().get("gitmoji.addCustomEmoji") || []
+      const cssList: CssHyphenKey[] = vscode.workspace.getConfiguration().get(CONFIG_CSS_IGNORE_LIST) || [
+        "font-size",
+        "line-height",
+      ]
 
       let text = editor?.document.getText()
       const language = editor?.document.languageId
@@ -20,7 +24,7 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
       if (language === "vue") {
         const info = parseVueCss(text)
 
-        const css = await postcssPrettierIgnore(info.css, info.lang, ["font-size", "line-height"])
+        const css = await postcssPrettierIgnore(info.css, info.lang, cssList)
         text = replaceVueCss(text, info.css, css)
       } else {
         const info = {
@@ -28,7 +32,7 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
           lang: language as FileTypes,
         }
 
-        const css = await postcssPrettierIgnore(info.css, info.lang, ["font-size", "line-height"])
+        const css = await postcssPrettierIgnore(info.css, info.lang, cssList)
         text = css
       }
 

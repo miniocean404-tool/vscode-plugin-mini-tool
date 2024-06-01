@@ -12,5 +12,6 @@
     "mini-tool.config.outputType.emoji": "只输出表情，适用于 GitHub、Gitlab、Coding 等平台",
     "mini-tool.config.outputType.emoji-code": "输出表情 :代码",
     "mini-tool.config.showEmojiCode": "开启通过简码搜索表情符号功能",
-    "mini-tool.config.asSuffix": "开启在消息末尾插入表情符号功能"
+    "mini-tool.config.asSuffix": "开启在消息末尾插入表情符号功能",
+    "mini-tool.config.cssIgnoreList": "css 忽略清单"
 }

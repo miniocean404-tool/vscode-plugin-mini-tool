@@ -11,6 +11,19 @@
 
 1. https://juejin.cn/post/7119095066810908679#heading-12
 
+# VSCode 插件开发
+
+### 资源管理器右键菜单
+
+```json
+"explorer/context": [
+  {
+    "command": "mini-tool.newFile",
+    "group": "navigation"
+  }
+],
+```
+
 ## vscode 所有内置命令
 
 https://code.visualstudio.com/api/references/commands
@@ -29,8 +42,6 @@ https://code.visualstudio.com/api/references/commands
       },
     ]
 ```
-
-##
 
 ### vue 文件解析
 

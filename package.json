@@ -48,16 +48,11 @@
       }
     ],
     "menus": {
-      "explorer/context": [
-        {
-          "command": "mini-tool.newFile",
-          "group": "navigation"
-        }
-      ],
       "editor/title": [
         {
           "command": "mini-tool.openWebview",
-          "group": "navigation"
+          "group": "navigation",
+          "when": "resourceLangId == javascript || resourceLangId == typescript"
         }
       ],
       "scm/title": [
@@ -93,6 +88,12 @@
           "type": "boolean",
           "default": true,
           "description": "%mini-tool.configuration.showTip.description%"
+        },
+        "mini-tool.cssIgnoreList": {
+          "type": "array",
+          "default": [],
+          "scope": "window",
+          "description": "%mini-tool.config.cssIgnoreList%"
         },
         "mini-tool.addCustomEmoji": {
           "type": "array",

@@ -12,5 +12,6 @@
     "mini-tool.config.outputType.emoji": "Suitable for GitHub, Gitlab, Coding, etc",
     "mini-tool.config.outputType.emoji-code": "Output expression: code",
     "mini-tool.config.showEmojiCode": "Enable searching gitmojis by emoji code (example: ambulance will return hotfix)",
-    "mini-tool.config.asSuffix": "Insertion of Gitmoji at the end of messages"
+    "mini-tool.config.asSuffix": "Insertion of Gitmoji at the end of messages",
+    "mini-tool.config.cssIgnoreList": "css Ignore List"
 }
