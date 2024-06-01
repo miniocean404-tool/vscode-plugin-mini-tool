@@ -1,0 +1,16 @@
+{
+    "mini-tool.command.showGitmoji.title": "Choose Gitmoji",
+    "mini-tool.command.addRegionToSelection.title": "Add Region To Selection",
+    "mini-tool.command.addCssPxIgnore.title": "Add Css Ignore",
+    "mini-tool.command.newFile.title": "Create new File",
+    "mini-tool.command.openWebview.title": "Open Webview",
+    "mini-tool.configuration.showTip.description": "Whether to display a welcome prompt every time you start!",
+    "mini-tool.config.addCustomEmoji": "Add custom emoji other than Gitmoji",
+    "mini-tool.config.onlyUseCustomEmoji": "Only use your custom emoji, not the ones in the Gitmoji",
+    "mini-tool.config.outputType": "Configure the type of emoji output as needed",
+    "mini-tool.config.outputType.code": "Suitable for GitHub, Gitee etc",
+    "mini-tool.config.outputType.emoji": "Suitable for GitHub, Gitlab, Coding, etc",
+    "mini-tool.config.outputType.emoji-code": "Output expression: code",
+    "mini-tool.config.showEmojiCode": "Enable searching gitmojis by emoji code (example: ambulance will return hotfix)",
+    "mini-tool.config.asSuffix": "Insertion of Gitmoji at the end of messages"
+}

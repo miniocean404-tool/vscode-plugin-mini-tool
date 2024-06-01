@@ -3,6 +3,12 @@
   "displayName": "Mini Tool",
   "description": "自用工具合集",
   "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool"
+  },
+  "publisher": "miniocean404",
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -12,35 +18,29 @@
   "activationEvents": [],
   "icon": "assets/logo.png",
   "main": "./dist/extension.js",
+  "l10n": "./languages",
   "contributes": {
     "commands": [
       {
+        "command": "mini-tool.showGitmoji",
+        "title": "%mini-tool.command.showGitmoji.title%",
+        "icon": "$(smiley)"
+      },
+      {
         "command": "mini-tool.addRegionToSelection",
-        "title": "add Region To Selection",
-        "icon": {
-          "light": "assets/lollipop.svg",
-          "dark": "assets/lollipop.svg"
-        }
+        "title": "%mini-tool.command.addRegionToSelection.title%"
       },
       {
         "command": "mini-tool.addCssPxIgnore",
-        "title": "add css ignore",
-        "icon": {
-          "light": "assets/lollipop.svg",
-          "dark": "assets/lollipop.svg"
-        }
+        "title": "%mini-tool.command.addCssPxIgnore.title%"
       },
       {
         "command": "mini-tool.newFile",
-        "title": "新建测试文件",
-        "icon": {
-          "light": "assets/logo.png",
-          "dark": "assets/logo.png"
-        }
+        "title": "%mini-tool.command.newFile.title%"
       },
       {
         "command": "mini-tool.openWebview",
-        "title": "打开 webview",
+        "title": "%mini-tool.command.openWebview.title%",
         "icon": {
           "light": "assets/logo.png",
           "dark": "assets/logo.png"
@@ -57,6 +57,13 @@
       "editor/title": [
         {
           "command": "mini-tool.openWebview",
+          "group": "navigation"
+        }
+      ],
+      "scm/title": [
+        {
+          "when": "scmProvider == git",
+          "command": "mini-tool.showGitmoji",
           "group": "navigation"
         }
       ]
@@ -85,7 +92,57 @@
         "mini-tool.showTip": {
           "type": "boolean",
           "default": true,
-          "description": "是否在每次启动时显示欢迎提示！"
+          "description": "%mini-tool.configuration.showTip.description%"
+        },
+        "mini-tool.addCustomEmoji": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object",
+            "title": "A gitmoji entry",
+            "properties": {
+              "emoji": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "%mini-tool.config.addCustomEmoji%"
+        },
+        "mini-tool.outputType": {
+          "type": "string",
+          "default": "emoji-code",
+          "enum": [
+            "code",
+            "emoji",
+            "emoji-code"
+          ],
+          "enumDescriptions": [
+            "%mini-tool.config.outputType.code%",
+            "%mini-tool.config.outputType.emoji%",
+            "%gitmoji.config.outputType.emoji-code%"
+          ],
+          "description": "%mini-tool.config.outputType%"
+        },
+        "mini-tool.onlyUseCustomEmoji": {
+          "type": "boolean",
+          "default": false,
+          "description": "%mini-tool.config.onlyUseCustomEmoji%"
+        },
+        "mini-tool.showEmojiCode": {
+          "type": "boolean",
+          "default": false,
+          "description": "%mini-tool.config.showEmojiCode%"
+        },
+        "mini-tool.asSuffix": {
+          "type": "boolean",
+          "default": false,
+          "description": "%mini-tool.config.asSuffix%"
         }
       }
     }
@@ -97,13 +154,17 @@
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc  --watch --project tsconfig.json",
     "package": "pnpm run check-types && node esbuild.js --production",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "package:vsce": "pnpm vsce package --no-dependencies",
+    "publish:vsce": "pnpm vsce publish --no-dependencies",
+    "patch:vsce": "vsce publish patch --no-dependencies"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.6",
-    "@types/node": "18.x",
+    "@types/node": "^20.13.0",
     "@types/postcss-less": "^4.0.6",
     "@types/vscode": "^1.74.0",
+    "@vscode/vsce": "^2.26.1",
     "csstype": "^3.1.3",
     "esbuild": "^0.20.2",
     "npm-run-all": "^4.1.5",
@@ -111,6 +172,7 @@
     "vsce": "^2.15.0"
   },
   "dependencies": {
+    "@vscode/l10n": "^0.0.18",
     "@vue/compiler-dom": "^3.4.27",
     "postcss": "^8.4.38",
     "postcss-less": "^6.0.0",

@@ -1,0 +1,16 @@
+{
+    "mini-tool.command.showGitmoji.title": "选择表情符号",
+    "mini-tool.command.addRegionToSelection.title": "添加折叠区域",
+    "mini-tool.command.addCssPxIgnore.title": "添加 css 忽略",
+    "mini-tool.command.newFile.title": "创建新的文件",
+    "mini-tool.command.openWebview.title": "打开 webview",
+    "mini-tool.configuration.showTip.description": "是否在每次启动时显示欢迎提示!",
+    "mini-tool.config.addCustomEmoji": "添加自定义表情符号",
+    "mini-tool.config.onlyUseCustomEmoji": "仅使用自定义添加的表情符号，而不使用扩展中自带的表情符号",
+    "mini-tool.config.outputType": "配置表情符号的输出类型",
+    "mini-tool.config.outputType.code": "只输出代码，适用于 GitHub、Gitee 等平台",
+    "mini-tool.config.outputType.emoji": "只输出表情，适用于 GitHub、Gitlab、Coding 等平台",
+    "mini-tool.config.outputType.emoji-code": "输出表情 :代码",
+    "mini-tool.config.showEmojiCode": "开启通过简码搜索表情符号功能",
+    "mini-tool.config.asSuffix": "开启在消息末尾插入表情符号功能"
+}

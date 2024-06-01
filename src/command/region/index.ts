@@ -1,7 +1,7 @@
 import { COMMAND_ADD_REGION_TO_SELECTION } from "src/constant/command"
 import * as vscode from "vscode"
 
-export function addRegionToSelection(): vscode.Disposable {
+export function addRegionToSelectionCommand(): vscode.Disposable {
   const disposable = vscode.commands.registerCommand(COMMAND_ADD_REGION_TO_SELECTION, () => {
     const editor = vscode.window.activeTextEditor
 
