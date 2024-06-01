@@ -2,7 +2,7 @@ import postcss from "postcss"
 import * as scss from "postcss-scss"
 import * as less from "postcss-less"
 import * as CSS from "csstype"
-import type { PostcssPrettierIgnore, FileTypes, CssHyphenKey } from "./index.d"
+import type { PostcssPrettierIgnore, FileTypes, CssHyphenKey } from "../index.d"
 
 const postcssSyntax = {
   scss,

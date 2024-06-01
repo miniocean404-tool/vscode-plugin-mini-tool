@@ -1,4 +1,4 @@
-import type { CssFileInfo, FileTypes } from "./index.d"
+import type { CssFileInfo, FileTypes } from "../index.d"
 import * as compiler from "@vue/compiler-dom"
 import { NodeTypes } from "@vue/compiler-dom"
 

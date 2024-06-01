@@ -1,34 +1,32 @@
 import * as vscode from "vscode"
-const list = ["font-size", "line-height"]
+import type { CssHyphenKey } from "./index.d"
 
-export function regexpParse(css: string) {
-  const editor = vscode.window.activeTextEditor
+export function regexpParse(editor: vscode.TextEditor, file: string, ignores: CssHyphenKey[]) {
+  ignores.forEach(async (key) => {
+    const regexp = new RegExp(`(${key}.*?:)(?<num>.*?)px;$`, "gm")
 
-  const result = list.forEach((key, index) => {
-    const regexp = new RegExp(`(${key}.*?:)(.*?)px;$`, "igm")
+    let match: RegExpExecArray | null
+    // regexp.lastIndex
+    while ((match = regexp.exec(file))) {
+      const position = editor.document.positionAt(match.index)
+      const textLine = editor?.document.lineAt(position)
+      if (textLine.isEmptyOrWhitespace) return
 
-    // css = css.replaceAll(regexp, (match, origin, num) => {
-    //   console.log(origin, num)
+      const lineText = textLine.text
+      const whitespaceLine = textLine.firstNonWhitespaceCharacterIndex
+      const content = textLine.text.slice(whitespaceLine)
 
-    //   const ignore = `// prettier-ignore\n`
+      await editor.edit((editBuilder) => {
+        const prettierIgnore = `// prettier-ignore\n${" ".repeat(whitespaceLine)}`
 
-    //   return ignore + origin + num + "Px"
-    // })
-    if (editor) {
-      // editor?.document.offsetAt()
+        editBuilder.delete(new vscode.Range(position.line, whitespaceLine, position.line, lineText.length))
+        editBuilder.insert(
+          new vscode.Position(position.line, whitespaceLine),
+          prettierIgnore + content.replace("px", "Px"),
+        )
+      })
 
-      const position = editor?.document.positionAt(200)
-      const text = editor?.document.lineAt(editor?.document.positionAt(200))
-
-      console.log(position.line, position.character)
-
-      console.log("regexpParse-positionAt", position, text)
+      file = editor.document.getText()
     }
-
-    for (const match of css.matchAll(regexp)) {
-      // console.log("regexpParse-match", match)
-    }
-
-    // console.log(regexp.exec(css));
   })
 }
