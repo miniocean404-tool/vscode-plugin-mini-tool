@@ -11,3 +11,9 @@ vsc-extension-quickstart.md
 **/*.map
 **/*.ts
 **/.vscode-test.*
+
+
+RECORD.md
+tsconfig.json
+pnpm-lock.yaml
+*.vsix
