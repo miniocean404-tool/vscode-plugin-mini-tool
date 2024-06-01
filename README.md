@@ -1,7 +1,7 @@
 **简体中文** | [English](README.en.md)
 
 <p align="center">
-    <img src="assets/mini-tool.gif" width="400">
+  <img src="assets/gitmoji.gif" width="400">
 </p>
 
 <p align="center">
