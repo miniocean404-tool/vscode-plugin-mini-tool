@@ -9,6 +9,66 @@ export interface GitmojiInfo {
 
 let Gitmoji: Array<GitmojiInfo> = [
   {
+    emoji: "✨",
+    code: ":sparkles:",
+    description: vscode.l10n.t("Introduce new features"),
+  },
+  {
+    emoji: "📝",
+    code: ":memo:",
+    description: vscode.l10n.t("Add or update documentation"),
+  },
+  {
+    emoji: "🚚",
+    code: ":truck:",
+    description: vscode.l10n.t("Move or rename resources (e.g.: files, paths, routes)"),
+  },
+  {
+    emoji: "🐛",
+    code: ":bug:",
+    description: vscode.l10n.t("Fix a bug"),
+  },
+  {
+    emoji: "🎉",
+    code: ":tada:",
+    description: vscode.l10n.t("Begin a project"),
+  },
+  {
+    emoji: "⬆️",
+    code: ":arrow_up:",
+    description: vscode.l10n.t("Upgrade dependencies"),
+  },
+  {
+    emoji: "⬇️",
+    code: ":arrow_down:",
+    description: vscode.l10n.t("Downgrade dependencies"),
+  },
+  {
+    emoji: "📌",
+    code: ":pushpin:",
+    description: vscode.l10n.t("Pin dependencies to specific versions"),
+  },
+  {
+    emoji: "➕",
+    code: ":heavy_plus_sign:",
+    description: vscode.l10n.t("Add a dependency"),
+  },
+  {
+    emoji: "➖",
+    code: ":heavy_minus_sign:",
+    description: vscode.l10n.t("Remove a dependency"),
+  },
+  {
+    emoji: "🔧",
+    code: ":wrench:",
+    description: vscode.l10n.t("Add or update configuration files"),
+  },
+  {
+    emoji: "🔨",
+    code: ":hammer:",
+    description: vscode.l10n.t("Add or update development scripts"),
+  },
+  {
     emoji: "🎨",
     code: ":art:",
     description: vscode.l10n.t("Improve structure/format of the code"),
@@ -23,26 +83,13 @@ let Gitmoji: Array<GitmojiInfo> = [
     code: ":fire:",
     description: vscode.l10n.t("Remove code or files"),
   },
-  {
-    emoji: "🐛",
-    code: ":bug:",
-    description: vscode.l10n.t("Fix a bug"),
-  },
+
   {
     emoji: "🚑",
     code: ":ambulance:",
     description: vscode.l10n.t("Critical hotfix"),
   },
-  {
-    emoji: "✨",
-    code: ":sparkles:",
-    description: vscode.l10n.t("Introduce new features"),
-  },
-  {
-    emoji: "📝",
-    code: ":memo:",
-    description: vscode.l10n.t("Add or update documentation"),
-  },
+
   {
     emoji: "🚀",
     code: ":rocket:",
@@ -53,11 +100,7 @@ let Gitmoji: Array<GitmojiInfo> = [
     code: ":lipstick:",
     description: vscode.l10n.t("Add or update the UI and style files"),
   },
-  {
-    emoji: "🎉",
-    code: ":tada:",
-    description: vscode.l10n.t("Begin a project"),
-  },
+
   {
     emoji: "✅",
     code: ":white_check_mark:",
@@ -93,21 +136,7 @@ let Gitmoji: Array<GitmojiInfo> = [
     code: ":green_heart:",
     description: vscode.l10n.t("Fix CI Build"),
   },
-  {
-    emoji: "⬇️",
-    code: ":arrow_down:",
-    description: vscode.l10n.t("Downgrade dependencies"),
-  },
-  {
-    emoji: "⬆️",
-    code: ":arrow_up:",
-    description: vscode.l10n.t("Upgrade dependencies"),
-  },
-  {
-    emoji: "📌",
-    code: ":pushpin:",
-    description: vscode.l10n.t("Pin dependencies to specific versions"),
-  },
+
   {
     emoji: "👷",
     code: ":construction_worker:",
@@ -123,26 +152,7 @@ let Gitmoji: Array<GitmojiInfo> = [
     code: ":recycle:",
     description: vscode.l10n.t("Refactor code"),
   },
-  {
-    emoji: "➕",
-    code: ":heavy_plus_sign:",
-    description: vscode.l10n.t("Add a dependency"),
-  },
-  {
-    emoji: "➖",
-    code: ":heavy_minus_sign:",
-    description: vscode.l10n.t("Remove a dependency"),
-  },
-  {
-    emoji: "🔧",
-    code: ":wrench:",
-    description: vscode.l10n.t("Add or update configuration files"),
-  },
-  {
-    emoji: "🔨",
-    code: ":hammer:",
-    description: vscode.l10n.t("Add or update development scripts"),
-  },
+
   {
     emoji: "🌐",
     code: ":globe_with_meridians:",
@@ -177,11 +187,6 @@ let Gitmoji: Array<GitmojiInfo> = [
     emoji: "👽️",
     code: ":alien:",
     description: vscode.l10n.t("Update code due to external API changes"),
-  },
-  {
-    emoji: "🚚",
-    code: ":truck:",
-    description: vscode.l10n.t("Move or rename resources (e.g.: files, paths, routes)"),
   },
   {
     emoji: "📄",
