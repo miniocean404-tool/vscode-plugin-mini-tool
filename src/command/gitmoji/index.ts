@@ -17,17 +17,17 @@ export function addShowGitmojiCommand(): vscode.Disposable {
     if (!git) return vscode.window.showErrorMessage("不能加载 Git 扩展")
 
     const addCustomEmoji: Array<GitmojiInfo> = vscode.workspace.getConfiguration().get(CONFIG_ADD_CUSTOM_EMOJI) || []
-    const showEmojiCode: boolean | undefined = vscode.workspace.getConfiguration().get(CONFIG_SHOW_EMOJI_CODE)
     let onlyUseCustomEmoji: boolean | undefined = vscode.workspace.getConfiguration().get(CONFIG_ONLY_USE_CUSTOM_EMOJI)
 
     let emojis: GitmojiInfo[] = onlyUseCustomEmoji ? [...addCustomEmoji] : [...Gitmoji, ...addCustomEmoji]
 
     const items = emojis.map((info) => {
-      const { description, code, emoji } = info
-      const displayCode = showEmojiCode ? code : ""
-      const label = `${emoji} ${displayCode} ${description} `
+      const { emoji, code, description } = info
+      const label = `${emoji} ${code} `
+
       return {
         label,
+        description,
         code,
         emoji,
       }

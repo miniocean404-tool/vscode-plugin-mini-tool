@@ -94,11 +94,30 @@
         "mini-tool.cssIgnoreList": {
           "type": "array",
           "default": [
-            "font-size",
-            "line-height"
+            {
+              "label": "font-size",
+              "picked": true
+            },
+            {
+              "label": "line-height",
+              "picked": true
+            }
           ],
           "scope": "window",
-          "description": "%mini-tool.config.cssIgnoreList%"
+          "description": "%mini-tool.config.cssIgnoreList%",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "trigger": {
+                "label": "string",
+                "required": true
+              },
+              "picked": {
+                "type": "boolean",
+                "required": true
+              }
+            }
+          }
         },
         "mini-tool.addCustomEmoji": {
           "type": "array",
@@ -139,11 +158,6 @@
           "type": "boolean",
           "default": false,
           "description": "%mini-tool.config.onlyUseCustomEmoji%"
-        },
-        "mini-tool.showEmojiCode": {
-          "type": "boolean",
-          "default": false,
-          "description": "%mini-tool.config.showEmojiCode%"
         },
         "mini-tool.asSuffix": {
           "type": "boolean",

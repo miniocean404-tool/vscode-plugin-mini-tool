@@ -9,8 +9,6 @@
 
 ### 未看完
 
-1. https://juejin.cn/post/7119095066810908679#heading-12
-
 # VSCode 插件开发
 
 ### 资源管理器右键菜单
@@ -26,7 +24,8 @@
 
 ## vscode 所有内置命令
 
-https://code.visualstudio.com/api/references/commands
+最全：Ctrl+Shift+P -> Open Default Keyboard Shortcuts (JSON)
+文档：https://code.visualstudio.com/api/references/commands
 
 1. 通过 `vscode.commands.getCommands()` 来获取所有命令 ID
 2. 要在插件中执行也只需要调用 `vscode.commands.executeCommand(id)`
