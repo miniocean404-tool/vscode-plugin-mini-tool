@@ -2,13 +2,22 @@
   "name": "mini-tool",
   "displayName": "Mini Tool",
   "description": "自用工具合集",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool"
   },
   "publisher": "miniocean404",
+  "keywords": [
+    "console.log",
+    "console",
+    "emoji",
+    "gitmoji",
+    "css",
+    "ignore",
+    "region"
+  ],
   "engines": {
     "vscode": "^1.74.0"
   },
