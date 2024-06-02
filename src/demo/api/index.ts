@@ -1,10 +1,27 @@
 import * as vscode from "vscode"
 
-function getSelectText() {
+function other() {
   // 全局参数存储设置
   // await vscode.workspace.getConfiguration().update("command id", false, true)
+}
+
+function select() {
   // 获取选中文本的结束位置
   // const selectionEnd = editor.selection.end
+  // 获取当前选中的文本
+  // const selectedText = editor.document.getText(editor.selection);
+  // 获取当前行的行号
+  // const currentLineNumber = editor.selection.active.line;
+  // 获取当前行的文本
+  // const currentLineText = editor.document.lineAt(currentLineNumber).text;
+  // 获取当前光标位置
+  // const currentPosition = editor.selection.active;
+  // 将光标定位到括号内并选中括号内的内容
+  // editor.selection = new vscode.Selection(openBracketPosition, closeBracketPosition)
+  // editor.selections = [
+  //   new vscode.Selection(openBracketPosition, openBracketPosition),
+  //   new vscode.Selection(firstPosition, firstPosition),
+  // ];
 }
 
 function acceptInput() {

@@ -6,7 +6,6 @@ import {
   CONFIG_AS_SUFFIX,
   CONFIG_ONLY_USE_CUSTOM_EMOJI,
   CONFIG_OUTPUT_TYPE,
-  CONFIG_SHOW_EMOJI_CODE,
 } from "../../constant/configuration"
 import { COMMAND_SHOW_GITMOJI } from "../../constant/command"
 

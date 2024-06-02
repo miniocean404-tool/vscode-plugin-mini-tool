@@ -1,6 +1,7 @@
 import * as vscode from "vscode"
 import os from "os"
 
+// 未实现文章：https://juejin.cn/post/7324011403026366515?share_token=838449be-669a-4a7d-b03d-79690fdb9f86
 // 选中的变量下方添加 console.log
 export function addSelectionConsoleLog() {
   return vscode.commands.registerTextEditorCommand(
