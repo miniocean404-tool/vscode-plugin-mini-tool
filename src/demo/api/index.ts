@@ -1,8 +1,13 @@
 import * as vscode from "vscode"
 
-function other() {
+async function other() {
   // 全局参数存储设置
   // await vscode.workspace.getConfiguration().update("command id", false, true)
+  // 保存文件选择框
+  // const uri = await vscode.window.showSaveDialog({
+  //   filters: { Images: ["png"] },
+  //   defaultUri: lastUsedImageUri,
+  // })
 }
 
 function select() {

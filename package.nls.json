@@ -1,5 +1,6 @@
 {
     "mini-tool.extension.title": "Mini Tool 🔧",
+    "mini-tool.command.codeSnap.title": "codeSnap 📸",
     "mini-tool.command.showGitmoji.title": "Choose Gitmoji",
     "mini-tool.command.addRegionToSelection.title": "Add Region To Selection",
     "mini-tool.command.addCssPxIgnore.title": "Add CSS Ignore",

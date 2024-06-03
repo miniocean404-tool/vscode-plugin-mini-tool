@@ -7,7 +7,7 @@ import { readHtml, writeFile, getSettings } from "./util"
 
 let lastUsedImageUri = vscode.Uri.file(path.resolve(homedir(), "Desktop/code.png"))
 
-export async function codeSnapCommand(context: vscode.ExtensionContext) {
+export function codeSnapCommand(context: vscode.ExtensionContext) {
   return vscode.commands.registerCommand(COMMAND_CODE_SNAP, async () => {
     const panel = await createPanel(context)
 
@@ -84,7 +84,7 @@ async function createPanel(context: vscode.ExtensionContext) {
       localResourceRoots: [vscode.Uri.file(context.extensionPath)],
     },
   )
-  panel.webview.html = await readHtml(path.resolve(context.extensionPath, "webview/index.html"), panel)
+  panel.webview.html = await readHtml(path.resolve(context.extensionPath, "webview/code-snap/index.html"), panel)
   return panel
 }
 

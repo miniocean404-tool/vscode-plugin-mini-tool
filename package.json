@@ -48,11 +48,11 @@
       "mini-tool": [
         {
           "id": "bookmarksExplorer11",
-          "name": "111"
+          "name": "标题 1"
         },
         {
           "id": "bookmarksHelpAndFeedback22",
-          "name": "222",
+          "name": "标题 2",
           "visibility": "collapsed"
         }
       ]
@@ -78,6 +78,10 @@
       {
         "command": "mini-tool.newFile",
         "title": "%mini-tool.command.newFile.title%"
+      },
+      {
+        "command": "mini-tool.codeSnap",
+        "title": "%mini-tool.command.codeSnap.title%"
       },
       {
         "command": "mini-tool.openWebview",
@@ -302,6 +306,7 @@
   "dependencies": {
     "@vscode/l10n": "^0.0.18",
     "@vue/compiler-dom": "^3.4.27",
+    "dom-to-image-even-more": "^1.0.4",
     "pangu": "^4.0.7",
     "postcss": "^8.4.38",
     "postcss-less": "^6.0.0",
