@@ -1,8 +1,8 @@
 {
   "name": "mini-tool",
   "displayName": "Mini Tool",
-  "description": "自用工具合集",
-  "version": "0.0.6",
+  "description": "自用工具合集 包含中文排版、css prettier 忽略添加",
+  "version": "0.0.7",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -83,8 +83,8 @@
         "command": "mini-tool.openWebview",
         "title": "%mini-tool.command.openWebview.title%",
         "icon": {
-          "light": "assets/logo.png",
-          "dark": "assets/logo.png"
+          "light": "assets/logo.svg",
+          "dark": "assets/logo.svg"
         }
       }
     ],

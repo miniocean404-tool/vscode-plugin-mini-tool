@@ -5,7 +5,7 @@
     "mini-tool.command.addCssPxIgnore.title": "添加 CSS 忽略",
     "mini-tool.command.chineseFormat.title": "格式化中文排版",
     "mini-tool.command.newFile.title": "创建新的文件",
-    "mini-tool.command.openWebview.title": "打开 webview",
+    "mini-tool.command.openWebview.title": "打开 google",
     "mini-tool.configuration.showTip.description": "是否在每次启动时显示欢迎提示！",
     "mini-tool.config.addCustomEmoji": "添加自定义表情符号",
     "mini-tool.config.onlyUseCustomEmoji": "仅使用自定义添加的表情符号，而不使用扩展中自带的表情符号",

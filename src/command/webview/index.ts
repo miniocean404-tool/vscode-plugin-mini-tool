@@ -8,7 +8,7 @@ export function openWebviewCommand(context: vscode.ExtensionContext) {
     // 创建webview
     const panel = vscode.window.createWebviewPanel(
       "blogWebview", // viewType
-      "我是小海洋呀的小站", // 视图标题
+      "Google 搜索", // 视图标题
       vscode.ViewColumn.Beside, // 显示在编辑器的哪个部位
       {
         enableScripts: true, // 启用 JS，默认禁用
