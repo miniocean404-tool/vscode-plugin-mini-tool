@@ -1,4 +1,5 @@
 {
+    "mini-tool.editor.context.title": "Mini Tool 🔧",
     "mini-tool.command.showGitmoji.title": "Choose Gitmoji",
     "mini-tool.command.addRegionToSelection.title": "Add Region To Selection",
     "mini-tool.command.addCssPxIgnore.title": "Add Css Ignore",
