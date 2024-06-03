@@ -2,6 +2,7 @@
     "mini-tool.command.showGitmoji.title": "选择表情符号",
     "mini-tool.command.addRegionToSelection.title": "添加折叠区域",
     "mini-tool.command.addCssPxIgnore.title": "添加 css 忽略",
+    "mini-tool.command.chineseFormat.title": "格式化中文排版（空格）",
     "mini-tool.command.newFile.title": "创建新的文件",
     "mini-tool.command.openWebview.title": "打开 webview",
     "mini-tool.configuration.showTip.description": "是否在每次启动时显示欢迎提示!",

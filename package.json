@@ -19,7 +19,8 @@
     "gitmoji",
     "css",
     "ignore",
-    "region"
+    "region",
+    "minitool"
   ],
   "engines": {
     "vscode": "^1.74.0"
@@ -47,6 +48,10 @@
       {
         "command": "mini-tool.addCssPxIgnore",
         "title": "%mini-tool.command.addCssPxIgnore.title%"
+      },
+      {
+        "command": "mini-tool.chineseFormat",
+        "title": "%mini-tool.command.chineseFormat.title%"
       },
       {
         "command": "mini-tool.newFile",
@@ -232,6 +237,7 @@
   "devDependencies": {
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.13.0",
+    "@types/pangu": "^4.0.2",
     "@types/postcss-less": "^4.0.6",
     "@types/vscode": "^1.74.0",
     "@vscode/vsce": "^2.26.1",
@@ -244,6 +250,7 @@
   "dependencies": {
     "@vscode/l10n": "^0.0.18",
     "@vue/compiler-dom": "^3.4.27",
+    "pangu": "^4.0.7",
     "postcss": "^8.4.38",
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.9"

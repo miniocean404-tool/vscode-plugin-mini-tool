@@ -6,6 +6,7 @@ import { tipHoverProvider } from "./provider/tip-hover"
 import { openWebviewCommand } from "./command/webview"
 import { addShowGitmojiCommand } from "./command/gitmoji"
 import { addDotConsoleLogCommand, addDotConsoleLogProvider } from "./command/dot-log"
+import { addChineseFormatCommand } from "./command/chinese-format"
 
 // command id 参数必须与 package.json 中 的 command 字段匹配
 export function activate(context: vscode.ExtensionContext) {
@@ -15,11 +16,12 @@ export function activate(context: vscode.ExtensionContext) {
   const newFile = newFileCommand()
   const openWebview = openWebviewCommand(context)
   const dotConsoleLog = addDotConsoleLogCommand()
+  const chineseFormart = addChineseFormatCommand()
 
   const tipHover = tipHoverProvider()
   const dotConsoleLogProvider = addDotConsoleLogProvider()
 
-  const commands = [showGitmoji, addRegion, addCssPxIgnore, openWebview, dotConsoleLog]
+  const commands = [showGitmoji, addRegion, addCssPxIgnore, openWebview, dotConsoleLog, chineseFormart]
   const providers = [tipHover, dotConsoleLogProvider]
 
   context.subscriptions.push(...commands, ...providers, newFile)

@@ -2,6 +2,7 @@
     "mini-tool.command.showGitmoji.title": "Choose Gitmoji",
     "mini-tool.command.addRegionToSelection.title": "Add Region To Selection",
     "mini-tool.command.addCssPxIgnore.title": "Add Css Ignore",
+    "mini-tool.command.chineseFormat.title": "Chinese Format (Whitespace)",
     "mini-tool.command.newFile.title": "Create new File",
     "mini-tool.command.openWebview.title": "Open Webview",
     "mini-tool.configuration.showTip.description": "Whether to display a welcome prompt every time you start!",

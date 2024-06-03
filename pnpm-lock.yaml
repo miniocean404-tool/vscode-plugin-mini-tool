@@ -14,6 +14,9 @@ importers:
       '@vue/compiler-dom':
         specifier: ^3.4.27
         version: 3.4.27
+      pangu:
+        specifier: ^4.0.7
+        version: 4.0.7
       postcss:
         specifier: ^8.4.38
         version: 8.4.38
@@ -30,6 +33,9 @@ importers:
       '@types/node':
         specifier: ^20.13.0
         version: 20.13.0
+      '@types/pangu':
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/postcss-less':
         specifier: ^4.0.6
         version: 4.0.6
@@ -265,6 +271,9 @@ packages:
 
   '@types/node@20.13.0':
     resolution: {integrity: sha512-FM6AOb3khNkNIXPnHFDYaHerSv8uN22C91z098AnGccVu+Pcdhi+pNUFDi0iLmPIsVE0JBD0KVS7mzUYt4nRzQ==}
+
+  '@types/pangu@4.0.2':
+    resolution: {integrity: sha512-rVwVCkOFTWpmBjZuxTiVhLE8cwIKff3jWEKjs+DDg6bMkQwjp9Bp03pNanHQTtTzP53SDHJutb/kfGFHNhOJaQ==}
 
   '@types/postcss-less@4.0.6':
     resolution: {integrity: sha512-xBd7riBa5XEyty+SMMJS0kKdVw+ykN5hjbIuoPLAXDv9JoPS8pRZUriypZiQXKDL7085aegxLbtyo9krBpQzng==}
@@ -861,6 +870,10 @@ packages:
     resolution: {integrity: sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==}
     engines: {node: '>=12'}
 
+  pangu@4.0.7:
+    resolution: {integrity: sha512-weZKJIwwy5gjt4STGVUH9bix3BGk7wZ2ahtIypwe3e/mllsrIZIvtfLx1dPX56GcpZFOCFKmeqI1qVuB9enRzA==}
+    hasBin: true
+
   parse-json@4.0.0:
     resolution: {integrity: sha512-aOIos8bujGN93/8Ox/jPLh7RwVnPEysynVFE+fQZyg6jKELEHwzgKdLRFHUgXJL6kylijVSBC4BvN9OmsB48Rw==}
     engines: {node: '>=4'}
@@ -1354,6 +1367,8 @@ snapshots:
   '@types/node@20.13.0':
     dependencies:
       undici-types: 5.26.5
+
+  '@types/pangu@4.0.2': {}
 
   '@types/postcss-less@4.0.6':
     dependencies:
@@ -2100,6 +2115,8 @@ snapshots:
       define-lazy-prop: 2.0.0
       is-docker: 2.2.1
       is-wsl: 2.2.0
+
+  pangu@4.0.7: {}
 
   parse-json@4.0.0:
     dependencies:

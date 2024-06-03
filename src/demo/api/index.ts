@@ -10,6 +10,7 @@ function select() {
   // const selectionEnd = editor.selection.end
   // 获取当前选中的文本
   // const selectedText = editor.document.getText(editor.selection);
+  // const [select1] = editor.selections
   // 获取当前行的行号
   // const currentLineNumber = editor.selection.active.line;
   // 获取当前行的文本
