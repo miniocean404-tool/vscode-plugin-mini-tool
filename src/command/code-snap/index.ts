@@ -40,7 +40,7 @@ export async function codeSnapCommand(context: vscode.ExtensionContext) {
 function getConfig() {
   const editorSettings = getSettings("editor", ["fontLigatures", "tabSize"])
   const editor = vscode.window.activeTextEditor
-  if (editor) editorSettings.tabSize = editor.options.tabSize
+  if (editor && editor.options.tabSize) editorSettings.tabSize = editor.options.tabSize
 
   const extensionSettings = getSettings("codesnap", [
     "backgroundColor",
