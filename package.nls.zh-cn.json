@@ -1,5 +1,5 @@
 {
-    "mini-tool.editor.context.title": "Mini Tool 🔧",
+    "mini-tool.extension.title": "Mini Tool 🔧",
     "mini-tool.command.showGitmoji.title": "选择表情符号",
     "mini-tool.command.addRegionToSelection.title": "添加折叠区域",
     "mini-tool.command.addCssPxIgnore.title": "添加 CSS 忽略",

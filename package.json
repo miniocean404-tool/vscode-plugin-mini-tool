@@ -35,6 +35,28 @@
   "main": "./dist/extension.js",
   "l10n": "./languages",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "mini-tool",
+          "title": "%mini-tool.extension.title%",
+          "icon": "assets/logo.svg"
+        }
+      ]
+    },
+    "views": {
+      "mini-tool": [
+        {
+          "id": "bookmarksExplorer11",
+          "name": "111"
+        },
+        {
+          "id": "bookmarksHelpAndFeedback22",
+          "name": "222",
+          "visibility": "collapsed"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "mini-tool.showGitmoji",
@@ -109,7 +131,7 @@
     "submenus": [
       {
         "id": "mini-tool.editor.context",
-        "label": "%mini-tool.editor.context.title%"
+        "label": "%mini-tool.extension.title%"
       }
     ],
     "keybindings": [
