@@ -16,7 +16,7 @@ export function openWebviewCommand(context: vscode.ExtensionContext) {
       },
     )
 
-    panel.webview.html = getWebViewContent(context, "/webview/index.html")
+    panel.webview.html = getWebViewContent(panel, context, "/webview/index.html")
   })
 }
 
@@ -25,10 +25,13 @@ export function openWebviewCommand(context: vscode.ExtensionContext) {
  * @param {*} context 上下文
  * @param {*} webviewPath 相对于插件根目录的html文件相对路径
  */
-function getWebViewContent(context: vscode.ExtensionContext, webviewPath: string) {
+function getWebViewContent(panel: vscode.WebviewPanel, context: vscode.ExtensionContext, webviewPath: string) {
   const webview = path.join(context.extensionPath, webviewPath)
   const dir = path.dirname(webview)
   let html = fs.readFileSync(webview, "utf-8")
+
+  html = html.replace(/%CSP_SOURCE%/gu, panel.webview.cspSource)
+
   // vscode 不支持直接加载本地资源，需要替换成其专有路径格式，这里只是简单的将样式和 JS 的路径替换
   html = html.replace(/(<link.+?href="|<script.+?src="|<img.+?src=")(.+?)"/g, (m, $1, $2) => {
     return $1 + vscode.Uri.file(path.resolve(dir, $2)).with({ scheme: "vscode-resource" }).toString() + '"'

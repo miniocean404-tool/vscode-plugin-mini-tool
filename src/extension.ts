@@ -8,6 +8,7 @@ import { addShowGitmojiCommand } from "./command/gitmoji"
 import { addDotConsoleLogCommand, addDotConsoleLogProvider } from "./command/dot-log"
 import { addChineseFormatCommand } from "./command/chinese-format"
 import { codeSnapCommand } from "./command/code-snap"
+import { setStatusBar } from "./ui/status-bat"
 
 // command id 参数必须与 package.json 中 的 command 字段匹配
 export function activate(context: vscode.ExtensionContext) {
@@ -25,6 +26,8 @@ export function activate(context: vscode.ExtensionContext) {
 
   const commands = [showGitmoji, addRegion, addCssPxIgnore, openWebview, dotConsoleLog, chineseFormart, codesnap]
   const providers = [tipHover, dotConsoleLogProvider]
+
+  setStatusBar()
 
   context.subscriptions.push(...commands, ...providers, newFile)
 }
