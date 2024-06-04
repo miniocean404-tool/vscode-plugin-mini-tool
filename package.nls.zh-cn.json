@@ -19,5 +19,5 @@
     "mini-tool.config.dotLogConfig.description": "自定义 Dot Log 的快捷命令",
     "mini-tool.config.dotLogConfig.default.log": "快速 console.log 结果",
     "mini-tool.config.dotLogConfig.default.logw": "快速 console.warn 结果",
-    "mini-tool.config.dotLogConfig.default.logr": "快速 console.err 结果"
+    "mini-tool.config.dotLogConfig.default.loge": "快速 console.err 结果"
 }

@@ -12,5 +12,8 @@
   "typescript.tsc.autoDetect": "off",
   "i18n-ally.displayLanguage": "zh-cn",
   "i18n-ally.sourceLanguage": "zh-cn",
-  "i18n-ally.pathMatcher": "bundle.l10n.{locale}.json"
+  // "i18n-ally.pathMatcher": "bundle.l10n.{locale}.json",
+  // "i18n-ally.localesPaths": ["languages"]
+  "i18n-ally.pathMatcher": "package.nls.{locale}.json",
+  "i18n-ally.localesPaths": ["./"]
 }

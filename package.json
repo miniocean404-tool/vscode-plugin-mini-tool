@@ -244,7 +244,7 @@
           "enumDescriptions": [
             "%mini-tool.config.outputType.code%",
             "%mini-tool.config.outputType.emoji%",
-            "%gitmoji.config.outputType.emoji-code%"
+            "%mini-tool.config.outputType.emoji-code%"
           ],
           "description": "%mini-tool.config.outputType%"
         },

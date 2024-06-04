@@ -19,5 +19,5 @@
     "mini-tool.config.dotLogConfig.description": "Customize how to log the result.",
     "mini-tool.config.dotLogConfig.default.log": "quick console.log result",
     "mini-tool.config.dotLogConfig.default.logw": "quick console.warn result",
-    "mini-tool.config.dotLogConfig.default.logr": "quick console.err result"
+    "mini-tool.config.dotLogConfig.default.loge": "quick console.err result"
 }
