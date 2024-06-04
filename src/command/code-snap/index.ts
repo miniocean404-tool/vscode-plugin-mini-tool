@@ -2,10 +2,9 @@ import { COMMAND_CODE_SNAP } from "../../constant/command"
 
 import * as vscode from "vscode"
 import path from "path"
-import { homedir } from "os"
 import { readHtml, writeFile, getSettings } from "./util"
-
-let lastUsedImageUri = vscode.Uri.file(path.resolve(homedir(), "Desktop/code.png"))
+import { getDesktopFileURI } from "../../utils/uri"
+import { hasOneSelection } from "../../utils/selection"
 
 export function codeSnapCommand(context: vscode.ExtensionContext) {
   return vscode.commands.registerCommand(COMMAND_CODE_SNAP, async () => {
@@ -88,6 +87,8 @@ async function createPanel(context: vscode.ExtensionContext) {
   return panel
 }
 
+let lastUsedImageUri = getDesktopFileURI("code.png")
+
 async function saveImage(data: string) {
   const uri = await vscode.window.showSaveDialog({
     filters: { Images: ["png"] },
@@ -98,8 +99,4 @@ async function saveImage(data: string) {
     lastUsedImageUri = uri
     writeFile(uri.fsPath, Buffer.from(data, "base64"))
   }
-}
-
-function hasOneSelection(selections: readonly vscode.Selection[]) {
-  return selections && selections.length === 1 && !selections[0].isEmpty
 }

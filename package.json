@@ -156,7 +156,19 @@
         "path": "./snippets/vue.json"
       },
       {
-        "language": "javascriptreact,javascript,typescriptreact,typescript",
+        "language": "javascriptreact",
+        "path": "./snippets/react.json"
+      },
+      {
+        "language": "javascript",
+        "path": "./snippets/react.json"
+      },
+      {
+        "language": "typescriptreact",
+        "path": "./snippets/react.json"
+      },
+      {
+        "language": "typescript",
         "path": "./snippets/react.json"
       }
     ],
