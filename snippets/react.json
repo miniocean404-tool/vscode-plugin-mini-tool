@@ -1,0 +1,32 @@
+{
+    "react-组件模板": {
+        "prefix": "reactc",
+        "scope": "javascriptreact,typescriptreact",
+        "body": [
+            "import styles from './index.module.scss'",
+            "",
+            "export default function Mini${TM_DIRECTORY/(.*\\/)(.*)/${2:/capitalize}/ig}({ className  }) {",
+            "\tconst containerClass = `${styles['dav-${TM_DIRECTORY/(.*\\/)(.*)/${2:/downcase}/ig}']} ${className || ''}`",
+            "",
+            "\treturn (",
+            "\t\t<div className={containerClass}>",
+            "\t\t\t<div></div>",
+            "\t\t</div>",
+            "\t)",
+            "}",
+            ""
+        ],
+        "description": "react-组件模板"
+    },
+    "react-css模板": {
+        "prefix": "reactcss",
+        "scope": "css,less,scss",
+        "body": [
+            ".dav-${TM_DIRECTORY/(.*\\/)(.*)/${2:/downcase}/ig}{",
+            "",
+            "}",
+            ""
+        ],
+        "description": "react-css模板"
+    }
+}
