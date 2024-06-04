@@ -115,6 +115,11 @@
           "command": "mini-tool.addCssPxIgnore",
           "group": "mini-tool@1",
           "when": "editorTextFocus"
+        },
+        {
+          "command": "mini-tool.codeSnap",
+          "group": "mini-tool@3",
+          "when": "editorTextFocus"
         }
       ],
       "editor/title": [
