@@ -15,6 +15,8 @@
 
 1. 可以使用 vscode 插件 `@vscode/l10n`,然后在 package.json 中添加 l10n 多语言的路径
 2. 可以使用自定义脚本，主要依赖 package.nls.xx.json
+3. @vscode/l10n-dev 翻译 ：https://code.visualstudio.com/updates/v1_87
+   npx @vscode/l10n-dev generate-azure -o ./l10n/ ./l10n/bundle.l10n.json ./package.nls.json`
 
 ### 资源管理器右键菜单
 
