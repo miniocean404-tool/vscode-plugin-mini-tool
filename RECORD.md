@@ -14,9 +14,15 @@
 ## 国际化
 
 1. 可以使用 vscode 插件 `@vscode/l10n`,然后在 package.json 中添加 l10n 多语言的路径
-2. 可以使用自定义脚本，主要依赖 package.nls.xx.json
-3. @vscode/l10n-dev 翻译 ：https://code.visualstudio.com/updates/v1_87
-   npx @vscode/l10n-dev generate-azure -o ./l10n/ ./l10n/bundle.l10n.json ./package.nls.json`
+2. @vscode/l10n-dev 翻译 ：https://code.visualstudio.com/updates/v1_87
+
+   文档：https://github.com/microsoft/vscode-l10n/tree/main/l10n-dev
+
+   `npx @vscode/l10n-dev generate-azure -o ./l10n/ ./l10n/bundle.l10n.json ./package.nls.json` 将 bundle.l10n.json 及 package.nls.json 中的所有字符串翻译为完放到 ./l10n 文件夹中（需要配置 azure key）
+
+   `npx @vscode/l10n-dev export  --outDir ./l10n ./src` 将搜索所有 TypeScript 文件，并将包含您想要本地化的所有字符串的文件./src 放在文件夹 bundle.l10n.json 中
+
+3. 可以使用自定义脚本，主要依赖 package.nls.xx.json
 
 ### 资源管理器右键菜单
 
