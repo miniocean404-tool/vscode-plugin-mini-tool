@@ -10,11 +10,11 @@
   },
   // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
   "typescript.tsc.autoDetect": "off",
-  "i18n-ally.displayLanguage": "zh-CN",
-  "i18n-ally.sourceLanguage": "zh-CN",
-  "i18n-ally.keystyle": "flat"
-  // "i18n-ally.pathMatcher": "bundle.l10n.{locale}.json",
-  // "i18n-ally.localesPaths": ["languages"]
+  "i18n-ally.displayLanguage": "zh-cn",
+  "i18n-ally.sourceLanguage": "zh-cn",
+  "i18n-ally.keystyle": "flat",
+  "i18n-ally.pathMatcher": "bundle.l10n.{locale}.json",
+  "i18n-ally.localesPaths": ["languages"]
   // "i18n-ally.pathMatcher": "package.nls.{locale}.json",
   // "i18n-ally.localesPaths": ["."]
 }
