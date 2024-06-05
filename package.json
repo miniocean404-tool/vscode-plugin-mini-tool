@@ -35,6 +35,12 @@
   "main": "./dist/extension.js",
   "l10n": "./languages",
   "contributes": {
+    "viewsWelcome": [
+      {
+        "view": "view2",
+        "contents": "\n [按钮](command:mini-tool.openWebview) \n 欢迎使用Mini Tool ^_^，[仓库地址](https://github.com/miniocean404-tool/vscode-plugin-mini-tool)"
+      }
+    ],
     "viewsContainers": {
       "activitybar": [
         {
@@ -47,11 +53,11 @@
     "views": {
       "mini-tool": [
         {
-          "id": "bookmarksExplorer11",
+          "id": "view1",
           "name": "标题 1"
         },
         {
-          "id": "bookmarksHelpAndFeedback22",
+          "id": "view2",
           "name": "标题 2",
           "visibility": "collapsed"
         }
