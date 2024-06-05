@@ -11,6 +11,11 @@
 
 # VSCode 插件开发
 
+## 国际化
+
+1. 可以使用 vscode 插件 `@vscode/l10n`,然后在 package.json 中添加 l10n 多语言的路径
+2. 可以使用自定义脚本，主要依赖 package.nls.xx.json
+
 ### 资源管理器右键菜单
 
 ```json

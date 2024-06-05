@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+
     "target": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "sourceMap": true,
@@ -15,5 +20,6 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
-  }
+  },
+  "include": ["./src/**/*.ts", "./package.nls.*.json"]
 }
