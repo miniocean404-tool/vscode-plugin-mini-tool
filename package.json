@@ -201,17 +201,8 @@
         },
         "mini-tool.cssIgnoreList": {
           "type": "array",
-          "default": [
-            {
-              "label": "font-size",
-              "picked": true
-            },
-            {
-              "label": "line-height",
-              "picked": true
-            }
-          ],
           "scope": "window",
+          "default": null,
           "description": "%mini-tool.config.cssIgnoreList%",
           "items": {
             "type": "object",

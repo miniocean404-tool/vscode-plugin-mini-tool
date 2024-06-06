@@ -3,13 +3,15 @@ import type { CssHyphenKey } from "./index.d"
 import { COMMAND_ADD_CSS_PX_IGNORE } from "../../constant/command"
 import { CONFIG_CSS_IGNORE_LIST } from "../../constant/configuration"
 import { regexpParse } from "./regexp"
+import { ignoreStyle } from "@/command/css-px-ignore/ignore"
 
 export function addCssPxIgnoreCommand(): vscode.Disposable {
   const disposable = vscode.commands.registerCommand(COMMAND_ADD_CSS_PX_IGNORE, async () => {
     // 获取当前活动的编辑器
     const editor = vscode.window.activeTextEditor
     // 获取 setting.json 配置
-    const ignores = vscode.workspace.getConfiguration().get<vscode.QuickPickItem[]>(CONFIG_CSS_IGNORE_LIST) || []
+    const ignores =
+      vscode.workspace.getConfiguration().get<vscode.QuickPickItem[]>(CONFIG_CSS_IGNORE_LIST) || ignoreStyle
 
     const res = await vscode.window.showQuickPick(ignores, {
       title: "请选择",
