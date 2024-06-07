@@ -2,7 +2,7 @@
   "name": "mini-tool",
   "displayName": "Mini Tool",
   "description": "自用工具合集 包含中文排版、css prettier 忽略添加",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -162,6 +162,12 @@
         "command": "mini-tool.addRegionToSelection",
         "key": "ctrl+l s",
         "mac": "cmd+l s",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "mini-tool.addCssPxIgnore",
+        "key": "ctrl+c ctrl+p",
+        "mac": "cmd+c cmd+p",
         "when": "editorTextFocus"
       }
     ],
