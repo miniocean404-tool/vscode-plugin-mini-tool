@@ -10,7 +10,7 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
     const editor = vscode.window.activeTextEditor
 
     if (editor) {
-      let text = editor.document.getText()
+      let text = editor.selection.isEmpty ? editor.document.getText() : editor.document.getText(editor.selection)
 
       const ignoreReg = /(?<key>[^\s]*?):(?<value>.*?px|.*\));$/gim
 
@@ -41,7 +41,7 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
 
       const pickIngore = res?.map<CssHyphenKey>((item) => item.label as CssHyphenKey) || []
 
-      regexpParse(editor, text, pickIngore)
+      regexpParse({ editor, text, ignores: pickIngore })
 
       // 执行格式化命令
       vscode.commands.executeCommand("editor.action.formatDocument")

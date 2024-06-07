@@ -1,4 +1,5 @@
 import * as CSS from "csstype"
+import * as vscode from "vscode"
 
 export type FileTypes = "scss" | "less" | "css"
 
@@ -11,4 +12,10 @@ export type CssHyphenKey = keyof CSS.PropertiesHyphen
 export interface CssFileInfo {
   css: string
   lang: FileTypes
+}
+
+interface RegexpParseProp {
+  editor: vscode.TextEditor
+  text: string
+  ignores: CssHyphenKey[]
 }

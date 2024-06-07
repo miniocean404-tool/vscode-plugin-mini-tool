@@ -1,19 +1,29 @@
 import * as vscode from "vscode"
-import type { CssHyphenKey } from "./index.d"
+import type { CssHyphenKey, RegexpParseProp } from "./index.d"
 
-export async function regexpParse(editor: vscode.TextEditor, file: string, ignores: CssHyphenKey[]) {
+export async function regexpParse({ editor, text, ignores }: RegexpParseProp) {
   await editor.edit((editBuilder) => {
     ignores.forEach(async (key) => {
       const regexp = new RegExp(`((?<!-)${key}[^-]*?:)(?<value>.*?);$`, "gm")
 
       let match: RegExpExecArray | null
       // regexp.lastIndex
-      while ((match = regexp.exec(file))) {
-        const position = editor.document.positionAt(match.index)
+      while ((match = regexp.exec(text))) {
+        const isSelected = editor.selection.isEmpty
+
+        console.log(editor.document.offsetAt(editor.selection.start), match.index)
+
+        // 计算替换文本的位置
+        const replacePotion = isSelected ? editor.document.offsetAt(editor.selection.start) + match.index : match.index
+
+        const position = editor.document.positionAt(replacePotion)
         const textLine = editor?.document.lineAt(position)
         if (textLine.isEmptyOrWhitespace) return
 
         const lineText = textLine.text
+
+        console.log(lineText)
+
         const whitespaceLineNum = textLine.firstNonWhitespaceCharacterIndex
         const whitespace = " ".repeat(whitespaceLineNum)
         const content = textLine.text.slice(whitespaceLineNum)
@@ -27,7 +37,7 @@ export async function regexpParse(editor: vscode.TextEditor, file: string, ignor
             prettierIgnore + content.replaceAll("px", "Px"),
           )
 
-          file = editor.document.getText()
+          text = editor.document.getText()
         }
       }
     })
