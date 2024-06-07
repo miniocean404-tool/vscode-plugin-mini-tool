@@ -9,9 +9,7 @@ export async function regexpParse({ editor, text, ignores }: RegexpParseProp) {
       let match: RegExpExecArray | null
       // regexp.lastIndex
       while ((match = regexp.exec(text))) {
-        const isSelected = editor.selection.isEmpty
-
-        console.log(editor.document.offsetAt(editor.selection.start), match.index)
+        const isSelected = !editor.selection.isEmpty
 
         // 计算替换文本的位置
         const replacePotion = isSelected ? editor.document.offsetAt(editor.selection.start) + match.index : match.index
@@ -20,15 +18,13 @@ export async function regexpParse({ editor, text, ignores }: RegexpParseProp) {
         const textLine = editor?.document.lineAt(position)
         if (textLine.isEmptyOrWhitespace) return
 
-        const lineText = textLine.text
-
-        console.log(lineText)
-
         const whitespaceLineNum = textLine.firstNonWhitespaceCharacterIndex
-        const whitespace = " ".repeat(whitespaceLineNum)
         const content = textLine.text.slice(whitespaceLineNum)
 
         if (content.includes("px")) {
+          const lineText = textLine.text
+          const whitespace = " ".repeat(whitespaceLineNum)
+
           const prettierIgnore = `// prettier-ignore\n${whitespace}`
 
           editBuilder.delete(new vscode.Range(position.line, whitespaceLineNum, position.line, lineText.length))
