@@ -16,6 +16,9 @@ export interface CssFileInfo {
 
 interface RegexpParseProp {
   editor: vscode.TextEditor
-  text: string
-  ignores: CssHyphenKey[]
+  ignores: QuickPickItemExtension[]
+}
+
+export interface QuickPickItemExtension extends vscode.QuickPickItem {
+  match: RegExpMatchArray
 }

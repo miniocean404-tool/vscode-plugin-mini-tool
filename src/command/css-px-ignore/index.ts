@@ -1,8 +1,9 @@
 import * as vscode from "vscode"
-import type { CssHyphenKey } from "./index.d"
+import type { CssHyphenKey, QuickPickItemExtension } from "./index.d"
 import { COMMAND_ADD_CSS_PX_IGNORE } from "../../constant/command"
 import { CONFIG_CSS_IGNORE_LIST } from "../../constant/configuration"
 import { regexpParse } from "./regexp"
+import { unique } from "@/utils/unique"
 
 export function addCssPxIgnoreCommand(): vscode.Disposable {
   const disposable = vscode.commands.registerCommand(COMMAND_ADD_CSS_PX_IGNORE, async () => {
@@ -12,41 +13,34 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
     if (editor) {
       let text = editor.selection.isEmpty ? editor.document.getText() : editor.document.getText(editor.selection)
 
-      const ignoreReg = /(?<key>[^\s]*?):(?<value>\s?.*?);$/gim
+      const ignoreReg = /(?<prop>[^\s]*?):\s*(?<value>.*?);$/gim
 
-      const temp: Record<string, boolean> = {}
       const ignoreStyle = Array.from(text.matchAll(ignoreReg))
-        .filter((item) => item.groups && item.groups.key && item.groups.value && item.groups.value.includes("px"))
-        .map<vscode.QuickPickItem>((item) => ({
-          label: item.groups?.key || "",
+        .filter((item) => item.groups && item.groups.value.includes("px"))
+        .map<QuickPickItemExtension>((item) => ({
+          label: item.groups?.prop || "",
           picked: false,
+          match: item,
         }))
-        .reduce<vscode.QuickPickItem[]>((memo, cur) => {
-          if (!temp[cur.label]) {
-            temp[cur.label] = true
-            memo.push(cur)
-          }
-          return memo
-        }, [])
 
       // 获取 setting.json 配置
-      const ignores =
-        vscode.workspace.getConfiguration().get<vscode.QuickPickItem[]>(CONFIG_CSS_IGNORE_LIST) || ignoreStyle
+      const allIgnoreSyle =
+        vscode.workspace.getConfiguration().get<QuickPickItemExtension[]>(CONFIG_CSS_IGNORE_LIST) || unique(ignoreStyle)
 
-      const res = await vscode.window.showQuickPick(ignores, {
+      const ignores = await vscode.window.showQuickPick(allIgnoreSyle, {
         title: "请选择",
         placeHolder: "需要忽略的 css 样式",
         canPickMany: true, // 是否可以多选
       })
 
-      const pickIngore = res?.map<CssHyphenKey>((item) => item.label as CssHyphenKey) || []
+      if (ignores) {
+        regexpParse({ editor, ignores })
 
-      regexpParse({ editor, text, ignores: pickIngore })
-
-      // 执行格式化命令
-      vscode.commands.executeCommand("editor.action.formatDocument")
-      // 执行保存命令
-      vscode.commands.executeCommand("workbench.action.files.save")
+        // 执行格式化命令
+        vscode.commands.executeCommand("editor.action.formatDocument")
+        // 执行保存命令
+        vscode.commands.executeCommand("workbench.action.files.save")
+      }
     }
   })
 
