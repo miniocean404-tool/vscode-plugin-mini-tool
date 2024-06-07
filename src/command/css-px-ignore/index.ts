@@ -8,17 +8,15 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
   const disposable = vscode.commands.registerCommand(COMMAND_ADD_CSS_PX_IGNORE, async () => {
     // 获取当前活动的编辑器
     const editor = vscode.window.activeTextEditor
-    // /(?<key>[^\s]*?):(?<value>\s?[px\d\s]*?);$/
-    // /(?<key>[^\s]*?):(?<value>\s?[^%]*?);$/
 
     if (editor) {
       let text = editor.selection.isEmpty ? editor.document.getText() : editor.document.getText(editor.selection)
 
-      const ignoreReg = /(?<key>[^\s]*?):(?<value>.*?px|.*\));$/gim
+      const ignoreReg = /(?<key>[^\s]*?):(?<value>\s?.*?);$/gim
 
       const temp: Record<string, boolean> = {}
       const ignoreStyle = Array.from(text.matchAll(ignoreReg))
-        .filter((item) => item.groups && item.groups.key && item.groups.value)
+        .filter((item) => item.groups && item.groups.key && item.groups.value && item.groups.value.includes("px"))
         .map<vscode.QuickPickItem>((item) => ({
           label: item.groups?.key || "",
           picked: false,
