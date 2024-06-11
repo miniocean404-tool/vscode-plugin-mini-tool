@@ -2,7 +2,7 @@
   "name": "mini-tool",
   "displayName": "Mini Tool",
   "description": "自用工具合集 包含中文排版、css prettier 忽略添加",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "license": "MIT",
   "repository": {
     "type": "git",
