@@ -15,25 +15,31 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
 
       const ignoreReg = /(?<prop>[^\s]*?):\s*(?<value>.*?);$/gim
 
-      const ignoreStyle = Array.from(text.matchAll(ignoreReg))
-        .filter((item) => item.groups && item.groups.value.includes("px"))
-        .map<QuickPickItemExtension>((item) => ({
+      const matchs = Array.from(text.matchAll(ignoreReg)).filter(
+        (item) => item.groups && item.groups.value.includes("px"),
+      )
+
+      const ignoreSelect = unique(
+        matchs.map<vscode.QuickPickItem>((item) => ({
           label: item.groups?.prop || "",
           picked: false,
-          match: item,
-        }))
+        })),
+      )
 
       // 获取 setting.json 配置
-      const allIgnoreSyle =
-        vscode.workspace.getConfiguration().get<QuickPickItemExtension[]>(CONFIG_CSS_IGNORE_LIST) || unique(ignoreStyle)
+      const ignoreConfig =
+        vscode.workspace.getConfiguration().get<QuickPickItemExtension[]>(CONFIG_CSS_IGNORE_LIST) || ignoreSelect
 
-      const ignores = await vscode.window.showQuickPick(allIgnoreSyle, {
+      const picked = await vscode.window.showQuickPick(ignoreConfig, {
         title: "请选择",
         placeHolder: "需要忽略的 css 样式",
         canPickMany: true, // 是否可以多选
       })
 
-      if (ignores) {
+      if (picked) {
+        const selected = picked.map((item) => item.label)
+        const ignores = matchs.filter((match) => selected.includes(match.groups?.prop || ""))
+
         regexpParse({ editor, ignores })
 
         // 执行格式化命令
