@@ -40,7 +40,7 @@ export function addCssPxIgnoreCommand(): vscode.Disposable {
         const selected = picked.map((item) => item.label)
         const ignores = matchs.filter((match) => selected.includes(match.groups?.prop || ""))
 
-        regexpParse({ editor, ignores })
+        await regexpParse({ editor, ignores })
 
         // 执行格式化命令
         vscode.commands.executeCommand("editor.action.formatDocument")

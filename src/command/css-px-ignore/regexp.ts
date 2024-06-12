@@ -8,12 +8,15 @@ export async function regexpParse({ editor, ignores }: RegexpParseProp) {
 
       if (match?.index) {
         // 计算替换文本的位置
-        const selectedIndex = editor.document.offsetAt(editor.selection.start) + match.index + index
-        const globalIndex = match.index + index
+        const selectedIndex = editor.document.offsetAt(editor.selection.start) + match.index
+        const globalIndex = match.index
         const replacePotion = isSelected ? selectedIndex : globalIndex
 
         const position = editor.document.positionAt(replacePotion)
         const textLine = editor?.document.lineAt(position)
+
+        console.log(match.index, match.groups?.prop, match.groups?.value)
+
         if (textLine.isEmptyOrWhitespace) return
 
         const whitespaceLineNum = textLine.firstNonWhitespaceCharacterIndex
