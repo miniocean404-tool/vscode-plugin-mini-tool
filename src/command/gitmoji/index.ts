@@ -25,8 +25,7 @@ export function addShowGitmojiCommand(): vscode.Disposable {
       const label = `${emoji} ${code} `
 
       return {
-        label,
-        description,
+        label: label + description,
         code,
         emoji,
       }
