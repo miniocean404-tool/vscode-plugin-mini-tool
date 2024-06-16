@@ -3,17 +3,20 @@ import type { RegexpParseProp } from "./index.d"
 
 export async function regexpParse({ editor, ignores }: RegexpParseProp) {
   await editor.edit((editBuilder) => {
-    ignores.forEach(async (select, index) => {
+    ignores.forEach(async (match, index) => {
       const isSelected = !editor.selection.isEmpty
 
-      if (select.match?.index) {
+      if (match?.index) {
         // 计算替换文本的位置
-        const selectedIndex = editor.document.offsetAt(editor.selection.start) + select.match.index + index
-        const globalIndex = select.match.index + index
+        const selectedIndex = editor.document.offsetAt(editor.selection.start) + match.index
+        const globalIndex = match.index
         const replacePotion = isSelected ? selectedIndex : globalIndex
 
         const position = editor.document.positionAt(replacePotion)
         const textLine = editor?.document.lineAt(position)
+
+        console.log(match.index, match.groups?.prop, match.groups?.value)
+
         if (textLine.isEmptyOrWhitespace) return
 
         const whitespaceLineNum = textLine.firstNonWhitespaceCharacterIndex
