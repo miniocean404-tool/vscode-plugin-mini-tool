@@ -9,6 +9,7 @@ import { addRegionToSelectionCommand } from "./command/region"
 import { openWebviewCommand } from "./command/webview"
 import { tipHoverProvider } from "./provider/tip-hover"
 import { setStatusBar } from "./ui/status-bat"
+import { addBetterAlign } from "@/command/better-align"
 
 // command id 参数必须与 package.json 中 的 command 字段匹配
 export function activate(context: vscode.ExtensionContext) {
@@ -20,11 +21,21 @@ export function activate(context: vscode.ExtensionContext) {
   const dotConsoleLog = addDotConsoleLogCommand()
   const chineseFormart = addChineseFormatCommand()
   const codesnap = codeSnapCommand(context)
+  const betterAlign = addBetterAlign()
 
   const tipHover = tipHoverProvider()
   const dotConsoleLogProvider = addDotConsoleLogProvider()
 
-  const commands = [showGitmoji, addRegion, addCssPxIgnore, openWebview, dotConsoleLog, chineseFormart, codesnap]
+  const commands = [
+    showGitmoji,
+    addRegion,
+    addCssPxIgnore,
+    openWebview,
+    dotConsoleLog,
+    chineseFormart,
+    codesnap,
+    betterAlign,
+  ]
   const providers = [tipHover, dotConsoleLogProvider]
 
   setStatusBar()

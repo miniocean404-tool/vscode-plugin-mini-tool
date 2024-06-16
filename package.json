@@ -92,6 +92,10 @@
         "title": "%mini-tool.command.codeSnap.title%"
       },
       {
+        "command": "mini-tool.betterAlign",
+        "title": "%mini-tool.command.betterAlign.title%"
+      },
+      {
         "command": "mini-tool.openWebview",
         "title": "%mini-tool.command.openWebview.title%",
         "icon": {

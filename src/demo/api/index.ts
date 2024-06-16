@@ -8,6 +8,17 @@ async function other() {
   //   filters: { Images: ["png"] },
   //   defaultUri: lastUsedImageUri,
   // })
+  // 其他
+  //   vscode.workspace.onDidChangeTextDocument((e) => {
+  //     if (alignAfterEnter && e.contentChanges.some((changes) => changes.text.includes('\n'))) {
+  //         vscode.commands.executeCommand('vscode-better-align.align');
+  //     }
+  // }),
+  // vscode.workspace.onDidChangeConfiguration((e) => {
+  //     if (e.affectsConfiguration('betterAlign')) {
+  //         alignAfterEnter = vscode.workspace.getConfiguration('betterAlign').get<boolean>('alignAfterTypeEnter');
+  //     }
+  // }),
 }
 
 function select() {

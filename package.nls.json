@@ -7,6 +7,7 @@
   "mini-tool.command.chineseFormat.title": "Chinese Format (Whitespace)",
   "mini-tool.command.newFile.title": "Create new File",
   "mini-tool.command.openWebview.title": "Open JueJin",
+  "mini-tool.command.betterAlign.title": "Better Align",
   "mini-tool.configuration.showTip.description": "Whether to display a welcome prompt every time you start!",
   "mini-tool.config.addCustomEmoji": "Add custom emoji other than Gitmoji",
   "mini-tool.config.onlyUseCustomEmoji": "Only use your custom emoji, not the ones in the Gitmoji",
