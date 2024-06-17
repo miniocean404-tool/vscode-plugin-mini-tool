@@ -18,25 +18,14 @@ export function activate(context: vscode.ExtensionContext) {
   const addCssPxIgnore = addCssPxIgnoreCommand()
   const newFile = newFileCommand()
   const openWebview = openWebviewCommand(context)
-  const dotConsoleLog = addDotConsoleLogCommand()
   const chineseFormart = addChineseFormatCommand()
   const codesnap = codeSnapCommand(context)
   const betterAlign = addBetterAlign()
 
   const tipHover = tipHoverProvider()
-  const dotConsoleLogProvider = addDotConsoleLogProvider()
 
-  const commands = [
-    showGitmoji,
-    addRegion,
-    addCssPxIgnore,
-    openWebview,
-    dotConsoleLog,
-    chineseFormart,
-    codesnap,
-    betterAlign,
-  ]
-  const providers = [tipHover, dotConsoleLogProvider]
+  const commands = [showGitmoji, addRegion, addCssPxIgnore, openWebview, chineseFormart, codesnap, betterAlign]
+  const providers = [tipHover]
 
   setStatusBar()
 
