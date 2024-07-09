@@ -1,6 +1,6 @@
 import * as vscode from "vscode"
 
-// 打开新的编辑器并写入内容
+// executeCommand 高级命令参数文档：https://code.visualstudio.com/api/references/commands
 function openNewEditorWriteCommand() {
   return vscode.commands.registerCommand("learn-vscode-extends.operateEditor", () => {
     // diff 命令
@@ -13,7 +13,6 @@ function openNewEditorWriteCommand() {
     vscode.commands.executeCommand("vscode.openWith")
 
     // 执行内置的命令, 新建一个活动窗口
-    // executeCommand 高级命令参数文档：https://code.visualstudio.com/api/references/commands
     vscode.commands.executeCommand("workbench.action.files.newUntitledFile").then(() => {
       // 获取当前的编辑器对象
       const textEditor: vscode.TextEditor | undefined = vscode.window.activeTextEditor
