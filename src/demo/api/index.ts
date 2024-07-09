@@ -39,6 +39,17 @@ function select() {
   //   new vscode.Selection(openBracketPosition, openBracketPosition),
   //   new vscode.Selection(firstPosition, firstPosition),
   // ];
+  // 状态栏底部提示文字
+  // vscode.window.setStatusBarMessage("状态栏底部提示文字", 5000)
+  // 未知
+  // const contents = new vscode.MarkdownString(`[Add comment](${commentCommandUri})`);
+}
+
+function openFile() {
+  const viewType = "dotnet-interactive"
+  const fileName = "Untitled-1.json"
+  const newUri = vscode.Uri.file(fileName).with({ scheme: "untitled", path: fileName })
+  vscode.commands.executeCommand("vscode.openWith", newUri, viewType)
 }
 
 function acceptInput() {

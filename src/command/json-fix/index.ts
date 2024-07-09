@@ -53,12 +53,8 @@ class JsonProvider implements vscode.TextDocumentContentProvider {
     this.isShow = isOpen
   }
 
-  setJson(json: string) {
-    this.json = json
-  }
-
   update() {
-    const text = this._document?.getText()
+    const text = this._document.getText()
 
     try {
       const repaired = jsonrepair(text || "")
@@ -78,20 +74,54 @@ class JsonProvider implements vscode.TextDocumentContentProvider {
 // 打开新的编辑器并写入内容
 export function fixJsonCommand(context: vscode.ExtensionContext) {
   const command = vscode.commands.registerCommand(COMMAND_JSON_FIX, async () => {
-    const editor = vscode.window.activeTextEditor
+    vscode.window.showTextDocument(vscode.Uri.parse(`mini-tool:test.json`), {
+      viewColumn: vscode.ViewColumn.Beside,
+      preserveFocus: true,
+      preview: false,
+    })
+
+    let editor = vscode.window.activeTextEditor
+    const clipboard = await vscode.env.clipboard.readText()
+
+    if (!editor && vscode.env.clipboard) {
+      const viewID = "mini-tool"
+      const fileName = "等待修复.json"
+      const newUri = vscode.Uri.file(fileName).with({ scheme: "untitled", path: fileName })
+      await vscode.commands.executeCommand("vscode.openWith", newUri, viewID, {
+        viewColumn: vscode.ViewColumn.One,
+      })
+      editor = vscode.window.activeTextEditor
+
+      if (editor) {
+        vscode.languages.setTextDocumentLanguage(editor.document, "json")
+
+        // 编辑模式
+        await editor.edit((editBuilder: vscode.TextEditorEdit) => {
+          // 插入内容
+          editBuilder.insert(new vscode.Position(0, 0), clipboard)
+        })
+      }
+    }
 
     if (editor) {
-      const codeProvider = new JsonProvider("json", "修复", editor.document)
-      context.subscriptions.push(
-        vscode.workspace.registerTextDocumentContentProvider(codeProvider.scheme, codeProvider),
-      )
+      if (editor.document.languageId !== "json" && !clipboard) {
+        return vscode.window.showErrorMessage("当前不是 JSON 文件")
+      }
 
-      // 第一次打开时候更新一下 json 修复的内容
-      codeProvider.update()
-      const doc = await vscode.workspace.openTextDocument(codeProvider.uri)
-      vscode.window.showTextDocument(doc, vscode.ViewColumn.Two, true)
+      openFix(context, editor)
     }
   })
 
   return command
+}
+
+async function openFix(context: vscode.ExtensionContext, editor: vscode.TextEditor) {
+  const codeProvider = new JsonProvider("json", "修复", editor.document)
+  context.subscriptions.push(vscode.workspace.registerTextDocumentContentProvider(codeProvider.scheme, codeProvider))
+
+  const doc = await vscode.workspace.openTextDocument(codeProvider.uri)
+  // 第一次打开时候更新一下 json 修复的内容
+  codeProvider.update()
+
+  vscode.window.showTextDocument(doc, vscode.ViewColumn.Two, true)
 }
