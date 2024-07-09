@@ -1,5 +1,6 @@
 {
     "mini-tool.extension.title": "Mini Tool 🔧",
+    "mini-tool.command.jsonFix.title": "JSON 修复或美化 🔧",
     "mini-tool.command.codeSnap.title": "快照 📸",
     "mini-tool.command.showGitmoji.title": "选择表情符号",
     "mini-tool.command.addRegionToSelection.title": "添加折叠区域",

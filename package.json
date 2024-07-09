@@ -2,7 +2,7 @@
   "name": "mini-tool",
   "displayName": "Mini Tool",
   "description": "自用工具合集 包含中文排版、css prettier 忽略添加",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -76,6 +76,10 @@
         "title": "%mini-tool.command.addRegionToSelection.title%"
       },
       {
+        "command": "mini-tool.jsonFix",
+        "title": "%mini-tool.command.jsonFix.title%"
+      },
+      {
         "command": "mini-tool.addCssPxIgnore",
         "title": "%mini-tool.command.addCssPxIgnore.title%"
       },
@@ -137,6 +141,11 @@
         {
           "command": "mini-tool.codeSnap",
           "group": "mini-tool@3",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "mini-tool.jsonFix",
+          "group": "mini-tool@4",
           "when": "editorTextFocus"
         }
       ],
@@ -348,6 +357,7 @@
     "@vscode/l10n": "^0.0.18",
     "@vue/compiler-dom": "^3.4.27",
     "dom-to-image-even-more": "^1.0.4",
+    "jsonrepair": "^3.8.0",
     "pangu": "^4.0.7",
     "postcss": "^8.4.38",
     "postcss-less": "^6.0.0",

@@ -17,6 +17,9 @@ importers:
       dom-to-image-even-more:
         specifier: ^1.0.4
         version: 1.0.4
+      jsonrepair:
+        specifier: ^3.8.0
+        version: 3.8.0
       pangu:
         specifier: ^4.0.7
         version: 4.0.7
@@ -857,6 +860,10 @@ packages:
 
   jsonc-parser@3.2.1:
     resolution: {integrity: sha512-AilxAyFOAcK5wA1+LeaySVBrHsGQvUFCDWXKpZjzaL0PqW+xfBOttn8GNtWKFWqneyMZj41MWF9Kl6iPWLwgOA==}
+
+  jsonrepair@3.8.0:
+    resolution: {integrity: sha512-89lrxpwp+IEcJ6kwglF0HH3Tl17J08JEpYfXnvvjdp4zV4rjSoGu2NdQHxBs7yTOk3ETjTn9du48pBy8iBqj1w==}
+    hasBin: true
 
   jsonwebtoken@9.0.2:
     resolution: {integrity: sha512-PRp66vJ865SSqOlgqS8hujT5U4AOgMfhrwYIuIhfKaoSCZcirrmASQr8CX7cUg+RMih+hgznrjp99o+W4pJLHQ==}
@@ -2353,6 +2360,8 @@ snapshots:
   json-parse-better-errors@1.0.2: {}
 
   jsonc-parser@3.2.1: {}
+
+  jsonrepair@3.8.0: {}
 
   jsonwebtoken@9.0.2:
     dependencies:

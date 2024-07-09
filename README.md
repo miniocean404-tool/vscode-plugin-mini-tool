@@ -1,8 +1,8 @@
 **简体中文** | [English](README.en.md)
 
-<p align="center">
+<!-- <p align="center">
   <img src="assets/gitmoji.gif" width="400">
-</p>
+</p> -->
 
 <p align="center">
     <img src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square">
@@ -23,7 +23,18 @@
     <a href="https://github.com/miniocean404-tool/vscode-plugin-mini-tool/issues">功能需求</a>
 </p>
 
-<p align="center">VSCode 中用于 Git 提交信息的 Gitmoji 工具</p>
+<p align="center">VSCode 自用工具</p>
+
+## 🎖 包含功能
+
+1.  Gitmoji 日志提交
+2.  中文文字排版
+3.  JSON 修复美化
+4.  CSS 快速添加 // prettier-ignore
+5.  对齐代码
+6.  代码截图
+7.  Vscode 快速折叠行及标记
+8.  代码片段
 
 ## 💻 扩展截图
 
@@ -40,7 +51,7 @@
 
 **提示**：也可以直接在 Marketplace 中找到 [Mini Tool](https://marketplace.visualstudio.com/items?itemName=miniocean404.mini-tool)，然后点击 `Install` 即可。
 
-## 🔨 配置扩展
+## 🔨 Gitmoji 配置
 
 ### 表情符号输出类型
 
