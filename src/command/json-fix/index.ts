@@ -86,7 +86,7 @@ export function fixJsonCommand(context: vscode.ExtensionContext) {
     if (!editor && vscode.env.clipboard) {
       const viewID = "mini-tool"
       const fileName = "等待修复.json"
-      const newUri = vscode.Uri.file(fileName).with({ scheme: "untitled", path: fileName })
+      const newUri = vscode.Uri.file(fileName).with({ scheme: `${viewID}-json`, path: fileName })
       await vscode.commands.executeCommand("vscode.openWith", newUri, viewID, {
         viewColumn: vscode.ViewColumn.One,
       })
