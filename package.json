@@ -1,7 +1,7 @@
 {
   "name": "mini-tool",
   "displayName": "Mini Tool",
-  "description": "自用工具合集 包含中文排版、css prettier 忽略添加",
+  "description": "自用工具合集 包含 Git emoji 日志提交图标、中文排版、JSON 修复美化、css prettier 忽略添加、Vscode 快速折叠行及标记 等",
   "version": "0.0.27",
   "license": "MIT",
   "repository": {
