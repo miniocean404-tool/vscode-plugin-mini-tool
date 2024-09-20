@@ -31,16 +31,10 @@
 2.  中文文字排版
 3.  JSON 修复美化
 4.  CSS 快速添加 // prettier-ignore
-5.  对齐代码
+5.  对齐代码 (暂时无效)
 6.  代码截图
 7.  Vscode 快速折叠行及标记
 8.  代码片段
-
-## 💻 扩展截图
-
-<p align="center">
-    <img src="assets/about.gif">
-</p>
 
 ## 📦 安装扩展
 
@@ -51,7 +45,54 @@
 
 **提示**：也可以直接在 Marketplace 中找到 [Mini Tool](https://marketplace.visualstudio.com/items?itemName=miniocean404.mini-tool)，然后点击 `Install` 即可。
 
+## 👀 基础功能使用
+
+对齐代码,使用 `Ctrl+Shift+P` 组合键打开命令面板, 输入 `Better Align` 即可自动对齐变量；
+
+例如：
+
+```typescript
+// Orignal code
+const abc = {
+  hello:      1
+  ,my :2//comment
+  ,friend:   3      // comment
+}
+
+const abc = {
+    hello : 1
+  , my    : 2  // comment
+  , friend: 3  // comment
+}
+```
+
+下方 5 个功能编辑器右键找到 `Mini Tool 🔧`，选择即可使用
+
+- 中文文字排版（需要选中）
+- CSS 快速添加 // prettier-ignore（默认为当前文件所有添加，也可以选中部分进行使用）
+- Vscode 快速折叠行及标记（需要选中）
+- 代码截图（需要选中）
+- JSON 修复美化（默认对当前文件进行解析，也可以选中部分进行使用）
+
 ## 🔨 Gitmoji 配置
+
+### 💻 扩展示例截图
+
+<p align="center">
+    <img src="assets/about.gif">
+</p>
+
+### 表情符号类型
+
+示例配置：
+
+```json
+{
+  "mini-tool.emojiType": "standard"
+}
+```
+
+> **提示**：standard 为 git 标准提交的表情符号, 来自 [cz-git](https://github.com/Zhengqbbb/cz-git) 的标准模板配置, gitmoji 为 [gitmoji](https://github.com/carloscuesta/gitmoji) 仓库的配置。
 
 ### 表情符号输出类型
 
