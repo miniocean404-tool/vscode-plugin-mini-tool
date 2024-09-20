@@ -2,6 +2,7 @@ import { COMMAND_JSON_FIX } from "@/constant/command"
 import * as vscode from "vscode"
 // @ts-ignore
 import { jsonrepair, JSONRepairError } from "jsonrepair"
+import jsonFormat from "@/utils/format/json"
 
 type ExtKind = "json"
 
@@ -17,7 +18,11 @@ class JsonProvider implements vscode.TextDocumentContentProvider {
   private readonly _onDidChangeVisibleTextEditors: vscode.Disposable
   private readonly _changeSubscription: vscode.Disposable
 
-  constructor(private ext: ExtKind, fileName: string, private _document: vscode.TextDocument) {
+  constructor(
+    private ext: ExtKind,
+    fileName: string,
+    private _document: vscode.TextDocument,
+  ) {
     this.scheme = `mini-tool-${this.ext}`
     this.uri = vscode.Uri.parse(`${this.scheme}:${fileName}.${this.ext}`)
 
@@ -53,12 +58,11 @@ class JsonProvider implements vscode.TextDocumentContentProvider {
     this.isShow = isOpen
   }
 
-  update() {
+  async update() {
     const text = this._document.getText()
 
     try {
-      const repaired = jsonrepair(text || "")
-      this.json = repaired
+      this.json = await jsonFormat.beautify(text || "")
       this._onDidChange?.fire(this.uri)
     } catch (err) {
       if (err instanceof JSONRepairError) {
@@ -74,16 +78,19 @@ class JsonProvider implements vscode.TextDocumentContentProvider {
 // 打开新的编辑器并写入内容
 export function fixJsonCommand(context: vscode.ExtensionContext) {
   const command = vscode.commands.registerCommand(COMMAND_JSON_FIX, async () => {
-    vscode.window.showTextDocument(vscode.Uri.parse(`mini-tool:test.json`), {
-      viewColumn: vscode.ViewColumn.Beside,
-      preserveFocus: true,
-      preview: false,
-    })
-
     let editor = vscode.window.activeTextEditor
-    const clipboard = await vscode.env.clipboard.readText()
+    let clipboard = await vscode.env.clipboard.readText()
 
-    if (!editor && vscode.env.clipboard) {
+    if (!editor && clipboard) {
+      try {
+        clipboard = await jsonFormat.beautify(clipboard)
+      } catch (error) {
+        if (error instanceof Error) {
+          vscode.window.showErrorMessage(`非 JSON 格式：${error.message}`)
+        }
+        return
+      }
+
       const viewID = "mini-tool"
       const fileName = "等待修复.json"
       const newUri = vscode.Uri.file(fileName).with({ scheme: `untitled`, path: fileName })
@@ -96,7 +103,7 @@ export function fixJsonCommand(context: vscode.ExtensionContext) {
         vscode.languages.setTextDocumentLanguage(editor.document, "json")
 
         // 编辑模式
-        await editor.edit((editBuilder: vscode.TextEditorEdit) => {
+        await editor.edit(async (editBuilder: vscode.TextEditorEdit) => {
           // 插入内容
           editBuilder.insert(new vscode.Position(0, 0), clipboard)
         })
