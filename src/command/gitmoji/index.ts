@@ -1,9 +1,10 @@
 import * as vscode from "vscode"
 import type { GitExtension, Repository } from "../../command/gitmoji/git"
-import Gitmoji, { type GitmojiInfo } from "./gitmoji"
+import { Gitmoji, StandardEmoji, type GitmojiInfo } from "./gitmoji"
 import {
   CONFIG_ADD_CUSTOM_EMOJI,
   CONFIG_AS_SUFFIX,
+  CONFIG_EMOJI_TYPE,
   CONFIG_ONLY_USE_CUSTOM_EMOJI,
   CONFIG_OUTPUT_TYPE,
 } from "../../constant/configuration"
@@ -17,8 +18,13 @@ export function addShowGitmojiCommand(): vscode.Disposable {
 
     const addCustomEmoji: Array<GitmojiInfo> = vscode.workspace.getConfiguration().get(CONFIG_ADD_CUSTOM_EMOJI) || []
     let onlyUseCustomEmoji: boolean | undefined = vscode.workspace.getConfiguration().get(CONFIG_ONLY_USE_CUSTOM_EMOJI)
+    let configEmojiType: "standard" | "gitmoji" | undefined = vscode.workspace.getConfiguration().get(CONFIG_EMOJI_TYPE)
 
-    let emojis: GitmojiInfo[] = onlyUseCustomEmoji ? [...addCustomEmoji] : [...Gitmoji, ...addCustomEmoji]
+    let emojis: GitmojiInfo[] = onlyUseCustomEmoji
+      ? [...addCustomEmoji]
+      : configEmojiType
+        ? [...StandardEmoji, ...addCustomEmoji]
+        : [...Gitmoji, ...addCustomEmoji]
 
     const items = emojis.map((info) => {
       const { emoji, code, description } = info

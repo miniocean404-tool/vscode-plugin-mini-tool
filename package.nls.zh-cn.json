@@ -16,6 +16,8 @@
     "mini-tool.config.outputType.code": "只输出代码，适用于 GitHub、Gitee 等平台",
     "mini-tool.config.outputType.emoji": "只输出表情，适用于 GitHub、Gitlab、Coding 等平台",
     "mini-tool.config.outputType.emoji-code": "输出表情：代码",
+    "mini-tool.config.emojiType.standard": "标准表情符号",
+    "mini-tool.config.emojiType.gitmoji": "Gitmoji 表情符号",
     "mini-tool.config.asSuffix": "开启在消息末尾插入表情符号功能",
     "mini-tool.config.cssIgnoreList": "CSS 忽略清单",
     "mini-tool.config.dotLogConfig.description": "自定义 Dot Log 的快捷命令",
