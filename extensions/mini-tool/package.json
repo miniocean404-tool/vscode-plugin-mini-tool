@@ -1,0 +1,47 @@
+{
+  "name": "mini-tool",
+  "displayName": "Mini Tool Extensions",
+  "description": "自用工具合集 包含 Git emoji 日志提交图标、中文排版、JSON 修复美化、css prettier 忽略添加、Vscode 快速折叠行及标记 等",
+  "publisher": "miniocean404",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Extension Packs",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "mini",
+    "tool",
+    "mini-tool",
+    "console.log",
+    "console",
+    "emoji",
+    "gitmoji",
+    "css",
+    "ignore",
+    "region",
+    "minitool",
+    "工具"
+  ],
+  "homepage": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool/blob/master/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool"
+  },
+  "bugs": {
+    "url": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool/issues",
+    "email": "iceworksteam@163.com"
+  },
+  "icon": "./assets/logo.png",
+  "scripts": {
+    "package:vsce": "pnpm vsce package --no-dependencies",
+    "publish:vsce": "pnpm vsce publish --no-dependencies",
+    "patch:vsce": "vsce publish patch --no-dependencies"
+  },
+  "extensionPack": [
+    "miniocean404.mini-tool"
+  ]
+}

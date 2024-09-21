@@ -1,0 +1,15 @@
+{
+  "name": "chinese-format",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pangu": "^4.0.7"
+  }
+}
