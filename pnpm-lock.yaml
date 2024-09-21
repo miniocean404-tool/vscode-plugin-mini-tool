@@ -49,8 +49,8 @@ importers:
         specifier: ^4.0.6
         version: 4.0.6
       '@types/vscode':
-        specifier: ^1.74.0
-        version: 1.89.0
+        specifier: 1.93.0
+        version: 1.93.0
       '@vscode/l10n-dev':
         specifier: ^0.0.35
         version: 0.0.35
@@ -73,8 +73,23 @@ importers:
         specifier: ^3.3.2
         version: 3.3.2
       typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
+        specifier: 5.6.2
+        version: 5.6.2
+
+  extensions/chinese-format:
+    dependencies:
+      pangu:
+        specifier: ^4.0.7
+        version: 4.0.7
+    devDependencies:
+      '@types/vscode':
+        specifier: 1.93.0
+        version: 1.93.0
+      esbuild:
+        specifier: 0.23.1
+        version: 0.23.1
+
+  extensions/mini-tool: {}
 
 packages:
 
@@ -477,8 +492,8 @@ packages:
   '@types/postcss-less@4.0.6':
     resolution: {integrity: sha512-xBd7riBa5XEyty+SMMJS0kKdVw+ykN5hjbIuoPLAXDv9JoPS8pRZUriypZiQXKDL7085aegxLbtyo9krBpQzng==}
 
-  '@types/vscode@1.89.0':
-    resolution: {integrity: sha512-TMfGKLSVxfGfoO8JfIE/neZqv7QLwS4nwPwL/NwMvxtAY2230H2I4Z5xx6836pmJvMAzqooRQ4pmLm7RUicP3A==}
+  '@types/vscode@1.93.0':
+    resolution: {integrity: sha512-kUK6jAHSR5zY8ps42xuW89NLcBpw1kOabah7yv38J8MyiYuOHxLQBi0e7zeXbQgVefDy/mZZetqEFC+Fl5eIEQ==}
 
   '@vscode/l10n-dev@0.0.35':
     resolution: {integrity: sha512-s6uzBXsVDSL69Z85HSqpc5dfKswQkeucY8L00t1TWzGalw7wkLQUKMRwuzqTq+AMwQKrRd7Po14cMoTcd11iDw==}
@@ -1606,8 +1621,8 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
 
-  typescript@5.4.5:
-    resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
+  typescript@5.6.2:
+    resolution: {integrity: sha512-NW8ByodCSNCwZeghjN3o+JX5OFH0Ojg6sadjEKY4huZ52TqbJTJnDo5+Tw98lSy63NZvi4n+ez5m2u5d4PkZyw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -2001,7 +2016,7 @@ snapshots:
     dependencies:
       postcss: 8.4.38
 
-  '@types/vscode@1.89.0': {}
+  '@types/vscode@1.93.0': {}
 
   '@vscode/l10n-dev@0.0.35':
     dependencies:
@@ -3373,7 +3388,7 @@ snapshots:
 
   typescript@4.9.5: {}
 
-  typescript@5.4.5: {}
+  typescript@5.6.2: {}
 
   uc.micro@2.1.0: {}
 

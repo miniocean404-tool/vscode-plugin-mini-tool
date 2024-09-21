@@ -356,7 +356,7 @@
     "@types/node": "^22.5.5",
     "@types/pangu": "^4.0.2",
     "@types/postcss-less": "^4.0.6",
-    "@types/vscode": "^1.74.0",
+    "@types/vscode": "1.93.0",
     "@vscode/l10n-dev": "^0.0.35",
     "@vscode/vsce": "3.1.0",
     "csstype": "^3.1.3",
