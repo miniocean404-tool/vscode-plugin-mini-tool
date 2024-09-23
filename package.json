@@ -184,32 +184,6 @@
         "when": "editorTextFocus"
       }
     ],
-    "snippets": [
-      {
-        "language": "javascript",
-        "path": "./snippets/javascript.json"
-      },
-      {
-        "language": "vue",
-        "path": "./snippets/vue.json"
-      },
-      {
-        "language": "javascriptreact",
-        "path": "./snippets/react.json"
-      },
-      {
-        "language": "javascript",
-        "path": "./snippets/react.json"
-      },
-      {
-        "language": "typescriptreact",
-        "path": "./snippets/react.json"
-      },
-      {
-        "language": "typescript",
-        "path": "./snippets/react.json"
-      }
-    ],
     "configuration": {
       "title": "Mini Tool",
       "properties": {
