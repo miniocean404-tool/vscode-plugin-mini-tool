@@ -1,5 +1,4 @@
 import * as vscode from "vscode"
-import { addChineseFormatCommand } from "./command/chinese-format"
 import { codeSnapCommand } from "./command/code-snap"
 import { addCssPxIgnoreCommand } from "./command/css-px-ignore"
 import { addDotConsoleLogCommand, addDotConsoleLogProvider } from "./command/dot-log"
@@ -20,14 +19,13 @@ export function activate(context: vscode.ExtensionContext) {
   const addCssPxIgnore = addCssPxIgnoreCommand()
   const newFile = newFileCommand()
   const openWebview = openWebviewCommand(context)
-  const chineseFormart = addChineseFormatCommand()
   const codesnap = codeSnapCommand(context)
   const betterAlign = addBetterAlign()
   const fixJson = fixJsonCommand(context)
 
   const tipHover = tipHoverProvider()
 
-  const commands = [showGitmoji, addRegion, addCssPxIgnore, openWebview, chineseFormart, codesnap, betterAlign, fixJson]
+  const commands = [showGitmoji, addRegion, addCssPxIgnore, openWebview, codesnap, betterAlign, fixJson]
   const providers = [tipHover]
 
   setStatusBar()
