@@ -3,11 +3,30 @@
   "displayName": "Mini Chinese Format",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/extension.js",
+  "icon": "assets/logo.png",
   "scripts": {
     "compile": "pnpm run check-types && node esbuild.js",
     "watch:esbuild": "node esbuild.js --watch",
-    "package": "pnpm run check-types && node esbuild.js --production"
+    "package": "pnpm run check-types && node esbuild.js --production",
+    "check-types": "tsc --noEmit"
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "mini-chinese-format.chineseFormat",
+        "title": "%mini-chinese-format.title%"
+      }
+    ]
   },
   "keywords": [],
   "author": "",

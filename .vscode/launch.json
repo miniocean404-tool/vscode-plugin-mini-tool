@@ -14,6 +14,13 @@
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
       // 启动 tasks.json 中的默认任务
       "preLaunchTask": "${defaultBuildTask}"
+    },
+    {
+      "name": "Chinese Format Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/chinese-format"]
     }
   ]
 }

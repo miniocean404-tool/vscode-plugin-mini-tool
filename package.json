@@ -84,10 +84,6 @@
         "title": "%mini-tool.command.addCssPxIgnore.title%"
       },
       {
-        "command": "mini-tool.chineseFormat",
-        "title": "%mini-tool.command.chineseFormat.title%"
-      },
-      {
         "command": "mini-tool.newFile",
         "title": "%mini-tool.command.newFile.title%"
       },
@@ -126,11 +122,6 @@
         {
           "command": "mini-tool.addRegionToSelection",
           "group": "mini-tool@2",
-          "when": "editorTextFocus"
-        },
-        {
-          "command": "mini-tool.chineseFormat",
-          "group": "mini-tool@0",
           "when": "editorTextFocus"
         },
         {
