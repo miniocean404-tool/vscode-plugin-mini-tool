@@ -91,6 +91,14 @@ importers:
 
   extensions/mini-tool: {}
 
+  extensions/region: {}
+
+  extensions/snippets:
+    devDependencies:
+      '@types/vscode':
+        specifier: 1.93.0
+        version: 1.93.0
+
 packages:
 
   '@azure-rest/ai-translation-text@1.0.0':
