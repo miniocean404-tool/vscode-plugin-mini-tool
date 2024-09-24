@@ -35,6 +35,13 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/code-snap"]
+    },
+    {
+      "name": "JSON Fix Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/json-fix"]
     }
   ]
 }

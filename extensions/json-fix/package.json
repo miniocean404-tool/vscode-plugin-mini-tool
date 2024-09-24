@@ -1,0 +1,36 @@
+{
+  "name": "mini-json-fix",
+  "displayName": "Mini JSON Fix",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/extension.js",
+  "icon": "assets/logo.png",
+  "scripts": {
+    "compile": "pnpm run check-types && node esbuild.js",
+    "watch:esbuild": "node esbuild.js --watch",
+    "package": "pnpm run check-types && node esbuild.js --production",
+    "check-types": "tsc --noEmit"
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "mini-json-fix.jsonFix",
+        "title": "%mini-json-fix.title%"
+      }
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}

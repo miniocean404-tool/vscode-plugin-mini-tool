@@ -76,10 +76,6 @@
         "title": "%mini-tool.command.addRegionToSelection.title%"
       },
       {
-        "command": "mini-tool.jsonFix",
-        "title": "%mini-tool.command.jsonFix.title%"
-      },
-      {
         "command": "mini-tool.addCssPxIgnore",
         "title": "%mini-tool.command.addCssPxIgnore.title%"
       },
@@ -123,11 +119,6 @@
         {
           "command": "mini-tool.addCssPxIgnore",
           "group": "mini-tool@1",
-          "when": "editorTextFocus"
-        },
-        {
-          "command": "mini-tool.jsonFix",
-          "group": "mini-tool@4",
           "when": "editorTextFocus"
         }
       ],
