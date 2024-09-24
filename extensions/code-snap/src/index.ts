@@ -1,10 +1,10 @@
-import { COMMAND_CODE_SNAP } from "../../constant/command"
+import { COMMAND_CODE_SNAP } from "./constant"
 
 import * as vscode from "vscode"
 import path from "path"
 import { readHtml, writeFile, getSettings } from "./util"
-import { getDesktopFileURI } from "../../utils/uri"
-import { hasOneSelection } from "../../utils/selection"
+import { getDesktopFileURI } from "./utils/uri"
+import { hasOneSelection } from "./utils/selection"
 
 export function codeSnapCommand(context: vscode.ExtensionContext) {
   return vscode.commands.registerCommand(COMMAND_CODE_SNAP, async () => {
@@ -83,7 +83,7 @@ async function createPanel(context: vscode.ExtensionContext) {
       localResourceRoots: [vscode.Uri.file(context.extensionPath)],
     },
   )
-  panel.webview.html = await readHtml(path.resolve(context.extensionPath, "webview/code-snap/index.html"), panel)
+  panel.webview.html = await readHtml(path.resolve(context.extensionPath, "webview/index.html"), panel)
   return panel
 }
 

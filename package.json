@@ -88,10 +88,6 @@
         "title": "%mini-tool.command.newFile.title%"
       },
       {
-        "command": "mini-tool.codeSnap",
-        "title": "%mini-tool.command.codeSnap.title%"
-      },
-      {
         "command": "mini-tool.betterAlign",
         "title": "%mini-tool.command.betterAlign.title%"
       },
@@ -127,11 +123,6 @@
         {
           "command": "mini-tool.addCssPxIgnore",
           "group": "mini-tool@1",
-          "when": "editorTextFocus"
-        },
-        {
-          "command": "mini-tool.codeSnap",
-          "group": "mini-tool@3",
           "when": "editorTextFocus"
         },
         {

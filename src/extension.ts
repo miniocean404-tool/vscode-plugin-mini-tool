@@ -1,5 +1,4 @@
 import * as vscode from "vscode"
-import { codeSnapCommand } from "./command/code-snap"
 import { addCssPxIgnoreCommand } from "./command/css-px-ignore"
 import { addDotConsoleLogCommand, addDotConsoleLogProvider } from "./command/dot-log"
 import { addShowGitmojiCommand } from "./command/gitmoji"
@@ -17,13 +16,12 @@ export function activate(context: vscode.ExtensionContext) {
   const addCssPxIgnore = addCssPxIgnoreCommand()
   const newFile = newFileCommand()
   const openWebview = openWebviewCommand(context)
-  const codesnap = codeSnapCommand(context)
   const betterAlign = addBetterAlign()
   const fixJson = fixJsonCommand(context)
 
   const tipHover = tipHoverProvider()
 
-  const commands = [showGitmoji, addCssPxIgnore, openWebview, codesnap, betterAlign, fixJson]
+  const commands = [showGitmoji, addCssPxIgnore, openWebview, betterAlign, fixJson]
   const providers = [tipHover]
 
   setStatusBar()
