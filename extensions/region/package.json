@@ -26,6 +26,14 @@
         "command": "mini-region.addRegion",
         "title": "%mini-region.title%"
       }
+    ],
+    "keybindings": [
+      {
+        "command": "mini-region.addRegion",
+        "key": "ctrl+alt m",
+        "mac": "cmd+alt m",
+        "when": "editorTextFocus"
+      }
     ]
   },
   "keywords": [],

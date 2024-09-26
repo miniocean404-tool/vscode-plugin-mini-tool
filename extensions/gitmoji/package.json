@@ -1,0 +1,111 @@
+{
+  "name": "mini-gitmoji",
+  "displayName": "Mini Region",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/extension.js",
+  "icon": "assets/logo.png",
+  "scripts": {
+    "compile": "pnpm run check-types && node esbuild.js",
+    "watch:esbuild": "node esbuild.js --watch",
+    "package": "pnpm run check-types && node esbuild.js --production",
+    "check-types": "tsc --noEmit"
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "mini-gitmoji.showGitmoji",
+        "title": "%mini-gitmoji.showGitmoji.title%",
+        "icon": "$(smiley)"
+      }
+    ],
+    "menus": {
+      "scm/title": [
+        {
+          "when": "scmProvider == git",
+          "command": "mini-gitmoji.showGitmoji",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": [
+      {
+        "title": "",
+        "properties": {
+          "mini-tool.addCustomEmoji": {
+            "type": "array",
+            "default": [],
+            "items": {
+              "type": "object",
+              "title": "A gitmoji entry",
+              "properties": {
+                "emoji": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "%mini-gitmoji.addCustomEmoji%"
+          },
+          "mini-tool.outputType": {
+            "type": "string",
+            "default": "emoji-code",
+            "enum": [
+              "code",
+              "emoji",
+              "emoji-code"
+            ],
+            "enumDescriptions": [
+              "%mini-gitmoji.outputType.code%",
+              "%mini-gitmoji.outputType.emoji%",
+              "%mini-gitmoji.outputType.emoji-code%"
+            ],
+            "description": "%mini-gitmoji.outputType%"
+          },
+          "mini-tool.onlyUseCustomEmoji": {
+            "type": "boolean",
+            "default": false,
+            "description": "%mini-gitmoji.onlyUseCustomEmoji%"
+          },
+          "mini-tool.emojiType": {
+            "type": "string",
+            "default": "standard",
+            "enum": [
+              "standard",
+              "gitmoji"
+            ],
+            "enumDescriptions": [
+              "%mini-gitmoji.emojiType.standard%",
+              "%mini-gitmoji.emojiType.gitmoji%"
+            ],
+            "description": "%mini-gitmoji.outputType%"
+          },
+          "mini-tool.asSuffix": {
+            "type": "boolean",
+            "default": false,
+            "description": "%mini-gitmoji.asSuffix%"
+          }
+        }
+      }
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}

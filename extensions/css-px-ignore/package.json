@@ -34,6 +34,32 @@
         "mac": "alt+cmd+m",
         "when": "editorTextFocus"
       }
+    ],
+    "configuration": [
+      {
+        "title": "",
+        "properties": {
+          "mini-css-px-ignore.cssIgnoreList": {
+            "type": "array",
+            "scope": "window",
+            "default": null,
+            "description": "%mini-css-px-ignore.cssIgnoreList%",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "trigger": {
+                  "label": "string",
+                  "required": true
+                },
+                "picked": {
+                  "type": "boolean",
+                  "required": true
+                }
+              }
+            }
+          }
+        }
+      }
     ]
   },
   "keywords": [],

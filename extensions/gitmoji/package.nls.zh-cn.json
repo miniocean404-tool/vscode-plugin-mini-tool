@@ -1,0 +1,12 @@
+{
+    "mini-gitmoji.showGitmoji.title": "Mini 打开 Gitmoji 🔧",
+    "mini-gitmoji.addCustomEmoji": "添加自定义表情符号",
+    "mini-gitmoji.onlyUseCustomEmoji": "仅使用自定义添加的表情符号，而不使用扩展中自带的表情符号",
+    "mini-gitmoji.outputType": "配置表情符号的输出类型",
+    "mini-gitmoji.outputType.code": "只输出代码，适用于 GitHub、Gitee 等平台",
+    "mini-gitmoji.outputType.emoji": "只输出表情，适用于 GitHub、Gitlab、Coding 等平台",
+    "mini-gitmoji.outputType.emoji-code": "输出表情：代码",
+    "mini-gitmoji.emojiType.standard": "标准表情符号",
+    "mini-gitmoji.emojiType.gitmoji": "Gitmoji 表情符号",
+    "mini-gitmoji.asSuffix": "开启在消息末尾插入表情符号功能"
+}

@@ -49,6 +49,13 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/css-px-ignore"]
+    },
+    {
+      "name": "Gitmoji Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/gitmoji"]
     }
   ]
 }

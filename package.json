@@ -16,10 +16,8 @@
     "console.log",
     "console",
     "emoji",
-    "gitmoji",
     "css",
     "ignore",
-    "region",
     "minitool"
   ],
   "engines": {
@@ -67,15 +65,6 @@
     },
     "commands": [
       {
-        "command": "mini-tool.showGitmoji",
-        "title": "%mini-tool.command.showGitmoji.title%",
-        "icon": "$(smiley)"
-      },
-      {
-        "command": "mini-tool.addRegionToSelection",
-        "title": "%mini-tool.command.addRegionToSelection.title%"
-      },
-      {
         "command": "mini-tool.betterAlign",
         "title": "%mini-tool.command.betterAlign.title%"
       },
@@ -104,7 +93,7 @@
       ],
       "mini-tool.editor.context": [
         {
-          "command": "mini-tool.addRegionToSelection",
+          "command": "mini-tool.addRegionToSelectionxxxxxxxxxxxxxxxxxxx",
           "group": "mini-tool@2",
           "when": "editorTextFocus"
         }
@@ -115,27 +104,12 @@
           "group": "navigation",
           "when": "resourceLangId == javascript || resourceLangId == typescript"
         }
-      ],
-      "scm/title": [
-        {
-          "when": "scmProvider == git",
-          "command": "mini-tool.showGitmoji",
-          "group": "navigation"
-        }
       ]
     },
     "submenus": [
       {
         "id": "mini-tool.editor.context",
         "label": "%mini-tool.extension.title%"
-      }
-    ],
-    "keybindings": [
-      {
-        "command": "mini-tool.addRegionToSelection",
-        "key": "ctrl+alt m",
-        "mac": "cmd+alt m",
-        "when": "editorTextFocus"
       }
     ],
     "configuration": {
@@ -145,83 +119,6 @@
           "type": "boolean",
           "default": true,
           "description": "%mini-tool.configuration.showTip.description%"
-        },
-        "mini-tool.cssIgnoreList": {
-          "type": "array",
-          "scope": "window",
-          "default": null,
-          "description": "%mini-tool.config.cssIgnoreList%",
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "trigger": {
-                "label": "string",
-                "required": true
-              },
-              "picked": {
-                "type": "boolean",
-                "required": true
-              }
-            }
-          }
-        },
-        "mini-tool.addCustomEmoji": {
-          "type": "array",
-          "default": [],
-          "items": {
-            "type": "object",
-            "title": "A gitmoji entry",
-            "properties": {
-              "emoji": {
-                "type": "string"
-              },
-              "code": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              }
-            }
-          },
-          "description": "%mini-tool.config.addCustomEmoji%"
-        },
-        "mini-tool.outputType": {
-          "type": "string",
-          "default": "emoji-code",
-          "enum": [
-            "code",
-            "emoji",
-            "emoji-code"
-          ],
-          "enumDescriptions": [
-            "%mini-tool.config.outputType.code%",
-            "%mini-tool.config.outputType.emoji%",
-            "%mini-tool.config.outputType.emoji-code%"
-          ],
-          "description": "%mini-tool.config.outputType%"
-        },
-        "mini-tool.onlyUseCustomEmoji": {
-          "type": "boolean",
-          "default": false,
-          "description": "%mini-tool.config.onlyUseCustomEmoji%"
-        },
-        "mini-tool.emojiType": {
-          "type": "string",
-          "default": "standard",
-          "enum": [
-            "standard",
-            "gitmoji"
-          ],
-          "enumDescriptions": [
-            "%mini-tool.config.emojiType.standard%",
-            "%mini-tool.config.emojiType.gitmoji%"
-          ],
-          "description": "%mini-tool.config.outputType%"
-        },
-        "mini-tool.asSuffix": {
-          "type": "boolean",
-          "default": false,
-          "description": "%mini-tool.config.asSuffix%"
         },
         "mini-tool.dotLogConfig": {
           "type": "array",
