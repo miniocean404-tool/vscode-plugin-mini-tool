@@ -80,10 +80,6 @@
         "title": "%mini-tool.command.addCssPxIgnore.title%"
       },
       {
-        "command": "mini-tool.newFile",
-        "title": "%mini-tool.command.newFile.title%"
-      },
-      {
         "command": "mini-tool.betterAlign",
         "title": "%mini-tool.command.betterAlign.title%"
       },
@@ -99,7 +95,7 @@
     "menus": {
       "commandPalette": [
         {
-          "command": "mini-tool.newFile",
+          "command": "mini-tool.newFilexxxxxxxxxxxx",
           "when": "false"
         }
       ],

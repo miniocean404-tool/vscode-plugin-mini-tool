@@ -1,8 +1,6 @@
 import * as vscode from "vscode"
 import { addCssPxIgnoreCommand } from "./command/css-px-ignore"
-import { addDotConsoleLogCommand, addDotConsoleLogProvider } from "./command/dot-log"
 import { addShowGitmojiCommand } from "./command/gitmoji"
-import { newFileCommand } from "./command/new-file"
 import { openWebviewCommand } from "./command/webview"
 import { tipHoverProvider } from "./provider/tip-hover"
 import { setStatusBar } from "./ui/status-bat"
@@ -13,7 +11,6 @@ import { addBetterAlign } from "@/command/better-align"
 export function activate(context: vscode.ExtensionContext) {
   const showGitmoji = addShowGitmojiCommand()
   const addCssPxIgnore = addCssPxIgnoreCommand()
-  const newFile = newFileCommand()
   const openWebview = openWebviewCommand(context)
   const betterAlign = addBetterAlign()
 
@@ -24,7 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   setStatusBar()
 
-  context.subscriptions.push(...commands, ...providers, newFile)
+  context.subscriptions.push(...commands, ...providers)
 }
 
 // 插件关闭时
