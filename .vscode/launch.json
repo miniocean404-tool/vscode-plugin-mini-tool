@@ -42,6 +42,13 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/json-fix"]
+    },
+    {
+      "name": "CSS Px Ignore Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/css-px-ignore"]
     }
   ]
 }

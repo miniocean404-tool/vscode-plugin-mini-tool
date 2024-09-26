@@ -76,10 +76,6 @@
         "title": "%mini-tool.command.addRegionToSelection.title%"
       },
       {
-        "command": "mini-tool.addCssPxIgnore",
-        "title": "%mini-tool.command.addCssPxIgnore.title%"
-      },
-      {
         "command": "mini-tool.betterAlign",
         "title": "%mini-tool.command.betterAlign.title%"
       },
@@ -111,11 +107,6 @@
           "command": "mini-tool.addRegionToSelection",
           "group": "mini-tool@2",
           "when": "editorTextFocus"
-        },
-        {
-          "command": "mini-tool.addCssPxIgnore",
-          "group": "mini-tool@1",
-          "when": "editorTextFocus"
         }
       ],
       "editor/title": [
@@ -144,12 +135,6 @@
         "command": "mini-tool.addRegionToSelection",
         "key": "ctrl+alt m",
         "mac": "cmd+alt m",
-        "when": "editorTextFocus"
-      },
-      {
-        "command": "mini-tool.addCssPxIgnore",
-        "key": "alt+ctrl+m",
-        "mac": "alt+cmd+m",
         "when": "editorTextFocus"
       }
     ],

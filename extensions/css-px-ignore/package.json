@@ -1,0 +1,44 @@
+{
+  "name": "mini-css-px-ignore",
+  "displayName": "Mini CSS Px Ignore",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/extension.js",
+  "icon": "assets/logo.png",
+  "scripts": {
+    "compile": "pnpm run check-types && node esbuild.js",
+    "watch:esbuild": "node esbuild.js --watch",
+    "package": "pnpm run check-types && node esbuild.js --production",
+    "check-types": "tsc --noEmit"
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "mini-css-px-ignore.addCssPxIgnore",
+        "title": "%mini-css-px-ignore.title%"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "mini-css-px-ignore.addCssPxIgnore",
+        "key": "alt+ctrl+m",
+        "mac": "alt+cmd+m",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}
