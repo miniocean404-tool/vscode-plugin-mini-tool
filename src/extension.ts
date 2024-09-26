@@ -1,5 +1,4 @@
 import * as vscode from "vscode"
-import { addCssPxIgnoreCommand } from "./command/css-px-ignore"
 import { addShowGitmojiCommand } from "./command/gitmoji"
 import { openWebviewCommand } from "./command/webview"
 import { tipHoverProvider } from "./provider/tip-hover"
@@ -10,13 +9,12 @@ import { addBetterAlign } from "@/command/better-align"
 // command id 参数必须与 package.json 中 的 command 字段匹配
 export function activate(context: vscode.ExtensionContext) {
   const showGitmoji = addShowGitmojiCommand()
-  const addCssPxIgnore = addCssPxIgnoreCommand()
   const openWebview = openWebviewCommand(context)
   const betterAlign = addBetterAlign()
 
   const tipHover = tipHoverProvider()
 
-  const commands = [showGitmoji, addCssPxIgnore, openWebview, betterAlign]
+  const commands = [showGitmoji, openWebview, betterAlign]
   const providers = [tipHover]
 
   setStatusBar()
