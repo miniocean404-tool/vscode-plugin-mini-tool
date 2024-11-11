@@ -1,0 +1,181 @@
+{
+    "name": "sider-bar-demo",
+    "displayName": "Mini Tool",
+    "description": "自用工具合集 包含 Git emoji 日志提交图标、中文排版、JSON 修复美化、css prettier 忽略添加、Vscode 快速折叠行及标记 等",
+    "version": "0.0.27",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool"
+    },
+    "publisher": "miniocean404",
+    "keywords": [
+        "mini",
+        "tool",
+        "mini-tool",
+        "console.log",
+        "console",
+        "emoji",
+        "css",
+        "ignore",
+        "minitool"
+    ],
+    "engines": {
+        "vscode": "^1.74.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "workspaceContains:package.json",
+        "workspaceContains:*.vue",
+        "onStartupFinished"
+    ],
+    "icon": "assets/logo.png",
+    "main": "./dist/extension.js",
+    "l10n": "./l10n",
+    "contributes": {
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "mini-tool",
+                    "title": "%mini-tool.extension.title%",
+                    "icon": "assets/logo.svg"
+                }
+            ]
+        },
+        "views": {
+            "mini-tool": [
+                {
+                    "id": "view1",
+                    "name": "标题 1"
+                },
+                {
+                    "id": "view2",
+                    "name": "标题 2",
+                    "visibility": "collapsed"
+                }
+            ]
+        },
+        "viewsWelcome": [
+            {
+                "view": "view2",
+                "contents": "\n [按钮](command:mini-tool.openWebview) \n 欢迎使用Mini Tool ^_^，[仓库地址](https://github.com/miniocean404-tool/vscode-plugin-mini-tool)"
+            }
+        ],
+        "menus": {
+            "commandPalette": [
+                {
+                    "command": "mini-tool.newFilexxxxxxxxxxxx",
+                    "when": "false"
+                }
+            ],
+            "editor/context": [
+                {
+                    "when": "editorFocus",
+                    "submenu": "mini-tool.editor.context",
+                    "group": "mini-tool"
+                }
+            ],
+            "mini-tool.editor.context": [
+                {
+                    "command": "mini-tool.addRegionToSelectionxxxxxxxxxxxxxxxxxxx",
+                    "group": "mini-tool@2",
+                    "when": "editorTextFocus"
+                }
+            ],
+            "editor/title": [
+                {
+                    "command": "mini-tool.openWebview",
+                    "group": "navigation",
+                    "when": "resourceLangId == javascript || resourceLangId == typescript"
+                }
+            ]
+        },
+        "submenus": [
+            {
+                "id": "mini-tool.editor.context",
+                "label": "%mini-tool.extension.title%"
+            }
+        ],
+        "configuration": {
+            "title": "Mini Tool",
+            "properties": {
+                "mini-tool.showTip": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "%mini-tool.configuration.showTip.description%"
+                },
+                "mini-tool.dotLogConfig": {
+                    "type": "array",
+                    "description": "%mini-tool.config.dotLogConfig.description%",
+                    "default": [
+                        {
+                            "trigger": "log",
+                            "description": "%mini-tool.config.dotLogConfig.default.log%",
+                            "format": "console.log"
+                        },
+                        {
+                            "trigger": "logw",
+                            "description": "%mini-tool.config.dotLogConfig.default.logw%",
+                            "format": "console.warn"
+                        },
+                        {
+                            "trigger": "loge",
+                            "description": "%mini-tool.config.dotLogConfig.default.loge%",
+                            "format": "console.error"
+                        }
+                    ],
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "trigger": {
+                                "type": "string",
+                                "required": true
+                            },
+                            "description": {
+                                "type": "string",
+                                "required": true
+                            },
+                            "format": {
+                                "type": "string",
+                                "required": true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "pnpm run package",
+        "compile": "pnpm run check-types && node esbuild.js",
+        "watch": "npm-run-all -p watch:*",
+        "watch:esbuild": "node esbuild.js --watch",
+        "watch:tsc": "tsc  --watch --project tsconfig.json",
+        "package": "pnpm run check-types && node esbuild.js --production",
+        "check-types": "tsc --noEmit",
+        "i18n:build": "tsx ./script/index.ts",
+        "package:vsce": "pnpm vsce package --no-dependencies",
+        "publish:vsce": "pnpm vsce publish --no-dependencies",
+        "patch:vsce": "vsce publish patch --no-dependencies",
+        "generate:l10n": "npx @vscode/l10n-dev export  -o ./l10n/ ./l10n/bundle.l10n.json ./package.nls.json",
+        "generate:l10n-base": "npx @vscode/l10n-dev export  --outDir ./l10n ./src"
+    },
+    "devDependencies": {
+        "@types/mocha": "^10.0.6",
+        "@types/node": "^22.5.5",
+        "@types/vscode": "1.93.0",
+        "@vscode/l10n-dev": "^0.0.35",
+        "@vscode/vsce": "3.1.0",
+        "esbuild": "0.24.0",
+        "npm-run-all": "^4.1.5",
+        "prettier": "^3.3.3",
+        "typescript": "5.6.2",
+        "tsx": "^4.19.2"
+    },
+    "dependencies": {
+        "@vscode/l10n": "^0.0.18",
+        "dom-to-image-even-more": "^1.0.4"
+    }
+}
