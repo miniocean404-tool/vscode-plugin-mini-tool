@@ -1,16 +1,38 @@
 {
   "name": "mini-gitmoji",
-  "displayName": "Mini Region",
-  "version": "0.0.1",
-  "description": "",
-  "main": "./dist/extension.js",
-  "icon": "./assets/logo.png",
+  "description": "自用 gitmoji 日志规范提交、提交图标等",
+  "version": "0.0.3",
+  "author": "miniocean404",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool"
+  },
   "scripts": {
+    "vscode:prepublish": "pnpm run package",
     "compile": "pnpm run check-types && node esbuild.js",
     "watch:esbuild": "node esbuild.js --watch",
     "package": "pnpm run check-types && node esbuild.js --production",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "package:vsce": "pnpm vsce package --no-dependencies",
+    "publish:vsce": "pnpm vsce publish --no-dependencies",
+    "patch:vsce": "vsce publish patch --no-dependencies"
   },
+  "displayName": "Mini Gitmoji",
+  "main": "./dist/extension.js",
+  "icon": "./assets/logo.png",
+  "i10n": "./l10n",
+  "publisher": "miniocean404",
+  "keywords": [
+    "mini",
+    "tool",
+    "mini-tool",
+    "minitool",
+    "mini gitmoji",
+    "minigitmoji",
+    "gitmoji",
+    "emoji"
+  ],
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -42,7 +64,7 @@
       {
         "title": "",
         "properties": {
-          "mini-tool.addCustomEmoji": {
+          "mini-gitmoji.addCustomEmoji": {
             "type": "array",
             "default": [],
             "items": {
@@ -62,7 +84,7 @@
             },
             "description": "%mini-gitmoji.addCustomEmoji%"
           },
-          "mini-tool.outputType": {
+          "mini-gitmoji.outputType": {
             "type": "string",
             "default": "emoji-code",
             "enum": [
@@ -77,12 +99,12 @@
             ],
             "description": "%mini-gitmoji.outputType%"
           },
-          "mini-tool.onlyUseCustomEmoji": {
+          "mini-gitmoji.onlyUseCustomEmoji": {
             "type": "boolean",
             "default": false,
             "description": "%mini-gitmoji.onlyUseCustomEmoji%"
           },
-          "mini-tool.emojiType": {
+          "mini-gitmoji.emojiType": {
             "type": "string",
             "default": "standard",
             "enum": [
@@ -95,7 +117,7 @@
             ],
             "description": "%mini-gitmoji.outputType%"
           },
-          "mini-tool.asSuffix": {
+          "mini-gitmoji.asSuffix": {
             "type": "boolean",
             "default": false,
             "description": "%mini-gitmoji.asSuffix%"
@@ -104,9 +126,6 @@
       }
     ]
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {},
   "devDependencies": {}
 }

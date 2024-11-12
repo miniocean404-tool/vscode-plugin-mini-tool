@@ -1,9 +1,5 @@
 **简体中文** | [English](README.en.md)
 
-<!-- <p align="center">
-  <img src="assets/gitmoji.gif" width="400">
-</p> -->
-
 <p align="center">
     <img src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square">
     <a href="https://github.com/miniocean404-tool/vscode-plugin-mini-tool/issues">
@@ -36,15 +32,6 @@
 7.  Vscode 快速折叠行及标记
 8.  代码片段
 
-## 📦 安装扩展
-
-1. 首先打开 [Visual Studio Code](https://code.visualstudio.com/)；
-2. 使用 `Ctrl+Shift+X` 组合键打开「扩展」标签；
-3. 输入 `Mini Tool` 寻找此扩展；
-4. 点击 `安装` 按钮，然后点击 `启用` 按钮即可。
-
-**提示**：也可以直接在 Marketplace 中找到 [Mini Tool](https://marketplace.visualstudio.com/items?itemName=miniocean404.mini-tool)，然后点击 `Install` 即可。
-
 ## 👀 基础功能使用
 
 对齐代码,使用 `Ctrl+Shift+P` 组合键打开命令面板, 输入 `Better Align` 即可自动对齐变量；
@@ -54,15 +41,15 @@
 ```typescript
 // Orignal code
 const abc = {
-  hello:      1
-  ,my :2//comment
-  ,friend:   3      // comment
+  hello: 1,
+  my: 2, //comment
+  friend: 3, // comment
 }
 
 const abc = {
-    hello : 1
-  , my    : 2  // comment
-  , friend: 3  // comment
+  hello: 1,
+  my: 2, // comment
+  friend: 3, // comment
 }
 ```
 
@@ -74,98 +61,14 @@ const abc = {
 - 代码截图（需要选中）
 - JSON 修复美化（默认对当前文件进行解析，也可以选中部分进行使用）
 
-## 🔨 Gitmoji 配置
+## 📦 安装扩展
 
-### 💻 扩展示例截图
+1. 首先打开 [Visual Studio Code](https://code.visualstudio.com/)；
+2. 使用 `Ctrl+Shift+X` 组合键打开「扩展」标签；
+3. 输入 `Mini Tool` 寻找此扩展；
+4. 点击 `安装` 按钮，然后点击 `启用` 按钮即可。
 
-<p align="center">
-    <img src="assets/about.gif">
-</p>
-
-### 表情符号类型
-
-示例配置：
-
-```json
-{
-  "mini-tool.emojiType": "standard"
-}
-```
-
-> **提示**：standard 为 git 标准提交的表情符号, 来自 [cz-git](https://github.com/Zhengqbbb/cz-git) 的标准模板配置, gitmoji 为 [gitmoji](https://github.com/carloscuesta/gitmoji) 仓库的配置。
-
-### 表情符号输出类型
-
-- `outputType` - 配置表情符号的输出类型（默认为 `emoji-code` 模式）。
-
-示例配置：
-
-```json
-{
-  "mini-tool.outputType": "emoji-code"
-}
-```
-
-> **提示**：如果在 Gitlab 或者 Coding 中使用，需要选择「code」模式；如果在 GitHub 中使用，可以随意选择「emoji」或「code」或「emoji-code」模式。
-
-### 添加自定义表情符号
-
-- `addCustomEmoji` - 添加自定义表情符号。
-
-示例配置：
-
-```json
-{
-  "mini-tool.addCustomEmoji": [
-    {
-      "emoji": "🧵",
-      "code": ":thread:",
-      "description": "添加或更新与多线程或并发相关的代码"
-    },
-    {
-      "emoji": "🦺",
-      "code": ":safety_vest:",
-      "description": "添加或更新与验证相关的代码"
-    }
-  ]
-}
-```
-
-### 仅使用自定义表情符号
-
-- `onlyUseCustomEmoji` - 仅使用自定义添加的表情符号，而不使用扩展中自带的表情符号（该功能默认关闭）。
-
-示例配置：
-
-```json
-{
-  "mini-tool.onlyUseCustomEmoji": true
-}
-```
-
-### 通过简码搜索表情符号
-
-- `showEmojiCode` - 开启通过简码搜索表情符号功能（该功能默认关闭）。
-
-示例配置：
-
-```json
-{
-  "mini-tool.showEmojiCode": true
-}
-```
-
-### 在消息最后插入表情符号
-
-- `asSuffix` - 开启在消息最后插入标签符号的功能（该功能默认关闭）。
-
-示例配置：
-
-```json
-{
-  "mini-tool.asSuffix": true
-}
-```
+**提示**：也可以直接在 Marketplace 中找到 [Mini Tool](https://marketplace.visualstudio.com/items?itemName=miniocean404.mini-tool)，然后点击 `Install` 即可。
 
 ## 🤝 参与共建
 

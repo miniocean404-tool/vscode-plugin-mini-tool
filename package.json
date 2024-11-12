@@ -28,7 +28,6 @@
   ],
   "icon": "assets/logo.png",
   "main": "./dist/extension.js",
-  "l10n": "./l10n",
   "scripts": {
     "vscode:prepublish": "pnpm run package",
     "compile": "pnpm run check-types && node esbuild.js",
