@@ -34,22 +34,6 @@
   "icon": "assets/logo.png",
   "main": "./dist/extension.js",
   "l10n": "./l10n",
-  "contributes": {
-    "commands": [
-      {
-        "command": "mini-tool.betterAlign",
-        "title": "%mini-tool.command.betterAlign.title%"
-      },
-      {
-        "command": "mini-tool.openWebview",
-        "title": "%mini-tool.command.openWebview.title%",
-        "icon": {
-          "light": "assets/logo.svg",
-          "dark": "assets/logo.svg"
-        }
-      }
-    ]
-  },
   "scripts": {
     "vscode:prepublish": "pnpm run package",
     "compile": "pnpm run check-types && node esbuild.js",
