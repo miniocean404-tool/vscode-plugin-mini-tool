@@ -31,6 +31,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "dom-to-image-even-more": "^1.0.4"
+  },
   "devDependencies": {}
 }
