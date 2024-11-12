@@ -24,6 +24,10 @@
       "default": "./dist/format",
       "types": "./dist/format/index.d.ts"
     },
+    "./pref": {
+      "default": "./dist/pref",
+      "types": "./dist/pref/index.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "files": [

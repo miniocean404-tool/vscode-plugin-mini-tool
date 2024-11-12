@@ -1,7 +1,7 @@
 import * as vscode from "vscode"
 
 // 推断当前打开的文档中最多的语言
-function deduceTargetLanguage() {
+export function deduceTargetLanguage() {
   const documents = vscode.workspace.textDocuments
   const counts = new Map<string, number>()
 
