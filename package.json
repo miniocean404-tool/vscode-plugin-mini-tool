@@ -35,10 +35,18 @@
   "main": "./dist/extension.js",
   "l10n": "./l10n",
   "contributes": {
-    "viewsWelcome": [
+    "commands": [
       {
-        "view": "view2",
-        "contents": "\n [按钮](command:mini-tool.openWebview) \n 欢迎使用Mini Tool ^_^，[仓库地址](https://github.com/miniocean404-tool/vscode-plugin-mini-tool)"
+        "command": "mini-tool.betterAlign",
+        "title": "%mini-tool.command.betterAlign.title%"
+      },
+      {
+        "command": "mini-tool.openWebview",
+        "title": "%mini-tool.command.openWebview.title%",
+        "icon": {
+          "light": "assets/logo.svg",
+          "dark": "assets/logo.svg"
+        }
       }
     ],
     "viewsContainers": {
@@ -63,18 +71,10 @@
         }
       ]
     },
-    "commands": [
+    "viewsWelcome": [
       {
-        "command": "mini-tool.betterAlign",
-        "title": "%mini-tool.command.betterAlign.title%"
-      },
-      {
-        "command": "mini-tool.openWebview",
-        "title": "%mini-tool.command.openWebview.title%",
-        "icon": {
-          "light": "assets/logo.svg",
-          "dark": "assets/logo.svg"
-        }
+        "view": "view2",
+        "contents": "\n [按钮](command:mini-tool.openWebview) \n 欢迎使用Mini Tool ^_^，[仓库地址](https://github.com/miniocean404-tool/vscode-plugin-mini-tool)"
       }
     ],
     "menus": {
@@ -111,55 +111,7 @@
         "id": "mini-tool.editor.context",
         "label": "%mini-tool.extension.title%"
       }
-    ],
-    "configuration": {
-      "title": "Mini Tool",
-      "properties": {
-        "mini-tool.showTip": {
-          "type": "boolean",
-          "default": true,
-          "description": "%mini-tool.configuration.showTip.description%"
-        },
-        "mini-tool.dotLogConfig": {
-          "type": "array",
-          "description": "%mini-tool.config.dotLogConfig.description%",
-          "default": [
-            {
-              "trigger": "log",
-              "description": "%mini-tool.config.dotLogConfig.default.log%",
-              "format": "console.log"
-            },
-            {
-              "trigger": "logw",
-              "description": "%mini-tool.config.dotLogConfig.default.logw%",
-              "format": "console.warn"
-            },
-            {
-              "trigger": "loge",
-              "description": "%mini-tool.config.dotLogConfig.default.loge%",
-              "format": "console.error"
-            }
-          ],
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "trigger": {
-                "type": "string",
-                "required": true
-              },
-              "description": {
-                "type": "string",
-                "required": true
-              },
-              "format": {
-                "type": "string",
-                "required": true
-              }
-            }
-          }
-        }
-      }
-    }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "pnpm run package",

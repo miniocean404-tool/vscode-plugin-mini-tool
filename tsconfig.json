@@ -4,7 +4,6 @@
     "paths": {
       "@/*": ["src/*"]
     },
-
     "target": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "sourceMap": true,
@@ -21,5 +20,5 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./src/**/*.ts", "./package.nls.*.json"]
+  "include": ["./src/**/*.ts", "./package.nls.*.json", "demo/show-tip/link.ts", "demo/status-bar/status-bat.ts"]
 }

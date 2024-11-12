@@ -1,7 +1,8 @@
 import * as vscode from "vscode"
 import { exec } from "child_process"
 import * as os from "os"
-import { CONFIG_SHOW_TIP } from "../constant/configuration"
+
+export const CONFIG_SHOW_TIP = "mini-tool.showTip"
 
 const osOpen: Record<string, string> = {
   win32: "start",

@@ -1,7 +1,6 @@
 import * as vscode from "vscode"
 import { openWebviewCommand } from "./command/webview"
 import { tipHoverProvider } from "./provider/tip-hover"
-import { setStatusBar } from "./ui/status-bat"
 import { addBetterAlign } from "@/command/better-align"
 
 // 插件激活时
@@ -14,8 +13,6 @@ export function activate(context: vscode.ExtensionContext) {
 
   const commands = [openWebview, betterAlign]
   const providers = [tipHover]
-
-  setStatusBar()
 
   context.subscriptions.push(...commands, ...providers)
 }

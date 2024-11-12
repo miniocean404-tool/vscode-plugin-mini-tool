@@ -1,6 +1,6 @@
 import { window, StatusBarAlignment } from "vscode"
-import { getInstanceWrapper } from "../utils/single"
-import { COMMAND_OPEN_WEBVIEW } from "../constant/command"
+import { getInstanceWrapper } from "../../src/utils/single"
+import { COMMAND_OPEN_WEBVIEW } from "../../src/constant/command"
 import * as vscode from "vscode"
 
 const getInstanceStatusBar = getInstanceWrapper<typeof window.createStatusBarItem>(window.createStatusBarItem)
