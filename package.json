@@ -48,69 +48,6 @@
           "dark": "assets/logo.svg"
         }
       }
-    ],
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "mini-tool",
-          "title": "%mini-tool.extension.title%",
-          "icon": "assets/logo.svg"
-        }
-      ]
-    },
-    "views": {
-      "mini-tool": [
-        {
-          "id": "view1",
-          "name": "标题 1"
-        },
-        {
-          "id": "view2",
-          "name": "标题 2",
-          "visibility": "collapsed"
-        }
-      ]
-    },
-    "viewsWelcome": [
-      {
-        "view": "view2",
-        "contents": "\n [按钮](command:mini-tool.openWebview) \n 欢迎使用Mini Tool ^_^，[仓库地址](https://github.com/miniocean404-tool/vscode-plugin-mini-tool)"
-      }
-    ],
-    "menus": {
-      "commandPalette": [
-        {
-          "command": "mini-tool.newFilexxxxxxxxxxxx",
-          "when": "false"
-        }
-      ],
-      "editor/context": [
-        {
-          "when": "editorFocus",
-          "submenu": "mini-tool.editor.context",
-          "group": "mini-tool"
-        }
-      ],
-      "mini-tool.editor.context": [
-        {
-          "command": "mini-tool.addRegionToSelectionxxxxxxxxxxxxxxxxxxx",
-          "group": "mini-tool@2",
-          "when": "editorTextFocus"
-        }
-      ],
-      "editor/title": [
-        {
-          "command": "mini-tool.openWebview",
-          "group": "navigation",
-          "when": "resourceLangId == javascript || resourceLangId == typescript"
-        }
-      ]
-    },
-    "submenus": [
-      {
-        "id": "mini-tool.editor.context",
-        "label": "%mini-tool.extension.title%"
-      }
     ]
   },
   "scripts": {
