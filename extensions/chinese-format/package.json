@@ -1,7 +1,7 @@
 {
   "name": "mini-chinese-format",
   "description": "自用中文格式化",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "miniocean404",
   "license": "MIT",
   "repository": {
@@ -48,7 +48,16 @@
         "command": "mini-chinese-format.chineseFormat",
         "title": "%mini-chinese-format.title%"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorHasSelection",
+          "group": "navigation@0",
+          "command": "mini-chinese-format.chineseFormat"
+        }
+      ]
+    }
   },
   "dependencies": {
     "pangu": "^4.0.7"

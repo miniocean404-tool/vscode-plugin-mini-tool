@@ -14,6 +14,12 @@
           "group": "mini-tool"
         }
       ],
+      "submenus": [
+        {
+          "id": "mini-tool.editor.context",
+          "label": "%mini-tool.extension.title%"
+        }
+      ],
       "mini-tool.editor.context": [
         {
           "command": "mini-tool.addRegionToSelection",
@@ -42,13 +48,7 @@
           "when": "editorTextFocus"
         }
       ]
-    },
-    "submenus": [
-      {
-        "id": "mini-tool.editor.context",
-        "label": "%mini-tool.extension.title%"
-      }
-    ]
+    }
   }
 }
 ```

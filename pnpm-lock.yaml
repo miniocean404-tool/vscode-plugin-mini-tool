@@ -7,13 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@vscode/l10n':
-        specifier: ^0.0.18
-        version: 0.0.18
-      dom-to-image-even-more:
-        specifier: ^1.0.4
-        version: 1.0.4
     devDependencies:
       '@types/node':
         specifier: ^22.5.5
@@ -21,6 +14,9 @@ importers:
       '@types/vscode':
         specifier: 1.95.0
         version: 1.95.0
+      '@vscode/l10n':
+        specifier: ^0.0.18
+        version: 0.0.18
       '@vscode/l10n-dev':
         specifier: 0.0.35
         version: 0.0.35
@@ -45,9 +41,6 @@ importers:
 
   extensions/better-align:
     devDependencies:
-      '@types/vscode':
-        specifier: 1.93.0
-        version: 1.93.0
       esbuild:
         specifier: 0.24.0
         version: 0.24.0
@@ -61,14 +54,19 @@ importers:
       '@types/pangu':
         specifier: ^4.0.2
         version: 4.0.2
-      '@types/vscode':
-        specifier: 1.93.0
-        version: 1.93.0
       esbuild:
         specifier: 0.24.0
         version: 0.24.0
 
-  extensions/code-snap: {}
+  extensions/code-snap:
+    dependencies:
+      dom-to-image-even-more:
+        specifier: ^1.0.4
+        version: 1.0.4
+    devDependencies:
+      esbuild:
+        specifier: 0.24.0
+        version: 0.24.0
 
   extensions/css-px-ignore:
     dependencies:
@@ -98,20 +96,24 @@ importers:
   extensions/gitmoji: {}
 
   extensions/json-fix:
-    devDependencies:
+    dependencies:
       jsonrepair:
         specifier: ^3.8.0
         version: 3.8.0
+    devDependencies:
+      esbuild:
+        specifier: 0.24.0
+        version: 0.24.0
 
   extensions/mini-tool: {}
 
-  extensions/region: {}
-
-  extensions/snippets:
+  extensions/region:
     devDependencies:
-      '@types/vscode':
-        specifier: 1.93.0
-        version: 1.93.0
+      esbuild:
+        specifier: 0.24.0
+        version: 0.24.0
+
+  extensions/snippets: {}
 
 packages:
 
@@ -499,9 +501,6 @@ packages:
 
   '@types/postcss-less@4.0.6':
     resolution: {integrity: sha512-xBd7riBa5XEyty+SMMJS0kKdVw+ykN5hjbIuoPLAXDv9JoPS8pRZUriypZiQXKDL7085aegxLbtyo9krBpQzng==}
-
-  '@types/vscode@1.93.0':
-    resolution: {integrity: sha512-kUK6jAHSR5zY8ps42xuW89NLcBpw1kOabah7yv38J8MyiYuOHxLQBi0e7zeXbQgVefDy/mZZetqEFC+Fl5eIEQ==}
 
   '@types/vscode@1.95.0':
     resolution: {integrity: sha512-0LBD8TEiNbet3NvWsmn59zLzOFu/txSlGxnv5yAFHCrhG9WvAnR3IvfHzMOs2aeWqgvNjq9pO99IUw8d3n+unw==}
@@ -1989,8 +1988,6 @@ snapshots:
   '@types/postcss-less@4.0.6':
     dependencies:
       postcss: 8.4.47
-
-  '@types/vscode@1.93.0': {}
 
   '@types/vscode@1.95.0': {}
 

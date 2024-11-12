@@ -48,6 +48,8 @@
 
 ### group
 
+默认组的排序：https://code.visualstudio.com/api/references/contribution-points#Sorting-of-groups
+
 **explorer/context有这些默认组：**
 
 navigation- 放在这个组的永远排在最前面；
