@@ -22,7 +22,8 @@
   ],
   "scripts": {
     "build": "pnpm --filter mini-* build:vsce",
-    "patch": "pnpm --filter mini-* patch:vsce",
+    "patch-publish": "pnpm --filter mini-* patch-publish:vsce",
+    "login": "vsce login miniocean404",
     "watch": "npm-run-all -p watch:*",
     "watch:tsc": "tsc  --watch --project tsconfig.json",
     "generate:l10n": "pnpx @vscode/l10n-dev export  -o ./l10n/ ./l10n/bundle.l10n.json ./package.nls.json",

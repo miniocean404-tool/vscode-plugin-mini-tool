@@ -16,7 +16,7 @@
   "scripts": {
     "build:vsce": "pnpm vsce package --no-dependencies",
     "publish:vsce": "pnpm vsce publish --no-dependencies",
-    "patch:vsce": "vsce publish patch --no-dependencies"
+    "patch-publish:vsce": "pnpm vsce publish patch --no-dependencies"
   },
   "displayName": "Mini Tool Extensions",
   "icon": "./assets/logo.png",

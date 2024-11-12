@@ -1,7 +1,7 @@
 {
   "name": "mini-snippets",
   "description": "自用代码片段",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "miniocean404",
   "license": "MIT",
   "repository": {
@@ -11,7 +11,7 @@
   "scripts": {
     "build:vsce": "pnpm vsce package --no-dependencies",
     "publish:vsce": "pnpm vsce publish --no-dependencies",
-    "patch:vsce": "vsce publish patch --no-dependencies"
+    "patch-publish:vsce": "pnpm vsce publish patch --no-dependencies"
   },
   "displayName": "Mini Snippets",
   "icon": "./assets/logo.png",

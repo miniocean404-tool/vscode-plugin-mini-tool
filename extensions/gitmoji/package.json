@@ -16,7 +16,7 @@
     "check-types": "tsc --noEmit",
     "build:vsce": "pnpm vsce package --no-dependencies",
     "publish:vsce": "pnpm vsce publish --no-dependencies",
-    "patch:vsce": "vsce publish patch --no-dependencies"
+    "patch-publish:vsce": "pnpm vsce publish patch --no-dependencies"
   },
   "displayName": "Mini Gitmoji",
   "main": "./dist/extension.js",
