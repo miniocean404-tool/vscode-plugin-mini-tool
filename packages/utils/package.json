@@ -14,19 +14,19 @@
     },
     "./array": {
       "default": "./dist/array",
-      "types": "./dist/array/index.d.ts"
+      "types": "./dist/array.d.ts"
     },
     "./vscode": {
       "default": "./dist/vscode",
-      "types": "./dist/vscode/index.d.ts"
+      "types": "./dist/vscode.d.ts"
     },
     "./format": {
       "default": "./dist/format",
-      "types": "./dist/format/index.d.ts"
+      "types": "./dist/format.d.ts"
     },
     "./pref": {
       "default": "./dist/pref",
-      "types": "./dist/pref/index.d.ts"
+      "types": "./dist/pref.d.ts"
     },
     "./package.json": "./package.json"
   },
