@@ -1,7 +1,8 @@
 import { COMMAND_JSON_FIX } from "./constant"
 import * as vscode from "vscode"
-import jsonFormat from "./utils/format/json"
 import { JsonProvider } from "@/provider"
+import { jsonrepair } from "jsonrepair"
+import { jsonBeautify } from "@mini-tool/utils"
 
 // 打开新的编辑器并写入内容
 export function fixJsonCommand(context: vscode.ExtensionContext) {
@@ -11,7 +12,7 @@ export function fixJsonCommand(context: vscode.ExtensionContext) {
 
     if (!editor && clipboard) {
       try {
-        clipboard = await jsonFormat.beautify(clipboard)
+        clipboard = await jsonBeautify(jsonrepair(clipboard))
       } catch (error) {
         if (error instanceof Error) {
           vscode.window.showErrorMessage(`非 JSON 格式：${error.message}`)

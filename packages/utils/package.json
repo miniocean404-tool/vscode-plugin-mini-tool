@@ -1,0 +1,13 @@
+{
+  "name": "@mini-tool/utils",
+  "version": "1.0.0",
+  "description": "mini tool 工具插件",
+  "main": "./dist/index",
+  "scripts": {
+    "watch:tsc": "tsc --watch --project ./tsconfig.json",
+    "build": "tsc --project ./tsconfig.json "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

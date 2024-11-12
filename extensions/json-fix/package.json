@@ -50,7 +50,8 @@
     ]
   },
   "dependencies": {
-    "jsonrepair": "^3.8.0"
+    "jsonrepair": "^3.8.0",
+    "@mini-tool/utils": "workspace:*"
   },
   "devDependencies": {
     "esbuild": "0.24.0"

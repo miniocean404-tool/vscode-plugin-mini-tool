@@ -1,13 +1,9 @@
 import * as prettier from "prettier/standalone"
 import pluginBabel from "prettier/plugins/babel"
 import pluginEstree from "prettier/plugins/estree"
-// @ts-ignore
-import { jsonrepair } from "jsonrepair"
 
-async function beautify(code: string): Promise<string> {
-  const fix = jsonrepair(code)
-
-  const format = await prettier.format(fix, {
+export async function jsonBeautify(code: string): Promise<string> {
+  const format = await prettier.format(code, {
     parser: "json",
     plugins: [pluginBabel, pluginEstree],
     quoteProps: "preserve",
@@ -19,7 +15,7 @@ async function beautify(code: string): Promise<string> {
   return format
 }
 
-async function compress(code: string): Promise<string> {
+export async function jsonCompress(code: string): Promise<string> {
   let format = await prettier.format(code, {
     parser: "json",
     plugins: [pluginBabel],
@@ -30,9 +26,4 @@ async function compress(code: string): Promise<string> {
   format = format.replace(/[\n\r]/g, "")
 
   return format
-}
-
-export default {
-  beautify,
-  compress,
 }
