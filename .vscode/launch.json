@@ -16,6 +16,13 @@
       "preLaunchTask": "${defaultBuildTask}"
     },
     {
+      "name": "BetterAlign Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/better-align"]
+    },
+    {
       "name": "Chinese Format Extension",
       "type": "extensionHost",
       "request": "launch",
@@ -23,25 +30,11 @@
       "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/chinese-format"]
     },
     {
-      "name": "Region Extension",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/region"]
-    },
-    {
       "name": "Code Snap Extension",
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/code-snap"]
-    },
-    {
-      "name": "JSON Fix Extension",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/json-fix"]
     },
     {
       "name": "CSS Px Ignore Extension",
@@ -56,6 +49,20 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/gitmoji"]
+    },
+    {
+      "name": "JSON Fix Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/json-fix"]
+    },
+    {
+      "name": "Region Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/region"]
     }
   ]
 }
