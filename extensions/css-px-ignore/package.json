@@ -1,7 +1,7 @@
 {
   "name": "mini-css-px-ignore",
   "description": "自用 css 快速添加 prettier-ignore 禁止 prettier 格式化",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "author": "miniocean404",
   "license": "MIT",
   "repository": {
