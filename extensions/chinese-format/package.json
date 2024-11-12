@@ -1,19 +1,40 @@
 {
   "name": "mini-chinese-format",
-  "displayName": "Mini Chinese Format",
-  "description": "",
+  "description": "自用中文格式化",
   "version": "0.0.1",
-  "main": "./dist/extension.js",
-  "icon": "./assets/logo.png",
-  "publisher": "",
+  "author": "miniocean404",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool"
+  },
   "scripts": {
+    "vscode:prepublish": "pnpm run package",
     "compile": "pnpm run check-types && node esbuild.js",
     "watch:esbuild": "node esbuild.js --watch",
     "package": "pnpm run check-types && node esbuild.js --production",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "package:vsce": "pnpm vsce package --no-dependencies",
+    "publish:vsce": "pnpm vsce publish --no-dependencies",
+    "patch:vsce": "vsce publish patch --no-dependencies"
   },
+  "displayName": "Mini Chinese Format",
+  "main": "./dist/extension.js",
+  "icon": "./assets/logo.png",
+  "publisher": "miniocean404",
+  "keywords": [
+    "mini",
+    "tool",
+    "mini-tool",
+    "minitool",
+    "mini chinese format",
+    "minichineseformat",
+    "chinese format",
+    "chineseformat",
+    "chinese"
+  ],
   "engines": {
-    "vscode": "^1.74.0"
+    "vscode": "^1.93.0"
   },
   "categories": [
     "Other"
@@ -29,15 +50,11 @@
       }
     ]
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "pangu": "^4.0.7"
   },
   "devDependencies": {
     "@types/pangu": "^4.0.2",
-    "@types/vscode": "1.93.0",
     "esbuild": "0.24.0"
   }
 }

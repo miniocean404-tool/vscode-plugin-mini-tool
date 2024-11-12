@@ -1,22 +1,42 @@
 {
   "name": "mini-css-px-ignore",
-  "displayName": "Mini CSS Px Ignore",
+  "description": "自用 css 快速添加 prettier-ignore 禁止 prettier 格式化",
   "version": "0.0.1",
-  "description": "",
-  "main": "./dist/extension.js",
-  "icon": "./assets/logo.png",
+  "author": "miniocean404",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool"
+  },
   "scripts": {
+    "vscode:prepublish": "pnpm run package",
     "compile": "pnpm run check-types && node esbuild.js",
     "watch:esbuild": "node esbuild.js --watch",
     "package": "pnpm run check-types && node esbuild.js --production",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "package:vsce": "pnpm vsce package --no-dependencies",
+    "publish:vsce": "pnpm vsce publish --no-dependencies",
+    "patch:vsce": "vsce publish patch --no-dependencies"
   },
+  "displayName": "Mini Css Px Ignore",
+  "main": "./dist/extension.js",
+  "icon": "./assets/logo.png",
+  "publisher": "miniocean404",
+  "keywords": [
+    "mini",
+    "tool",
+    "mini-tool",
+    "minitool",
+    "mini-css-px-ignore",
+    "minicsspxignore",
+    "css",
+    "px"
+  ],
   "engines": {
-    "vscode": "^1.74.0"
+    "vscode": "^1.93.0"
   },
   "categories": [
-    "Other",
-    "Formatters"
+    "Other"
   ],
   "activationEvents": [
     "workspaceContains:*.vue",
@@ -64,9 +84,6 @@
       }
     ]
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@vue/compiler-dom": "^3.4.27",
     "@vue/compiler-sfc": "^3.5.6",

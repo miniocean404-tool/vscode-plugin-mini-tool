@@ -1,15 +1,36 @@
 {
   "name": "mini-snippets",
-  "displayName": "Mini Snippets",
+  "description": "自用代码片段",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
-  "icon": "./assets/logo.png",
-  "scripts": {
-    "compile": "pnpm run check-types && node esbuild.js",
-    "watch:esbuild": "node esbuild.js --watch",
-    "package": "pnpm run check-types && node esbuild.js --production"
+  "author": "miniocean404",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool"
   },
+  "scripts": {
+    "package:vsce": "pnpm vsce package --no-dependencies",
+    "publish:vsce": "pnpm vsce publish --no-dependencies",
+    "patch:vsce": "vsce publish patch --no-dependencies"
+  },
+  "displayName": "Mini Snippets",
+  "icon": "./assets/logo.png",
+  "publisher": "miniocean404",
+  "keywords": [
+    "mini",
+    "tool",
+    "mini-tool",
+    "minitool",
+    "mini snippets",
+    "snippets"
+  ],
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other",
+    "Snippets"
+  ],
   "contributes": {
     "snippets": [
       {
@@ -38,11 +59,6 @@
       }
     ]
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {},
-  "devDependencies": {
-    "@types/vscode": "1.93.0"
-  }
+  "devDependencies": {}
 }
