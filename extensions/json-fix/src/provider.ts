@@ -1,6 +1,6 @@
 import { JSONRepairError } from "jsonrepair"
 import * as vscode from "vscode"
-import { jsonBeautify } from "@mini-tool/utils"
+import { jsonBeautify } from "@mini-tool/utils/format"
 
 export class JsonProvider implements vscode.TextDocumentContentProvider {
   public readonly scheme: string = "mini-tool"
