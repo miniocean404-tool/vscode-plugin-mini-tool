@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
     },
     "target": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "sourceMap": true,
-    "rootDir": "src",
+    "rootDir": ".",
     "outDir": "dist",
     "strict": true,
 
@@ -20,5 +20,6 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./src/**/*.ts", "./package.nls.*.json", "demo/show-tip/link.ts", "demo/status-bar/status-bat.ts"]
+  "include": ["./extensions/**/*.ts", "./extensions/**/package.nls.*.json"],
+  "exclude": ["demo"]
 }

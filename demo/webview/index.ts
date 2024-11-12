@@ -1,7 +1,7 @@
 import * as vscode from "vscode"
 import * as fs from "fs"
 import * as path from "path"
-import { COMMAND_OPEN_WEBVIEW } from "../../constant/command"
+import { COMMAND_OPEN_WEBVIEW } from "../../src/constant/command"
 
 export function openWebviewCommand(context: vscode.ExtensionContext) {
   return vscode.commands.registerCommand(COMMAND_OPEN_WEBVIEW, (uri: vscode.Uri) => {

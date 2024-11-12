@@ -1,0 +1,39 @@
+{
+  "name": "mini-better-align",
+  "displayName": "Mini Better Align",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/extension.js",
+  "icon": "assets/logo.png",
+  "scripts": {
+    "compile": "pnpm run check-types && node esbuild.js",
+    "watch:esbuild": "node esbuild.js --watch",
+    "package": "pnpm run check-types && node esbuild.js --production",
+    "check-types": "tsc --noEmit"
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "mini-better-align.betterAlign",
+        "title": "%mini-better-align.title%"
+      }
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/vscode": "1.93.0",
+    "esbuild": "0.24.0"
+  }
+}

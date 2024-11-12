@@ -1,8 +1,9 @@
 import * as vscode from "vscode"
-import { addShowGitmojiCommand } from "./index"
+import { addBetterAlign } from "./index"
 
 export function activate(context: vscode.ExtensionContext) {
-  context.subscriptions.push(addShowGitmojiCommand())
+  context.subscriptions.push(addBetterAlign())
 }
 
+// 插件关闭时
 export function deactivate() {}

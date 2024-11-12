@@ -1,4 +1,4 @@
-import { COMMAND_BETTER_ALIGN } from "@/constant/command"
+import { COMMAND_BETTER_ALIGN } from "./constant"
 import * as vscode from "vscode"
 
 import { Formatter } from "./format"

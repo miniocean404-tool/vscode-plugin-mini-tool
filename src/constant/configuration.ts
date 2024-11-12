@@ -1,6 +1,0 @@
-export const CONFIG_ADD_CUSTOM_EMOJI = "mini-tool.addCustomEmoji"
-export const CONFIG_ONLY_USE_CUSTOM_EMOJI = "mini-tool.onlyUseCustomEmoji"
-export const CONFIG_OUTPUT_TYPE = "mini-tool.outputType"
-export const CONFIG_AS_SUFFIX = "mini-tool.asSuffix"
-export const CONFIG_CSS_IGNORE_LIST = "mini-tool.cssIgnoreList"
-export const CONFIG_EMOJI_TYPE = "mini-tool.emojiType"

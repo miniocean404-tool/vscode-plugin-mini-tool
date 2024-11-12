@@ -12,7 +12,6 @@ vsc-extension-quickstart.md
 **/*.ts
 **/.vscode-test.*
 
-
 RECORD.md
 tsconfig.json
 pnpm-lock.yaml
