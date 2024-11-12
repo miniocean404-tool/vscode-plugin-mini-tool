@@ -18,6 +18,7 @@
     "Other"
   ],
   "activationEvents": [
+    "workspaceContains:*.vue",
     "onStartupFinished"
   ],
   "contributes": {

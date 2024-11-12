@@ -18,7 +18,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "workspaceContains:package.json"
   ],
   "contributes": {
     "commands": [

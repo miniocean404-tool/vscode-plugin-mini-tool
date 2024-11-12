@@ -15,21 +15,18 @@ importers:
         specifier: ^1.0.4
         version: 1.0.4
     devDependencies:
-      '@types/mocha':
-        specifier: ^10.0.6
-        version: 10.0.6
       '@types/node':
         specifier: ^22.5.5
         version: 22.5.5
       '@types/vscode':
-        specifier: 1.93.0
-        version: 1.93.0
+        specifier: 1.95.0
+        version: 1.95.0
       '@vscode/l10n-dev':
-        specifier: ^0.0.35
+        specifier: 0.0.35
         version: 0.0.35
       '@vscode/vsce':
-        specifier: 3.1.0
-        version: 3.1.0
+        specifier: 3.2.1
+        version: 3.2.1
       esbuild:
         specifier: 0.24.0
         version: 0.24.0
@@ -43,8 +40,17 @@ importers:
         specifier: ^4.19.2
         version: 4.19.2
       typescript:
-        specifier: 5.6.2
-        version: 5.6.2
+        specifier: 5.6.3
+        version: 5.6.3
+
+  extensions/better-align:
+    devDependencies:
+      '@types/vscode':
+        specifier: 1.93.0
+        version: 1.93.0
+      esbuild:
+        specifier: 0.24.0
+        version: 0.24.0
 
   extensions/chinese-format:
     dependencies:
@@ -485,9 +491,6 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@types/mocha@10.0.6':
-    resolution: {integrity: sha512-dJvrYWxP/UcXm36Qn36fxhUKu8A/xMRXVT2cliFF1Z7UA9liG5Psj3ezNSZw+5puH2czDXRLcXQxf8JbJt0ejg==}
-
   '@types/node@22.5.5':
     resolution: {integrity: sha512-Xjs4y5UPO/CLdzpgR6GirZJx36yScjh73+2NlLlkFRSoQN8B0DpfXPdZGnvVmLRLOsqDpOfTNv7D9trgGhmOIA==}
 
@@ -499,6 +502,9 @@ packages:
 
   '@types/vscode@1.93.0':
     resolution: {integrity: sha512-kUK6jAHSR5zY8ps42xuW89NLcBpw1kOabah7yv38J8MyiYuOHxLQBi0e7zeXbQgVefDy/mZZetqEFC+Fl5eIEQ==}
+
+  '@types/vscode@1.95.0':
+    resolution: {integrity: sha512-0LBD8TEiNbet3NvWsmn59zLzOFu/txSlGxnv5yAFHCrhG9WvAnR3IvfHzMOs2aeWqgvNjq9pO99IUw8d3n+unw==}
 
   '@vscode/l10n-dev@0.0.35':
     resolution: {integrity: sha512-s6uzBXsVDSL69Z85HSqpc5dfKswQkeucY8L00t1TWzGalw7wkLQUKMRwuzqTq+AMwQKrRd7Po14cMoTcd11iDw==}
@@ -555,8 +561,8 @@ packages:
   '@vscode/vsce-sign@2.0.4':
     resolution: {integrity: sha512-0uL32egStKYfy60IqnynAChMTbL0oqpqk0Ew0YHiIb+fayuGZWADuIPHWUcY1GCnAA+VgchOPDMxnc2R3XGWEA==}
 
-  '@vscode/vsce@3.1.0':
-    resolution: {integrity: sha512-fwdfp1Ol+bZtlSGkpcd/nztfo6+SVsTOMWjZ/+a88lVtUn7gXNbSu7dbniecl5mz4vINl+oaVDVtVdGbJDApmw==}
+  '@vscode/vsce@3.2.1':
+    resolution: {integrity: sha512-AY9vBjwExakK1c0cI/3NN2Ey0EgiKLBye/fxl/ue+o4q6RZ7N+xzd1jAD6eI6eBeMVANi617+V2rxIAkDPco2Q==}
     engines: {node: '>= 20'}
     hasBin: true
 
@@ -1602,8 +1608,8 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
 
-  typescript@5.6.2:
-    resolution: {integrity: sha512-NW8ByodCSNCwZeghjN3o+JX5OFH0Ojg6sadjEKY4huZ52TqbJTJnDo5+Tw98lSy63NZvi4n+ez5m2u5d4PkZyw==}
+  typescript@5.6.3:
+    resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -1974,8 +1980,6 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@types/mocha@10.0.6': {}
-
   '@types/node@22.5.5':
     dependencies:
       undici-types: 6.19.8
@@ -1987,6 +1991,8 @@ snapshots:
       postcss: 8.4.47
 
   '@types/vscode@1.93.0': {}
+
+  '@types/vscode@1.95.0': {}
 
   '@vscode/l10n-dev@0.0.35':
     dependencies:
@@ -2044,7 +2050,7 @@ snapshots:
       '@vscode/vsce-sign-win32-arm64': 2.0.2
       '@vscode/vsce-sign-win32-x64': 2.0.2
 
-  '@vscode/vsce@3.1.0':
+  '@vscode/vsce@3.2.1':
     dependencies:
       '@azure/identity': 4.2.0
       '@vscode/vsce-sign': 2.0.4
@@ -3330,7 +3336,7 @@ snapshots:
 
   typescript@4.9.5: {}
 
-  typescript@5.6.2: {}
+  typescript@5.6.3: {}
 
   uc.micro@2.1.0: {}
 
