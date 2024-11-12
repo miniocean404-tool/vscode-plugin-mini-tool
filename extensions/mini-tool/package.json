@@ -14,7 +14,7 @@
     "email": "iceworksteam@163.com"
   },
   "scripts": {
-    "package:vsce": "pnpm vsce package --no-dependencies",
+    "build:vsce": "pnpm vsce package --no-dependencies",
     "publish:vsce": "pnpm vsce publish --no-dependencies",
     "patch:vsce": "vsce publish patch --no-dependencies"
   },

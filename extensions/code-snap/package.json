@@ -9,12 +9,12 @@
     "url": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool"
   },
   "scripts": {
-    "vscode:prepublish": "pnpm run package",
-    "compile": "pnpm run check-types && node esbuild.js",
-    "watch:esbuild": "node esbuild.js --watch",
-    "package": "pnpm run check-types && node esbuild.js --production",
+    "vscode:prepublish": "pnpm run build",
+    "dev": "pnpm run check-types && node esbuild.js",
+    "watch:dev": "node esbuild.js --watch",
+    "build": "pnpm run check-types && node esbuild.js --production",
     "check-types": "tsc --noEmit",
-    "package:vsce": "pnpm vsce package --no-dependencies",
+    "build:vsce": "pnpm vsce package --no-dependencies",
     "publish:vsce": "pnpm vsce publish --no-dependencies",
     "patch:vsce": "vsce publish patch --no-dependencies"
   },
