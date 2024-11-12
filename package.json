@@ -20,25 +20,10 @@
     "ignore",
     "minitool"
   ],
-  "engines": {
-    "vscode": "^1.74.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "icon": "assets/logo.png",
-  "main": "./dist/extension.js",
   "scripts": {
-    "vscode:prepublish": "pnpm run package",
-    "compile": "pnpm run check-types && node esbuild.js",
+    "build": "pnpm --filter mini-* package:vsce",
     "watch": "npm-run-all -p watch:*",
-    "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc  --watch --project tsconfig.json",
-    "package": "pnpm run check-types && node esbuild.js --production",
-    "check-types": "tsc --noEmit",
-    "package:vsce": "pnpm vsce package --no-dependencies",
-    "publish:vsce": "pnpm vsce publish --no-dependencies",
-    "patch:vsce": "vsce publish patch --no-dependencies",
     "generate:l10n": "pnpx @vscode/l10n-dev export  -o ./l10n/ ./l10n/bundle.l10n.json ./package.nls.json",
     "generate:l10n-base": "pnpx @vscode/l10n-dev export  --outDir ./l10n ./src"
   },
