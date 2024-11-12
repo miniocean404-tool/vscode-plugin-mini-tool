@@ -1,6 +1,5 @@
 import { COMMAND_JSON_FIX } from "./constant"
 import * as vscode from "vscode"
-// @ts-ignore
 import { JSONRepairError } from "jsonrepair"
 import jsonFormat from "./utils/format/json"
 

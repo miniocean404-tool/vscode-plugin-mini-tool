@@ -23,21 +23,21 @@
       "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/better-align"]
     },
     {
-      "name": "Chinese Format Extension",
+      "name": "中文格式化 Extension",
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/chinese-format"]
     },
     {
-      "name": "Code Snap Extension",
+      "name": "代码快照 Extension",
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/code-snap"]
     },
     {
-      "name": "CSS Px Ignore Extension",
+      "name": "CSS Px 忽略 Extension",
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
@@ -51,21 +51,21 @@
       "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/gitmoji"]
     },
     {
-      "name": "JSON Fix Extension",
+      "name": "JSON 修复 Extension",
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/json-fix"]
     },
     {
-      "name": "Region Extension",
+      "name": "Vscode Region 折叠 Extension",
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/region"]
     },
     {
-      "name": "Snippets Extension",
+      "name": "代码片段 Extension",
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
