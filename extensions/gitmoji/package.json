@@ -1,7 +1,7 @@
 {
   "name": "mini-gitmoji",
   "description": "自用 gitmoji 日志规范提交、提交图标等",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "miniocean404",
   "license": "MIT",
   "repository": {
@@ -21,7 +21,7 @@
   "displayName": "Mini Gitmoji",
   "main": "./dist/extension.js",
   "icon": "./assets/logo.png",
-  "i10n": "./l10n",
+  "l10n": "./l10n",
   "publisher": "miniocean404",
   "keywords": [
     "mini",
