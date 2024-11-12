@@ -1,7 +1,7 @@
 {
   "name": "mini-snippets",
   "description": "自用代码片段",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "miniocean404",
   "license": "MIT",
   "repository": {
@@ -28,37 +28,34 @@
     "vscode": "^1.93.0"
   },
   "categories": [
-    "Other",
     "Snippets"
   ],
   "contributes": {
     "snippets": [
       {
         "language": "javascript",
-        "path": "./snippets/javascript.json"
+        "path": "./javascript.json"
       },
       {
         "language": "vue",
-        "path": "./snippets/vue.json"
+        "path": "./vue.json"
       },
       {
         "language": "javascriptreact",
-        "path": "./snippets/react.json"
+        "path": "./react.json"
       },
       {
         "language": "javascript",
-        "path": "./snippets/react.json"
+        "path": "./react.json"
       },
       {
         "language": "typescriptreact",
-        "path": "./snippets/react.json"
+        "path": "./react.json"
       },
       {
         "language": "typescript",
-        "path": "./snippets/react.json"
+        "path": "./react.json"
       }
     ]
-  },
-  "dependencies": {},
-  "devDependencies": {}
+  }
 }
