@@ -1,14 +1,14 @@
 {
   "extends": "../../tsconfig.json",
-  "files": ["./index.ts"],
   "compilerOptions": {
     "baseUrl": "./",
-    "rootDir": ".",
+    "rootDir": "./src",
     "outDir": "./dist",
     "target": "ESNext",
     "noEmit": false,
     "emitDeclarationOnly": false,
-    "allowImportingTsExtensions": false
+    "allowImportingTsExtensions": false,
+    "declaration": true
   },
   "include": ["./src/**/*.ts"]
 }

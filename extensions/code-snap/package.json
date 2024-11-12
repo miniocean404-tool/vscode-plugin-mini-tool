@@ -50,7 +50,8 @@
     ]
   },
   "dependencies": {
-    "dom-to-image-even-more": "^1.0.4"
+    "dom-to-image-even-more": "^1.0.4",
+    "@mini-tool/utils": "workspace:*"
   },
   "devDependencies": {
     "esbuild": "0.24.0"

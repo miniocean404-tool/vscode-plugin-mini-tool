@@ -1,10 +1,8 @@
 # 待完成
 
-1. vue react html 的 html 结构生成 css 样式结构
-
-# 待上传
-
-1. better-align
+1. better-align 待上传
+2. 修复 json fix 问题
+3. vue react html 的 html 结构生成 css 样式结构
 
 # 插件
 

@@ -2,7 +2,7 @@ import * as vscode from "vscode"
 import type { CssHyphenKey, QuickPickItemExtension } from "./index.d"
 import { COMMAND_ADD_CSS_PX_IGNORE, CONFIG_CSS_IGNORE_LIST } from "./constant"
 import { regexpParse } from "./regexp"
-import { unique } from "./utils/unique"
+import { unique } from "@mini-tool/utils"
 
 export function addCssPxIgnoreCommand(): vscode.Disposable {
   const disposable = vscode.commands.registerCommand(COMMAND_ADD_CSS_PX_IGNORE, async () => {

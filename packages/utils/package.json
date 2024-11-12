@@ -2,7 +2,34 @@
   "name": "@mini-tool/utils",
   "version": "1.0.0",
   "description": "mini tool 工具插件",
+  "type": "module",
   "main": "./dist/index",
+  "module": "./dist/index",
+  "browser": "./dist/index",
+  "exports": {
+    ".": {
+      "default": "./dist/index",
+      "import": "./dist/index",
+      "types": "./dist/index.d.ts"
+    },
+    "./array": {
+      "default": "./dist/array",
+      "types": "./dist/array/index.d.ts"
+    },
+    "./vscode": {
+      "default": "./dist/vscode",
+      "types": "./dist/vscode/index.d.ts"
+    },
+    "./format": {
+      "default": "./dist/format",
+      "types": "./dist/format/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist/*",
+    "package.json"
+  ],
   "scripts": {
     "watch:tsc": "tsc --watch --project ./tsconfig.json",
     "build": "tsc --project ./tsconfig.json "

@@ -3,8 +3,7 @@ import { COMMAND_CODE_SNAP } from "./constant"
 import * as vscode from "vscode"
 import path from "path"
 import { readHtml, writeFile, getSettings } from "./util"
-import { getDesktopFileURI } from "./utils/uri"
-import { hasOneSelection } from "./utils/selection"
+import { hasOneSelection, getDesktopFileURI } from "@mini-tool/utils/vscode"
 
 export function codeSnapCommand(context: vscode.ExtensionContext) {
   return vscode.commands.registerCommand(COMMAND_CODE_SNAP, async () => {

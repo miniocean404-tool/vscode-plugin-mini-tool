@@ -60,6 +60,9 @@ importers:
 
   extensions/code-snap:
     dependencies:
+      '@mini-tool/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       dom-to-image-even-more:
         specifier: ^1.0.4
         version: 1.0.4
@@ -70,6 +73,9 @@ importers:
 
   extensions/css-px-ignore:
     dependencies:
+      '@mini-tool/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@vue/compiler-dom':
         specifier: ^3.4.27
         version: 3.5.6
