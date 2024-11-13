@@ -14,14 +14,13 @@ export function fixJsonCommand(context: vscode.ExtensionContext) {
       try {
         clipboard = await jsonBeautify(jsonrepair(clipboard))
       } catch (error) {
-        if (error instanceof Error) {
-          vscode.window.showErrorMessage(`非 JSON 格式：${error.message}`)
-        }
+        if (error instanceof Error) vscode.window.showErrorMessage(`非 JSON 格式：${error.message}`)
         return
       }
 
       const viewID = "mini-tool"
       const fileName = "等待修复.json"
+
       const newUri = vscode.Uri.file(fileName).with({ scheme: `untitled`, path: fileName })
       await vscode.commands.executeCommand("vscode.openWith", newUri, viewID, {
         viewColumn: vscode.ViewColumn.One,
