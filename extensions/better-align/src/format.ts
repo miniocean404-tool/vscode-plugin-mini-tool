@@ -127,7 +127,7 @@ export class Formatter {
     let langConfig: any = null
 
     try {
-      langConfig = vscode.workspace.getConfiguration().get(`[${this.editor?.document.languageId}]`) as any
+      langConfig = vscode.workspace.getConfiguration().get(`[${this.editor.document.languageId}]`) as any
     } catch (e) {}
 
     return {
@@ -589,8 +589,9 @@ export class Formatter {
       comment: 2,
       arrow: [1, 1],
     }
-    const configSTT = configWS[stt] || configDef[stt]
-    const configComment = configWS["comment"] || configDef["comment"]
+
+    const configSTT = configWS ? configWS[stt] : configDef[stt]
+    const configComment = configWS ? configWS["comment"] : configDef["comment"]
 
     const rangeSize = range.infos.length
 
