@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool"
+    "url": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool/extensions/chinese-format"
   },
   "scripts": {
     "vscode:prepublish": "pnpm run build",
