@@ -1,7 +1,7 @@
 {
   "name": "mini-gitmoji",
   "description": "自用 gitmoji 日志规范提交、提交图标等",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "author": "miniocean404",
   "license": "MIT",
   "repository": {
@@ -64,6 +64,36 @@
       {
         "title": "",
         "properties": {
+          "mini-gitmoji.emojiType": {
+            "type": "string",
+            "default": "standard",
+            "enum": [
+              "standard",
+              "gitmoji",
+              "only"
+            ],
+            "enumDescriptions": [
+              "%mini-gitmoji.emojiType.standard%",
+              "%mini-gitmoji.emojiType.gitmoji%",
+              "%mini-gitmoji.emojiType.only%"
+            ],
+            "description": "%mini-gitmoji.emojiType%"
+          },
+          "mini-gitmoji.gitCommitType": {
+            "type": "string",
+            "default": "emoji-code",
+            "enum": [
+              "code",
+              "emoji",
+              "emoji-code"
+            ],
+            "enumDescriptions": [
+              "%mini-gitmoji.gitCommitType.code%",
+              "%mini-gitmoji.gitCommitType.emoji%",
+              "%mini-gitmoji.gitCommitType.emoji-code%"
+            ],
+            "description": "%mini-gitmoji.gitCommitType%"
+          },
           "mini-gitmoji.addCustomEmoji": {
             "type": "array",
             "default": [],
@@ -89,36 +119,6 @@
               }
             },
             "description": "%mini-gitmoji.addCustomEmoji%"
-          },
-          "mini-gitmoji.gitCommitType": {
-            "type": "string",
-            "default": "emoji-code",
-            "enum": [
-              "code",
-              "emoji",
-              "emoji-code"
-            ],
-            "enumDescriptions": [
-              "%mini-gitmoji.gitCommitType.code%",
-              "%mini-gitmoji.gitCommitType.emoji%",
-              "%mini-gitmoji.gitCommitType.emoji-code%"
-            ],
-            "description": "%mini-gitmoji.gitCommitType%"
-          },
-          "mini-gitmoji.emojiType": {
-            "type": "string",
-            "default": "standard",
-            "enum": [
-              "standard",
-              "gitmoji",
-              "only"
-            ],
-            "enumDescriptions": [
-              "%mini-gitmoji.emojiType.standard%",
-              "%mini-gitmoji.emojiType.gitmoji%",
-              "%mini-gitmoji.emojiType.only%"
-            ],
-            "description": "%mini-gitmoji.emojiType%"
           },
           "mini-gitmoji.asSuffix": {
             "type": "boolean",
