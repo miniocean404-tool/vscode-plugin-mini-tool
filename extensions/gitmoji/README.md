@@ -1,7 +1,7 @@
 **简体中文** | [English](README.en.md)
 
 <p align="center">
-  <img src="../../assets/gitmoji.gif" width="400">
+  <img src="assets/gitmoji.gif" width="400">
 </p>
 
 <p align="center">
@@ -39,7 +39,7 @@
 ### 💻 扩展示例截图
 
 <p align="center">
-    <img src="../../assets/about.gif">
+    <img src="assets/about.gif">
 </p>
 
 ### 表情符号类型
