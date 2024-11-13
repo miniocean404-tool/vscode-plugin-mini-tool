@@ -12,6 +12,13 @@
           "submenu": "mini-tool.editor.context",
           // 分组为
           "group": "mini-tool"
+        },
+        // 直接执行命令
+        // 也可以执行与当前插件不同的其他插件的命令
+        {
+          "when": "editorHasSelection",
+          "group": "navigation@0",
+          "command": "mini-chinese-format.chineseFormat"
         }
       ],
       "submenus": [

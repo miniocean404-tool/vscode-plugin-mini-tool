@@ -19,6 +19,8 @@ async function other() {
   //         alignAfterEnter = vscode.workspace.getConfiguration('betterAlign').get<boolean>('alignAfterTypeEnter');
   //     }
   // }),
+  // 可以执行其他插件的命令，也可以执行内置命令
+  // vscode.commands.executeCommand("mini-chinese-format.chineseFormat")
 }
 
 function select() {
