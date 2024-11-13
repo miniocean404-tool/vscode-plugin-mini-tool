@@ -3,29 +3,31 @@
   "version": "1.0.0",
   "description": "mini tool 工具插件",
   "type": "module",
-  "main": "./dist/index",
-  "module": "./dist/index",
-  "browser": "./dist/index",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "browser": "./dist/index.js",
   "exports": {
     ".": {
-      "default": "./dist/index",
-      "import": "./dist/index",
+      "node": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js",
+      "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
     "./array": {
-      "default": "./dist/array",
+      "default": "./dist/array.js",
       "types": "./dist/array.d.ts"
     },
     "./vscode": {
-      "default": "./dist/vscode",
+      "default": "./dist/vscode.js",
       "types": "./dist/vscode.d.ts"
     },
     "./format": {
-      "default": "./dist/format",
+      "default": "./dist/format.js",
       "types": "./dist/format.d.ts"
     },
     "./pref": {
-      "default": "./dist/pref",
+      "default": "./dist/pref.js",
       "types": "./dist/pref.d.ts"
     },
     "./package.json": "./package.json"

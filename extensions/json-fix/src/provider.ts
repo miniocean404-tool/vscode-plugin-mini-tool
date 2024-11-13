@@ -1,4 +1,4 @@
-import { JSONRepairError } from "jsonrepair"
+import { jsonrepair, JSONRepairError } from "jsonrepair"
 import * as vscode from "vscode"
 import { jsonBeautify } from "@mini-tool/utils/format"
 
@@ -39,11 +39,13 @@ export class JsonProvider implements vscode.TextDocumentContentProvider {
     return this.json
   }
 
+  // 文本改变时触发,来自构造函数
   textDidChange(ev: vscode.TextDocumentChangeEvent) {
     if (!this.isShow || ev.document !== this._document) return
     void this.update()
   }
 
+  // 文本编辑器可见性更改时触发,来自构造函数
   onDidChangeVisibleTextEditorsChange(editors: vscode.TextEditor[]) {
     const isOpen = editors.some((editor) => editor.document.uri.scheme === this.scheme)
 
@@ -56,16 +58,31 @@ export class JsonProvider implements vscode.TextDocumentContentProvider {
 
   async update() {
     const text = this._document.getText()
+    let fix
 
     try {
-      this.json = await jsonBeautify(text || "")
-      this._onDidChange?.fire(this.uri)
+      fix = jsonrepair(text || "")
     } catch (err) {
       if (err instanceof JSONRepairError) {
         const position = this._document.positionAt(err.position)
         vscode.window.showErrorMessage(
-          `JSON 修复错误，无法解析 行：${position.line.toString()} 列：${position.character.toString()}`,
+          `JSON 修复错误，无法解析 行: ${position.line.toString()} 列：${position.character.toString()}`,
         )
+      }
+
+      if (err instanceof Error) {
+        vscode.window.showErrorMessage(`无法修复此类型的 JSON 错误`)
+      }
+
+      return
+    }
+
+    try {
+      this.json = await jsonBeautify(fix)
+      this._onDidChange?.fire(this.uri)
+    } catch (err) {
+      if (err instanceof Error) {
+        vscode.window.showErrorMessage(`无法格式化 JSON 错误`)
       }
     }
   }
