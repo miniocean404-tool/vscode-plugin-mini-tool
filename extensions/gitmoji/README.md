@@ -72,13 +72,13 @@
 
 ### 添加自定义表情符号
 
-- `addCustomEmoji` - 添加自定义表情符号。
+- `customEmoji` - 添加自定义表情符号。
 
 示例配置：
 
 ```json
 {
-  "mini-tool.addCustomEmoji": [
+  "mini-tool.customEmoji": [
     {
       "emoji": "🧵",
       "code": ":thread:",

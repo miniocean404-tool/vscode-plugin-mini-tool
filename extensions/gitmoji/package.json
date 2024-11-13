@@ -1,7 +1,7 @@
 {
   "name": "mini-gitmoji",
   "description": "自用 gitmoji 日志规范提交、提交图标等",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "author": "miniocean404",
   "license": "MIT",
   "repository": {
@@ -94,12 +94,12 @@
             ],
             "description": "%mini-gitmoji.gitCommitType%"
           },
-          "mini-gitmoji.addCustomEmoji": {
+          "mini-gitmoji.customEmoji": {
             "type": "array",
             "default": [],
             "items": {
               "type": "object",
-              "title": "%mini-gitmoji.addCustomEmoji.items%",
+              "title": "%mini-gitmoji.customEmoji.items%",
               "properties": {
                 "emoji": {
                   "type": "string"
@@ -118,7 +118,7 @@
                 }
               }
             },
-            "description": "%mini-gitmoji.addCustomEmoji%"
+            "description": "%mini-gitmoji.customEmoji%"
           },
           "mini-gitmoji.asSuffix": {
             "type": "boolean",

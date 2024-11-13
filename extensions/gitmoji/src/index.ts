@@ -1,7 +1,7 @@
 import * as vscode from "vscode"
 import { Gitmoji } from "./emoji/gitmoji"
 import {
-  CONFIG_ADD_CUSTOM_EMOJI,
+  CONFIG_CUSTOM_EMOJI,
   CONFIG_AS_SUFFIX,
   CONFIG_EMOJI_TYPE,
   CONFIG_COMMIT_TYPE,
@@ -16,7 +16,7 @@ export function addShowGitmojiCommand(): vscode.Disposable {
     if (!git) return vscode.window.showErrorMessage("不能加载 Git 扩展")
 
     let configEmojiType = vscode.workspace.getConfiguration().get<GitmojiTypeConfig>(CONFIG_EMOJI_TYPE) || "standard"
-    const customEmoji = vscode.workspace.getConfiguration().get<Array<GitmojiInfo>>(CONFIG_ADD_CUSTOM_EMOJI) || []
+    const customEmoji = vscode.workspace.getConfiguration().get<Array<GitmojiInfo>>(CONFIG_CUSTOM_EMOJI) || []
     const gitCommitType = vscode.workspace.getConfiguration().get<keyof GitCommitType>(CONFIG_COMMIT_TYPE)
     const asSuffix = vscode.workspace.getConfiguration().get<boolean>(CONFIG_AS_SUFFIX)
 
