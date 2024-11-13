@@ -1,7 +1,7 @@
 **简体中文** | [English](README.en.md)
 
 <p align="center">
-  <img src="assets/gitmoji.gif" width="400">
+  <img src="https://github.com/miniocean404-tool/vscode-plugin-mini-tool/raw/HEAD/extensions/gitmoji/assets/gitmoji.gif" width="400">
 </p>
 
 <p align="center">
@@ -12,7 +12,7 @@
     <a href="https://github.com/miniocean404-tool/vscode-plugin-mini-tool/pulls">
         <img src="https://img.shields.io/github/issues-pr/miniocean404-tool/vscode-plugin-mini-tool?style=flat-square&color=brightgreen">
     </a>
-    <a href="https://github.com/miniocean404-tool/vscode-plugin-mini-tool/blob/main/LICENSE">
+    <a href="https://github.com/miniocean404-tool/vscode-plugin-mini-tool/blob/master/LICENSE">
         <img src="https://img.shields.io/github/license/miniocean404-tool/vscode-plugin-mini-tool?&style=flat-square">
     </a>
 </p>
@@ -39,7 +39,7 @@
 ### 💻 扩展示例截图
 
 <p align="center">
-    <img src="assets/about.gif">
+    <img src="https://github.com/miniocean404-tool/vscode-plugin-mini-tool/raw/HEAD/extensions/gitmoji/assets/about.gif">
 </p>
 
 ### 表情符号类型
