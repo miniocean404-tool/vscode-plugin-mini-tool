@@ -56,13 +56,13 @@
 
 ### 表情符号输出类型
 
-- `outputType` - 配置表情符号的输出类型（默认为 `emoji-code` 模式）。
+- `gitCommitType` - 配置表情符号的输出类型（默认为 `emoji-code` 模式）。
 
 示例配置：
 
 ```json
 {
-  "mini-tool.outputType": "emoji-code"
+  "mini-tool.gitCommitType": "emoji-code"
 }
 ```
 
