@@ -1,12 +1,6 @@
 // Links: https://github.com/carloscuesta/gitmoji/blob/master/packages/gitmojis/src/gitmojis.json
 import * as vscode from "vscode"
 
-export interface GitmojiInfo {
-  readonly emoji: string
-  readonly code: string
-  readonly description: string
-}
-
 // 状态
 const StateMoji = [
   {

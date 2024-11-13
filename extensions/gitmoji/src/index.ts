@@ -1,6 +1,5 @@
 import * as vscode from "vscode"
-import type { GitExtension, Repository } from "./git"
-import { Gitmoji, type GitmojiInfo } from "./emoji/gitmoji"
+import { Gitmoji } from "./emoji/gitmoji"
 import {
   CONFIG_ADD_CUSTOM_EMOJI,
   CONFIG_AS_SUFFIX,
@@ -17,18 +16,20 @@ export function addShowGitmojiCommand(): vscode.Disposable {
 
     if (!git) return vscode.window.showErrorMessage("不能加载 Git 扩展")
 
-    const addCustomEmoji: Array<GitmojiInfo> = vscode.workspace.getConfiguration().get(CONFIG_ADD_CUSTOM_EMOJI) || []
-    let onlyUseCustomEmoji: boolean | undefined = vscode.workspace.getConfiguration().get(CONFIG_ONLY_USE_CUSTOM_EMOJI)
-    let configEmojiType: "standard" | "gitmoji" | undefined = vscode.workspace.getConfiguration().get(CONFIG_EMOJI_TYPE)
+    const addCustomEmoji = vscode.workspace.getConfiguration().get<Array<GitmojiInfo>>(CONFIG_ADD_CUSTOM_EMOJI) || []
+    let onlyUseCustomEmoji = vscode.workspace.getConfiguration().get<boolean>(CONFIG_ONLY_USE_CUSTOM_EMOJI)
+    let configEmojiType = vscode.workspace.getConfiguration().get<GitmojiTypeConfig>(CONFIG_EMOJI_TYPE)
 
     let emojis: GitmojiInfo[] = onlyUseCustomEmoji
       ? [...addCustomEmoji]
-      : configEmojiType
+      : configEmojiType === "standard"
         ? [...StandardEmoji, ...addCustomEmoji]
         : [...Gitmoji, ...addCustomEmoji]
 
     const items = emojis.map((info) => {
-      const { emoji, code, description } = info
+      let { emoji, code, description } = info
+
+      code = configEmojiType === "standard" ? code : `:${code}:`
       const label = `${emoji} ${code} `
 
       return {
@@ -47,13 +48,11 @@ export function addShowGitmojiCommand(): vscode.Disposable {
           "emoji-code": `${selected.emoji} ${selected.code.slice(1)}`,
         }
 
-        vscode.commands.executeCommand("workbench.view.scm")
-        const outputType: keyof typeof outputTypeEnum | undefined = vscode.workspace
-          .getConfiguration()
-          .get(CONFIG_OUTPUT_TYPE)
+        const outputType = vscode.workspace.getConfiguration().get<keyof typeof outputTypeEnum>(CONFIG_OUTPUT_TYPE)
+        const asSuffix = vscode.workspace.getConfiguration().get<boolean>(CONFIG_AS_SUFFIX) || false
 
+        vscode.commands.executeCommand("workbench.view.scm")
         const valueToAdd = outputType && outputTypeEnum[outputType]
-        const asSuffix: boolean | undefined = vscode.workspace.getConfiguration().get(CONFIG_AS_SUFFIX) || false
 
         if (uri && valueToAdd) {
           const uriPath = uri._rootUri?.path || uri.rootUri.path
