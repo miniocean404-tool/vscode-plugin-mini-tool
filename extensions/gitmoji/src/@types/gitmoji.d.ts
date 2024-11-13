@@ -5,7 +5,7 @@ interface GitmojiInfo {
   readonly placeholder?: string
 }
 
-type GitmojiTypeConfig = "standard" | "gitmoji"
+type GitmojiTypeConfig = "standard" | "gitmoji" | "only"
 
 interface GitCommitType {
   emoji: string

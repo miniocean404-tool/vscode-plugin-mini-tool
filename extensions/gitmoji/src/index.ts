@@ -4,8 +4,7 @@ import {
   CONFIG_ADD_CUSTOM_EMOJI,
   CONFIG_AS_SUFFIX,
   CONFIG_EMOJI_TYPE,
-  CONFIG_ONLY_USE_CUSTOM_EMOJI,
-  CONFIG_OUTPUT_TYPE as CONFIG_COMMIT_TYPE,
+  CONFIG_COMMIT_TYPE,
   COMMAND_SHOW_GITMOJI,
 } from "./constant"
 import { StandardEmoji } from "./emoji/standard"
@@ -16,22 +15,18 @@ export function addShowGitmojiCommand(): vscode.Disposable {
 
     if (!git) return vscode.window.showErrorMessage("不能加载 Git 扩展")
 
-    let onlyUseCustomEmoji = vscode.workspace.getConfiguration().get<boolean>(CONFIG_ONLY_USE_CUSTOM_EMOJI)
-    let configEmojiType = vscode.workspace.getConfiguration().get<GitmojiTypeConfig>(CONFIG_EMOJI_TYPE)
-    const addCustomEmoji = vscode.workspace.getConfiguration().get<Array<GitmojiInfo>>(CONFIG_ADD_CUSTOM_EMOJI) || []
+    let configEmojiType = vscode.workspace.getConfiguration().get<GitmojiTypeConfig>(CONFIG_EMOJI_TYPE) || "standard"
+    const customEmoji = vscode.workspace.getConfiguration().get<Array<GitmojiInfo>>(CONFIG_ADD_CUSTOM_EMOJI) || []
     const gitCommitType = vscode.workspace.getConfiguration().get<keyof GitCommitType>(CONFIG_COMMIT_TYPE)
     const asSuffix = vscode.workspace.getConfiguration().get<boolean>(CONFIG_AS_SUFFIX)
 
-    const isStanderand = configEmojiType === "standard"
-    const isGitmoji = configEmojiType === "gitmoji"
+    const EmojiType = {
+      only: customEmoji,
+      standard: [...StandardEmoji, ...customEmoji],
+      gitmoji: [...Gitmoji, ...customEmoji],
+    }
 
-    let emojis: GitmojiInfo[] = onlyUseCustomEmoji
-      ? [...addCustomEmoji]
-      : isStanderand
-        ? [...StandardEmoji, ...addCustomEmoji]
-        : isGitmoji
-          ? [...Gitmoji, ...addCustomEmoji]
-          : []
+    let emojis: GitmojiInfo[] = EmojiType[configEmojiType]
 
     const items = emojis.map((info) => {
       let { emoji, code, description, placeholder } = info

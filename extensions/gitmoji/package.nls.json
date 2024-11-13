@@ -1,7 +1,7 @@
 {
   "mini-gitmoji.showGitmoji.title": "💗 Mini Open Gitmoji",
   "mini-gitmoji.addCustomEmoji": "Add custom emoji other than Gitmoji",
-  "mini-gitmoji.onlyUseCustomEmoji": "Only use your custom emoji, not the ones in the Gitmoji",
+  "mini-gitmoji.addCustomEmoji.items": "A gitmoji entry",
   "mini-gitmoji.gitCommitType": "You can configure the emoji submission method, including emoji, code, and emoji-code",
   "mini-gitmoji.gitCommitType.code": "Suitable for GitHub, Gitee etc",
   "mini-gitmoji.gitCommitType.emoji": "Suitable for GitHub, Gitlab, Coding, etc",
@@ -9,5 +9,6 @@
   "mini-gitmoji.emojiType": "Emoticon types, standard and emoji",
   "mini-gitmoji.emojiType.standard": "Standard Emoji",
   "mini-gitmoji.emojiType.gitmoji": "Gitmoji Emoji",
+  "mini-gitmoji.emojiType.only": "Only use your custom emoji, not the ones in the Gitmoji",
   "mini-gitmoji.asSuffix": "Insertion of Gitmoji at the end of messages"
 }

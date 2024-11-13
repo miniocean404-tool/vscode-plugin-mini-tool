@@ -1,7 +1,7 @@
 **简体中文** | [English](README.en.md)
 
 <p align="center">
-  <img src="assets/gitmoji.gif" width="400">
+  <img src="./assets/gitmoji.gif" width="400">
 </p>
 
 <p align="center">
@@ -39,10 +39,12 @@
 ### 💻 扩展示例截图
 
 <p align="center">
-    <img src="assets/about.gif">
+    <img src="./assets/about.gif">
 </p>
 
 ### 表情符号类型
+
+- `emojiType` - 配置表情符号的输出类型（默认为 `standard` 模式）。
 
 示例配置：
 
@@ -52,7 +54,7 @@
 }
 ```
 
-> **提示**：standard 为 git 标准提交的表情符号, 来自 [cz-git](https://github.com/Zhengqbbb/cz-git) 的标准模板配置, gitmoji 为 [gitmoji](https://github.com/carloscuesta/gitmoji) 仓库的配置。
+> **提示**：「standard」 为 git 标准提交的表情符号, 来自 [cz-git](https://github.com/Zhengqbbb/cz-git) 的标准模板配置, 「gitmoji」 为 [gitmoji](https://github.com/carloscuesta/gitmoji) 仓库的配置，「only」 为只使用自定义的配置。
 
 ### 表情符号输出类型
 
@@ -88,18 +90,6 @@
       "description": "添加或更新与验证相关的代码"
     }
   ]
-}
-```
-
-### 仅使用自定义表情符号
-
-- `onlyUseCustomEmoji` - 仅使用自定义添加的表情符号，而不使用扩展中自带的表情符号（该功能默认关闭）。
-
-示例配置：
-
-```json
-{
-  "mini-tool.onlyUseCustomEmoji": true
 }
 ```
 

@@ -1,7 +1,6 @@
 # 待完成
 
-2. 修复 json fix 问题
-3. vue react html 的 html 结构生成 css 样式结构
+1. vue react html 的 html 结构生成 css 样式结构
 
 # 插件
 
