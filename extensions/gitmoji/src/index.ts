@@ -19,50 +19,56 @@ export function addShowGitmojiCommand(): vscode.Disposable {
     const addCustomEmoji = vscode.workspace.getConfiguration().get<Array<GitmojiInfo>>(CONFIG_ADD_CUSTOM_EMOJI) || []
     let onlyUseCustomEmoji = vscode.workspace.getConfiguration().get<boolean>(CONFIG_ONLY_USE_CUSTOM_EMOJI)
     let configEmojiType = vscode.workspace.getConfiguration().get<GitmojiTypeConfig>(CONFIG_EMOJI_TYPE)
+    const outputType = vscode.workspace.getConfiguration().get<keyof GitCommitType>(CONFIG_OUTPUT_TYPE)
+    const asSuffix = vscode.workspace.getConfiguration().get<boolean>(CONFIG_AS_SUFFIX)
+
+    const isStanderand = configEmojiType === "standard"
+    const isGitmoji = configEmojiType === "gitmoji"
 
     let emojis: GitmojiInfo[] = onlyUseCustomEmoji
       ? [...addCustomEmoji]
-      : configEmojiType === "standard"
+      : isStanderand
         ? [...StandardEmoji, ...addCustomEmoji]
-        : [...Gitmoji, ...addCustomEmoji]
+        : isGitmoji
+          ? [...Gitmoji, ...addCustomEmoji]
+          : []
 
     const items = emojis.map((info) => {
-      let { emoji, code, description } = info
-
-      code = configEmojiType === "standard" ? code : `:${code}:`
-      const label = `${emoji} ${code} `
+      let { emoji, code, description, placeholder } = info
+      const label = `${emoji} ${placeholder || code} ${description}`
+      const emojiCode = `${emoji} ${placeholder || code.slice(1)}`
 
       return {
-        label: label + description,
+        label,
         code,
         emoji,
+        emojiCode,
       }
     })
 
     // vscode.window vscode 窗口对象
     vscode.window.showQuickPick(items).then(function (selected) {
       if (selected) {
-        const outputTypeEnum = {
+        // 打开源代码管理（Source Control Management，简称 SCM）视图
+        vscode.commands.executeCommand("workbench.view.scm")
+
+        const gitCommitType: GitCommitType = {
           emoji: selected.emoji,
           code: selected.code,
-          "emoji-code": `${selected.emoji} ${selected.code.slice(1)}`,
+          "emoji-code": selected.emojiCode,
         }
 
-        const outputType = vscode.workspace.getConfiguration().get<keyof typeof outputTypeEnum>(CONFIG_OUTPUT_TYPE)
-        const asSuffix = vscode.workspace.getConfiguration().get<boolean>(CONFIG_AS_SUFFIX) || false
+        const prefix = outputType && gitCommitType[outputType]
 
-        vscode.commands.executeCommand("workbench.view.scm")
-        const valueToAdd = outputType && outputTypeEnum[outputType]
-
-        if (uri && valueToAdd) {
+        if (uri && prefix) {
           const uriPath = uri._rootUri?.path || uri.rootUri.path
           let selectedRepository = git.repositories.find((repository) => repository.rootUri.path === uriPath)
           if (selectedRepository) {
-            updateCommit(selectedRepository, valueToAdd, asSuffix)
+            updateCommit(selectedRepository, prefix, asSuffix)
           }
-        } else if (valueToAdd) {
+        } else if (prefix) {
           for (let repo of git.repositories) {
-            updateCommit(repo, valueToAdd, asSuffix)
+            updateCommit(repo, prefix, asSuffix)
           }
         }
       }
@@ -72,7 +78,7 @@ export function addShowGitmojiCommand(): vscode.Disposable {
   return disposable
 }
 
-function updateCommit(repository: Repository, valueOfGitmoji: String, asSuffix: boolean) {
+function updateCommit(repository: Repository, valueOfGitmoji: String, asSuffix?: boolean) {
   if (!asSuffix) {
     repository.inputBox.value = `${valueOfGitmoji} ${repository.inputBox.value}`
   } else {
