@@ -1,7 +1,7 @@
 {
   "name": "mini-json-fix",
   "description": "自用 JSON 修复工具",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "miniocean404",
   "license": "MIT",
   "repository": {
@@ -27,10 +27,10 @@
     "tool",
     "mini-tool",
     "minitool",
-    "mini better align",
-    "minibetteralign",
-    "betteralign",
-    "align"
+    "mini json fix",
+    "minijsonfix",
+    "json",
+    "fix"
   ],
   "engines": {
     "vscode": "^1.93.0"

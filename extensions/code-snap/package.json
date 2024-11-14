@@ -1,7 +1,7 @@
 {
   "name": "mini-code-snap",
   "description": "自用代码快照",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "miniocean404",
   "license": "MIT",
   "repository": {
@@ -27,10 +27,10 @@
     "tool",
     "mini-tool",
     "minitool",
-    "mini better align",
-    "minibetteralign",
-    "betteralign",
-    "align"
+    "mini code snap",
+    "minicodesnap",
+    "code",
+    "snap"
   ],
   "engines": {
     "vscode": "^1.93.0"
