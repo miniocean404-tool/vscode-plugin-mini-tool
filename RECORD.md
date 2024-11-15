@@ -1,6 +1,7 @@
 # 待完成
 
 1. vue react html 的 html 结构生成 css 样式结构
+2. typescript 竖向格式化，参考：https://github.com/prisma/prisma-engines/tree/main/prisma-fmt/src
 
 # 插件
 
