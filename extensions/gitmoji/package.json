@@ -1,7 +1,7 @@
 {
   "name": "mini-gitmoji",
   "description": "自用 gitmoji 日志规范提交、提交图标等",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "author": "miniocean404",
   "license": "MIT",
   "repository": {
@@ -102,7 +102,10 @@
               "title": "%mini-gitmoji.customEmoji.items%",
               "properties": {
                 "emoji": {
-                  "type": "string"
+                  "type": [
+                    "string",
+                    "null"
+                  ]
                 },
                 "code": {
                   "type": "string"

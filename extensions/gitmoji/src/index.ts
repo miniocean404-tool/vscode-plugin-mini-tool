@@ -30,8 +30,9 @@ export function addShowGitmojiCommand(): vscode.Disposable {
 
     const items = emojis.map((info) => {
       let { emoji, code, description, placeholder } = info
-      const label = `${emoji} ${placeholder || code} ${description}`
-      const emojiCode = `${emoji} ${placeholder || code.slice(1)}`
+      // 只在选择时候展示的样子
+      const label = `${emoji} ${placeholder || code} ${description}`.trim()
+      const emojiCode = `${emoji} ${placeholder || code.slice(1)}`.trim()
 
       return {
         label,
@@ -73,6 +74,9 @@ export function addShowGitmojiCommand(): vscode.Disposable {
   return disposable
 }
 
+/**
+ * 更新 vscode 窗口对象的提交信息
+ */
 function updateCommit(repository: Repository, valueOfGitmoji: String, asSuffix?: boolean) {
   if (!asSuffix) {
     repository.inputBox.value = `${valueOfGitmoji} ${repository.inputBox.value}`
@@ -81,6 +85,9 @@ function updateCommit(repository: Repository, valueOfGitmoji: String, asSuffix?:
   }
 }
 
+/**
+ * 获取 Git 扩展暴露的功能
+ */
 function getGitExtension() {
   const vscodeGit = vscode.extensions.getExtension<GitExtension>("vscode.git")
   const gitExtension = vscodeGit && vscodeGit.exports
