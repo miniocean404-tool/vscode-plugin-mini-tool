@@ -29,7 +29,10 @@ export function addShowGitmojiCommand(): vscode.Disposable {
     let emojis: GitmojiInfo[] = EmojiType[configEmojiType]
 
     const items = emojis.map((info) => {
-      let { emoji, code, description, placeholder } = info
+      let { emoji = '', code = '', description = '', placeholder = '' } = info
+
+      console.log(emoji);
+
       // 只在选择时候展示的样子
       const label = `${emoji} ${placeholder || code} ${description}`.trim()
       const emojiCode = `${emoji} ${placeholder || code.slice(1)}`.trim()
@@ -49,7 +52,7 @@ export function addShowGitmojiCommand(): vscode.Disposable {
         vscode.commands.executeCommand("workbench.view.scm")
 
         const gitCommitTypeEnum: GitCommitType = {
-          emoji: selected.emoji,
+          emoji: selected.emoji || '',
           code: selected.code,
           "emoji-code": selected.emojiCode,
         }

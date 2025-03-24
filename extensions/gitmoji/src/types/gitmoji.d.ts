@@ -1,5 +1,5 @@
 interface GitmojiInfo {
-  readonly emoji: string
+  readonly emoji?: string
   readonly code: string
   readonly description: string
   readonly placeholder?: string
