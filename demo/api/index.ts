@@ -21,6 +21,8 @@ async function other() {
   // }),
   // 可以执行其他插件的命令，也可以执行内置命令
   // vscode.commands.executeCommand("mini-chinese-format.chineseFormat")
+  // 多创建 vsocde 一个日志输入展示渠道
+  // extensionDebugChannel = vscode.window.createOutputChannel('AutoJs6 VSCode Extension Debug');
 }
 
 function select() {
