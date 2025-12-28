@@ -10,5 +10,9 @@
   "mini-gitmoji.emojiType.standard": "Standard Emoji",
   "mini-gitmoji.emojiType.gitmoji": "Gitmoji Emoji",
   "mini-gitmoji.emojiType.only": "Only use your custom emoji, not the ones in the Gitmoji",
-  "mini-gitmoji.asSuffix": "Insertion of Gitmoji at the end of messages"
+  "mini-gitmoji.autoMatch": "Auto-match emoji based on existing commit message",
+  "mini-gitmoji.insertPosition": "Emoji insertion position",
+  "mini-gitmoji.insertPosition.start": "Insert at the beginning of the message",
+  "mini-gitmoji.insertPosition.end": "Insert at the end of the message",
+  "mini-gitmoji.insertPosition.cursor": "Insert at cursor position"
 }

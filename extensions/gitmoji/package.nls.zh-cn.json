@@ -10,5 +10,9 @@
     "mini-gitmoji.emojiType.standard": "标准表情符号",
     "mini-gitmoji.emojiType.gitmoji": "Gitmoji 表情符号",
     "mini-gitmoji.emojiType.only": "仅使用自定义添加的表情符号，而不使用扩展中自带的表情符号",
-    "mini-gitmoji.asSuffix": "开启在消息末尾插入表情符号功能"
+    "mini-gitmoji.autoMatch": "根据已输入的提交信息自动匹配表情符号",
+    "mini-gitmoji.insertPosition": "表情符号插入位置",
+    "mini-gitmoji.insertPosition.start": "在消息开头插入",
+    "mini-gitmoji.insertPosition.end": "在消息末尾插入",
+    "mini-gitmoji.insertPosition.cursor": "在光标位置插入"
 }

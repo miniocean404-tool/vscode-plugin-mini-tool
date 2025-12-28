@@ -123,10 +123,25 @@
             },
             "description": "%mini-gitmoji.customEmoji%"
           },
-          "mini-gitmoji.asSuffix": {
+          "mini-gitmoji.autoMatch": {
             "type": "boolean",
             "default": false,
-            "description": "%mini-gitmoji.asSuffix%"
+            "description": "%mini-gitmoji.autoMatch%"
+          },
+          "mini-gitmoji.insertPosition": {
+            "type": "string",
+            "default": "start",
+            "enum": [
+              "start",
+              "end",
+              "cursor"
+            ],
+            "enumDescriptions": [
+              "%mini-gitmoji.insertPosition.start%",
+              "%mini-gitmoji.insertPosition.end%",
+              "%mini-gitmoji.insertPosition.cursor%"
+            ],
+            "description": "%mini-gitmoji.insertPosition%"
           }
         }
       }

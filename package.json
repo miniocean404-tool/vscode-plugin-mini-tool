@@ -30,16 +30,15 @@
     "generate:l10n-base": "pnpx @vscode/l10n-dev export  --outDir ./l10n ./src"
   },
   "devDependencies": {
-    "@types/node": "^22.5.5",
-    "@types/vscode": "1.95.0",
-    "@vscode/vsce": "3.2.1",
-    "esbuild": "0.24.0",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^3.3.3",
-    "typescript": "5.6.3",
-    "tsx": "^4.19.2",
+    "@types/node": "^25.0.3",
+    "@types/vscode": "1.107.0",
+    "@vscode/l10n": "^0.0.18",
     "@vscode/l10n-dev": "0.0.35",
-    "@vscode/l10n": "^0.0.18"
-  },
-  "dependencies": {}
+    "@vscode/vsce": "3.7.1",
+    "esbuild": "0.27.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.7.4",
+    "tsx": "^4.21.0",
+    "typescript": "5.9.3"
+  }
 }
