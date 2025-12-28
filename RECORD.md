@@ -7,6 +7,11 @@
 
 1. 如果出现类型 @mini-tool 的包引用不到, 需要单独编译一下 packages/utils
 
+# Cursor OVSX 发布
+
+1. 文章: https://blog.csdn.net/bulucc/article/details/154742430
+2. 插件市场: https://open-vsx.org/
+
 # 插件
 
 ## 文章 Demo

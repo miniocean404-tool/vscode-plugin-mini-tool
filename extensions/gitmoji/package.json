@@ -16,7 +16,9 @@
     "check-types": "tsc --noEmit",
     "build:vsce": "pnpm vsce package --no-dependencies",
     "publish:vsce": "pnpm vsce publish --no-dependencies",
-    "patch-publish:vsce": "pnpm vsce publish patch --no-dependencies"
+    "patch-publish:vsce": "pnpm vsce publish patch --no-dependencies",
+    "cursor:publish": "ovsx publish -p miniocean404 mini-gitmoji-0.0.20.vsix",
+    "view:cursor-version": "ovsx view miniocean404.mini-gitmoji"
   },
   "displayName": "Mini Gitmoji",
   "main": "./dist/extension.js",

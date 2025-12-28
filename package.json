@@ -24,6 +24,7 @@
     "build": "pnpm --filter mini-* build:vsce",
     "patch-publish": "pnpm --filter mini-* patch-publish:vsce",
     "login": "vsce login miniocean404",
+    "cursor:login": "ovsx login",
     "build:utils": "pnpm --filter ./packages/utils --parallel --stream run build",
     "watch:extensions": "pnpm --filter mini-* --parallel --stream run watch:dev",
     "build:extensions": "pnpm --filter ./extensions/** --parallel --stream run build",
