@@ -48,5 +48,6 @@ export function getEmojisByConfig(symbol: GitmojiTypeConfig, customEmoji: Gitmoj
 export function buildTokensToStrip(emojis: GitmojiInfo[]): string[] {
   const emojiTokens = emojis.map((e) => e.emoji).filter(Boolean) as string[]
   const codeTokens = emojis.map((e) => e.code).filter(Boolean)
-  return Array.from(new Set([...emojiTokens, ...codeTokens]))
+  const placeholderTokens = emojis.map((e) => e.placeholder).filter(Boolean) as string[]
+  return Array.from(new Set([...emojiTokens, ...codeTokens, ...placeholderTokens]))
 }
