@@ -3,6 +3,10 @@
 1. vue react html 的 html 结构生成 css 样式结构
 2. typescript 竖向格式化，参考：https://github.com/prisma/prisma-engines/tree/main/prisma-fmt/src
 
+# 问题
+
+1. 如果出现类型 @mini-tool 的包引用不到, 需要单独编译一下 packages/utils
+
 # 插件
 
 ## 文章 Demo

@@ -1,6 +1,6 @@
 import { COMMAND_JSON_FIX } from "./constant"
 import * as vscode from "vscode"
-import { JsonProvider } from "@/provider"
+import { JsonProvider } from "./provider"
 
 // 打开新的编辑器并写入内容
 export function fixJsonCommand(context: vscode.ExtensionContext) {

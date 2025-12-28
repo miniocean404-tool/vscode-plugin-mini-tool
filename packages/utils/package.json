@@ -6,6 +6,7 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "browser": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "node": "./dist/index.js",
@@ -31,6 +32,11 @@
       "types": "./dist/pref.d.ts"
     },
     "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["./src/*"]
+    }
   },
   "files": [
     "dist/*",
