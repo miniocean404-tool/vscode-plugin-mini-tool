@@ -25,7 +25,7 @@ export function addShowGitmojiCommand(context: vscode.ExtensionContext): vscode.
     const selected = await showEmojiPicker(emojis)
     if (!selected) return
 
-    await incrementUsageCount(context, selected.code, selected.emoji, selected.description)
+    await incrementUsageCount(context, selected.code, selected.emoji, selected.emojiCode)
 
     const valueToAdd = getValueToAdd(selected, outputType)
     if (!valueToAdd) return
