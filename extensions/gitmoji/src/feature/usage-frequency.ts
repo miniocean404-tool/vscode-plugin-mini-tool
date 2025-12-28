@@ -11,7 +11,7 @@ export function loadUsageCounts(context: vscode.ExtensionContext): Record<string
 /**
  * 按使用频率排序 emoji 列表
  */
-export function sortEmojisByUsage(emojis: Array<GitmojiInfo>, usage: Record<string, number>): Array<GitmojiInfo> {
+export function sortEmojisByUsage(emojis: GitmojiInfo[], usage: Record<string, number>): GitmojiInfo[] {
   return emojis
     .map((item, idx) => ({ item, idx }))
     .sort((a, b) => {

@@ -29,7 +29,9 @@ export async function focusScmInputForRepoIndex(index?: number): Promise<void> {
   try {
     // 打开源代码管理（Source Control Management，简称 SCM）视图
     await vscode.commands.executeCommand("workbench.view.scm")
-  } catch {}
+  } catch {
+    vscode.window.showErrorMessage("不能打开源代码管理（Source Control Management，简称 SCM）视图")
+  }
 
   if (index === undefined) return
 
@@ -37,5 +39,7 @@ export async function focusScmInputForRepoIndex(index?: number): Promise<void> {
     for (let i = 0; i <= index; i++) {
       await vscode.commands.executeCommand("workbench.scm.action.focusNextInput")
     }
-  } catch {}
+  } catch {
+    vscode.window.showErrorMessage("不能聚焦到指定仓库的 SCM 输入框")
+  }
 }
