@@ -1,25 +1,67 @@
 {
+  "include": ["./extensions/**/*.ts", "./extensions/**/package.nls.*.json"],
+  "exclude": ["demo"],
+  // 用于将大型代码库拆分成多个子项目（子 tsconfig），并建立依赖关系，从而提升编译性能和模块化管理, 但是子模块之间不能循环引用
+  "references": [
+    { "path": "./extensions/better-align" },
+    { "path": "./extensions/chinese-format" },
+    { "path": "./extensions/code-snap" },
+    { "path": "./extensions/css-px-ignore" },
+    { "path": "./extensions/gitmoji" },
+    { "path": "./extensions/json-fix" },
+    { "path": "./extensions/mini-tool" },
+    { "path": "./extensions/region" },
+    { "path": "./extensions/snippets" }
+  ],
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
     },
-    "target": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "sourceMap": true,
-    "rootDir": ".",
-    "outDir": "dist",
-    "strict": true,
-
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "allowImportingTsExtensions": true,
     "noEmit": true,
 
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
-  },
-  "include": ["./extensions/**/*.ts", "./extensions/**/package.nls.*.json"],
-  "exclude": ["demo"]
+    "rootDir": ".", // 根目录
+    "outDir": "lib", // 输出目录
+    "composite": true, // 将一个 TypeScript 项目标记为一个“复合项目”，这意味着它可以被其他项目所引用，并且它自身也可以引用其他复合项目, 可以使用 references 来声明所依赖的复合项目
+
+    "target": "ESNext", // 指定 ECMAScript 目标版本
+    "module": "ESNext", // 指定模块代码生成
+    "moduleResolution": "bundler", // 模块解析策略
+    "allowJs": true, // 允许编译 JS 文件
+    "resolveJsonModule": true, // 允许导入 JSON 模块
+    "esModuleInterop": true, // 发出额外的 JavaScript 来简化对导入 CommonJS 模块的支持（import * as React from 'react' 这种写法）
+    "allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入
+    "allowImportingTsExtensions": true, // 允许导入带有 .ts 扩展名的文件
+    "sourceMap": true, // 生成 sourceMap 文件
+    "removeComments": false, // 保留注释
+    "preserveConstEnums": true, // 保留 const 和 enum 声明
+    "forceConsistentCasingInFileNames": true, // 用于强制检查文件路径的大小写一致性, 防止 Mac 和 Windows 之间大小写不一致导致的问题
+    "useDefineForClassFields": false, // 使用 defineProperty 来定义类字段, 开启需要 es2022 的支持，关闭可以兼容旧浏览器
+    "moduleDetection": "force", // 可选值有："auto"、"legacy"、"force", force 强制 TypeScript 把所有 .ts/.tsx/.mts/.cts 文件当成“模块”（module），而不管它们有没有 import 或 export 语句, 默认行为：只有文件里出现 import/export 时，TypeScript 才会把它当“模块”；否则把它当“脚本”（script），脚本里的代码会被放进全局作用域
+
+    "declaration": true, // 生成声明文件
+    "emitDeclarationOnly": true, // 只生成声明文件
+    "skipLibCheck": true, // 跳过库文件的类型检查，可以提升编译速度
+    "verbatimModuleSyntax": false, // 使用 import type 和 export type 必须明确用于类型导入，false 时，可以省略 type 关键字并且 TypeScript 会自动将只用于类型的导入转换为 import type
+
+    "incremental": true, // 是否启用增量编译，大型项目开启可能会因 .tsbuildinfo 导致编译失败
+
+    "experimentalDecorators": true, // 启用装饰器
+    "emitDecoratorMetadata": true, // 启用装饰器元数据
+
+    "strict": true,
+    "strictNullChecks": true, // 启用严格的 null 检查
+    "noImplicitAny": false, // 禁用隐式 any 类型检查
+    "noUnusedLocals": false, // 关闭本地变量未被读取时的错误
+    "noUnusedParameters": false, // 关闭未使用的参数错误
+    "noImplicitReturns": false, // 函数不是所有代码路径都有返回值时的错误
+    "noUncheckedSideEffectImports": false, // false 时（默认值），允许导入可能带有副作用（Side Effects）的模块而不需要显式标记。如果设置为 true，TypeScript 会要求所有导入的模块必须显式声明是否有副作用（例如通过 "sideEffects": false 在 package.json 中标记）。
+    "noFallthroughCasesInSwitch": true, // 检查 switch 语句中的 case 是否“贯穿”（即没有显式使用 break 或 return 等终止语句）。如果发现未处理的贯穿，会抛出编译错误
+    "alwaysStrict": true,
+    "noImplicitThis": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true
+  }
 }
