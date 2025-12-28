@@ -4,36 +4,45 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "npm: watch",
+      "label": "watch-problem",
       "type": "npm",
-      "script": "watch",
+      // 对应 package.json 中 scripts 里定义的脚本名称。
+      "script": "build:utils",
       "group": {
+        // 将任务标记为可通过 ctrl+p "运行生成任务" 命令访问的生成任务。
         "kind": "build",
         // 设置当前任务为默认任务
         "isDefault": true
       },
       // $tsc-watch 是一个预定义的问题匹配器
-      // $tsc-watch 问题匹配器会解析任务输出中的错误和警告信息，并将其显示在 VSCode 的问题面板中
-      "problemMatcher": "$tsc-watch",
-      "isBackground": true,
+      // 问题匹配器，解析 tsc 输出的错误/警告, 也可以是 $tsc-watch, 将处理 tsc watch 时候的警告, 然后自动提取错误信息显示在"问题"面板中
+      "problemMatcher": ["$tsc"],
+      // 是否在后台运行任务, 并且执行完后保持等待
+      "isBackground": false,
+      // 配置用于显示任务输出并读取其输入的面板
       "presentation": {
-        "group": "watch",
+        // 终端分组名，相同 group 的任务共享终端面板
+        "group": "build",
+        // 不自动显示终端面板（静默运行）
         "reveal": "never"
       }
     },
     {
-      "label": "watch-build",
-      // 执行其他任务
-      "dependsOn": ["npm: watch:tsc"],
+      "label": "watch-dependencies",
+      // 执行其他任务，依赖于上方 watch 任务
+      "dependsOn": ["watch-problem"],
+      // 并行运行所有 dependsOn 任务
+      "dependsOrder": "parallel",
       "isBackground": true,
       "presentation": {
+        // 不自动显示终端面板（静默运行）
         "reveal": "never"
       },
       "group": {
         "kind": "build"
       },
       "runOptions": {
-        // 对该任务何时运行进行配置。如果设置为 folderOpen，那么该任务将在文件夹打开时自动运行
+        // 当打开文件夹/工作区时自动运行此任务
         "runOn": "folderOpen"
       }
     }
