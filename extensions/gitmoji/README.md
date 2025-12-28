@@ -42,15 +42,22 @@
     <img src="https://github.com/miniocean404-tool/vscode-plugin-mini-tool/raw/HEAD/extensions/gitmoji/assets/about.gif">
 </p>
 
+### 命令
+
+| 命令 | 描述 |
+| --- | --- |
+| `Mini Open Gitmoji` | 打开 Gitmoji 选择器 |
+| `Mini Clear Gitmoji Usage` | 清空 Gitmoji 使用频率记录 |
+
 ### 表情符号类型
 
-- `symbol` - 配置表情符号的输出类型（默认为 `standard` 模式）。
+- `mini-gitmoji.symbol` - 配置表情符号的输出类型（默认为 `standard` 模式）。
 
 示例配置：
 
 ```json
 {
-  "mini-tool.symbol": "standard"
+  "mini-gitmoji.symbol": "standard"
 }
 ```
 
@@ -58,13 +65,13 @@
 
 ### 表情符号输出类型
 
-- `outputType` - 配置表情符号的输出类型（默认为 `emoji-code` 模式）。
+- `mini-gitmoji.outputType` - 配置表情符号的输出类型（默认为 `emoji-code` 模式）。
 
 示例配置：
 
 ```json
 {
-  "mini-tool.outputType": "emoji-code"
+  "mini-gitmoji.outputType": "emoji-code"
 }
 ```
 
@@ -72,17 +79,18 @@
 
 ### 添加自定义表情符号
 
-- `addCustomEmoji` - 添加自定义表情符号。
+- `mini-gitmoji.addCustomEmoji` - 添加自定义表情符号。
 
 示例配置：
 
 ```json
 {
-  "mini-tool.addCustomEmoji": [
+  "mini-gitmoji.addCustomEmoji": [
     {
       "emoji": "🧵",
       "code": ":thread:",
-      "description": "添加或更新与多线程或并发相关的代码"
+      "description": "添加或更新与多线程或并发相关的代码",
+      "placeholder": "thread:"
     },
     {
       "emoji": "🦺",
@@ -93,29 +101,31 @@
 }
 ```
 
-### 通过简码搜索表情符号
+### 自动匹配表情符号
 
-- `showEmojiCode` - 开启通过简码搜索表情符号功能（该功能默认关闭）。
-
-示例配置：
-
-```json
-{
-  "mini-tool.showEmojiCode": true
-}
-```
-
-### 在消息最后插入表情符号
-
-- `asSuffix` - 开启在消息最后插入标签符号的功能（该功能默认关闭）。
+- `mini-gitmoji.autoMatch` - 根据已输入的提交信息自动匹配表情符号（该功能默认关闭）。
 
 示例配置：
 
 ```json
 {
-  "mini-tool.asSuffix": true
+  "mini-gitmoji.autoMatch": true
 }
 ```
+
+### 表情符号插入位置
+
+- `mini-gitmoji.insertPosition` - 配置表情符号的插入位置（默认为 `start`）。
+
+示例配置：
+
+```json
+{
+  "mini-gitmoji.insertPosition": "start"
+}
+```
+
+> **提示**：可选值为 `start`（消息开头）、`end`（消息末尾）、`cursor`（光标位置）。
 
 ## 🤝 参与共建
 
