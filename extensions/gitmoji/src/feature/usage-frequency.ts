@@ -15,8 +15,8 @@ export function sortEmojisByUsage(emojis: GitmojiInfo[], usage: Record<string, n
   return emojis
     .map((item, idx) => ({ item, idx }))
     .sort((a, b) => {
-      const ak = getEmojiKey(a.item.code, a.item.emoji)
-      const bk = getEmojiKey(b.item.code, b.item.emoji)
+      const ak = getEmojiKey(a.item.code, a.item.emoji, a.item.description)
+      const bk = getEmojiKey(b.item.code, b.item.emoji, b.item.description)
       const ac = usage[ak] || 0
       const bc = usage[bk] || 0
       if (ac !== bc) return bc - ac // 降序
@@ -32,8 +32,9 @@ export async function incrementUsageCount(
   context: vscode.ExtensionContext,
   code?: string,
   emoji?: string,
+  description?: string,
 ): Promise<void> {
-  const key = getEmojiKey(code, emoji)
+  const key = getEmojiKey(code, emoji, description)
   if (!key) return
   const usage = loadUsageCounts(context)
   usage[key] = (usage[key] || 0) + 1
@@ -43,8 +44,9 @@ export async function incrementUsageCount(
 /**
  * 获取 emoji 的唯一标识 key
  */
-export function getEmojiKey(code?: string, emoji?: string): string {
+export function getEmojiKey(code?: string, emoji?: string, description?: string): string {
   if (code && code.length > 0) return code
   if (emoji && emoji.length > 0) return emoji
+  if (description && description.length > 0) return description
   return ""
 }
