@@ -1,8 +1,8 @@
 {
   "extends": "../../tsconfig.json",
+  "include": ["./src/**/*.ts", "./package.nls.*.json"],
   "compilerOptions": {
     "baseUrl": "./",
     "rootDir": "."
-  },
-  "include": ["./src/**/*.ts", "./package.nls.*.json"]
+  }
 }

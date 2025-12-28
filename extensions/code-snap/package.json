@@ -54,6 +54,6 @@
     "@mini-tool/utils": "workspace:*"
   },
   "devDependencies": {
-    "esbuild": "0.24.0"
+    "esbuild": "catalog:"
   }
 }
