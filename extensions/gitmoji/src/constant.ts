@@ -1,4 +1,5 @@
 export const COMMAND_SHOW_GITMOJI = "mini-gitmoji.showGitmoji"
+export const COMMAND_CLEAR_USAGE = "mini-gitmoji.clearUsage"
 
 export const CONFIG_CUSTOM_EMOJI = "mini-gitmoji.addCustomEmoji"
 export const CONFIG_COMMIT_TYPE = "mini-gitmoji.outputType"

@@ -9,6 +9,29 @@ export function loadUsageCounts(context: vscode.ExtensionContext): Record<string
 }
 
 /**
+ * 增加 emoji 使用次数
+ */
+export async function incrementUsageCount(
+  context: vscode.ExtensionContext,
+  code?: string,
+  emoji?: string,
+  description?: string,
+): Promise<void> {
+  const key = getEmojiKey(code, emoji, description)
+  if (!key) return
+  const usage = loadUsageCounts(context)
+  usage[key] = (usage[key] || 0) + 1
+  await context.globalState.update(STORAGE_USAGE_KEY, usage)
+}
+
+/**
+ * 清空使用频率记录
+ */
+export async function clearUsageCounts(context: vscode.ExtensionContext) {
+  await context.globalState.update(STORAGE_USAGE_KEY, {})
+}
+
+/**
  * 按使用频率排序 emoji 列表
  */
 export function sortEmojisByUsage(emojis: GitmojiInfo[], usage: Record<string, number>): GitmojiInfo[] {
@@ -23,22 +46,6 @@ export function sortEmojisByUsage(emojis: GitmojiInfo[], usage: Record<string, n
       return a.idx - b.idx // 稳定排序
     })
     .map((x) => x.item)
-}
-
-/**
- * 增加 emoji 使用次数
- */
-export async function incrementUsageCount(
-  context: vscode.ExtensionContext,
-  code?: string,
-  emoji?: string,
-  description?: string,
-): Promise<void> {
-  const key = getEmojiKey(code, emoji, description)
-  if (!key) return
-  const usage = loadUsageCounts(context)
-  usage[key] = (usage[key] || 0) + 1
-  await context.globalState.update(STORAGE_USAGE_KEY, usage)
 }
 
 /**

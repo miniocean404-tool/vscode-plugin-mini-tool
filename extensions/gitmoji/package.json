@@ -49,6 +49,10 @@
         "command": "mini-gitmoji.showGitmoji",
         "title": "%mini-gitmoji.showGitmoji.title%",
         "icon": "$(smiley)"
+      },
+      {
+        "command": "mini-gitmoji.clearUsage",
+        "title": "%mini-gitmoji.clearUsage.title%"
       }
     ],
     "menus": {

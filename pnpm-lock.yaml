@@ -48,15 +48,15 @@ importers:
   extensions/chinese-format:
     dependencies:
       pangu:
-        specifier: ^4.0.7
-        version: 4.0.7
+        specifier: ^7.2.0
+        version: 7.2.0
     devDependencies:
       '@types/pangu':
         specifier: ^4.0.2
         version: 4.0.2
       esbuild:
-        specifier: 0.24.0
-        version: 0.24.0
+        specifier: 0.27.2
+        version: 0.27.2
 
   extensions/code-snap:
     dependencies:
@@ -1655,8 +1655,9 @@ packages:
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
 
-  pangu@4.0.7:
-    resolution: {integrity: sha512-weZKJIwwy5gjt4STGVUH9bix3BGk7wZ2ahtIypwe3e/mllsrIZIvtfLx1dPX56GcpZFOCFKmeqI1qVuB9enRzA==}
+  pangu@7.2.0:
+    resolution: {integrity: sha512-ak81fYnTD36UvRxp6yNmCyV8T/s9dtv/OS9LjTNwh3TMo5i1OhtLmFDxyw1rTZWAnfrj/00gtl883+RE2r+4tA==}
+    engines: {node: '>=18.0.0'}
     hasBin: true
 
   parse-json@4.0.0:
@@ -3900,7 +3901,7 @@ snapshots:
 
   package-json-from-dist@1.0.1: {}
 
-  pangu@4.0.7: {}
+  pangu@7.2.0: {}
 
   parse-json@4.0.0:
     dependencies:

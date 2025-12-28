@@ -1,7 +1,7 @@
 import * as vscode from "vscode"
-import { COMMAND_SHOW_GITMOJI } from "./constant"
+import { COMMAND_SHOW_GITMOJI, COMMAND_CLEAR_USAGE } from "./constant"
 import { getGitExtension, focusScmInputForRepoIndex } from "./feature/git"
-import { loadUsageCounts, sortEmojisByUsage, incrementUsageCount } from "./feature/usage-frequency"
+import { loadUsageCounts, sortEmojisByUsage, incrementUsageCount, clearUsageCounts } from "./feature/usage-frequency"
 import { getConfig, getEmojisByConfig, buildTokensToStrip } from "./feature/config"
 import { filterByAutoMatch, showEmojiPicker, getValueToAdd } from "./feature/emoji-picker"
 import { handleRepositoryInsert, handleAllRepositoriesInsert } from "./feature/repository"
@@ -57,5 +57,12 @@ export function addShowGitmojiCommand(context: vscode.ExtensionContext): vscode.
     }
 
     await focusScmInputForRepoIndex(targetIndex)
+  })
+}
+
+export function addClearUsageCommand(context: vscode.ExtensionContext): vscode.Disposable {
+  return vscode.commands.registerCommand(COMMAND_CLEAR_USAGE, async () => {
+    await clearUsageCounts(context)
+    vscode.window.showInformationMessage(vscode.l10n.t("Gitmoji usage cleared"))
   })
 }

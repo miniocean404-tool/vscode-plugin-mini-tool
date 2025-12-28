@@ -12,7 +12,7 @@ export function addChineseFormatCommand(): vscode.Disposable {
 
         selections.forEach((selection) => {
           const selectedText = editor.document.getText(selection)
-          const chineseFormat = pangu.spacing(selectedText)
+          const chineseFormat = pangu.spacingText(selectedText)
           editBuilder.replace(new vscode.Range(selection.start, selection.end), chineseFormat)
         })
       })

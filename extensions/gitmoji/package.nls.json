@@ -1,5 +1,6 @@
 {
   "mini-gitmoji.showGitmoji.title": "💗 Mini Open Gitmoji",
+  "mini-gitmoji.clearUsage.title": "💗 Mini Clear Gitmoji Usage",
   "mini-gitmoji.addCustomEmoji": "Add custom emoji other than Gitmoji",
   "mini-gitmoji.addCustomEmoji.items": "A gitmoji entry",
   "mini-gitmoji.outputType": "You can configure the emoji submission method, including emoji, code, and emoji-code",
