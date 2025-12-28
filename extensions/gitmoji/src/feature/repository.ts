@@ -66,7 +66,7 @@ function updateCommit(repository: Repository, commitMessage: string, asSuffix: b
   if (!tokenPattern) {
     repository.inputBox.value = asSuffix
       ? `${current}${current ? " " : ""}${commitMessage}`
-      : `${commitMessage} ${current}`.trim()
+      : current ? `${commitMessage}${current}` : commitMessage
     return
   }
 
@@ -78,7 +78,7 @@ function updateCommit(repository: Repository, commitMessage: string, asSuffix: b
     repository.inputBox.value = `${current}${current ? " " : ""}${commitMessage}`
   } else {
     current = removeLeadingTokens(current, startTokenRegex)
-    repository.inputBox.value = `${commitMessage} ${current}`.trim()
+    repository.inputBox.value = current ? `${commitMessage}${current}` : commitMessage
   }
 }
 

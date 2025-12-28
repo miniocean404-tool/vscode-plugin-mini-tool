@@ -40,9 +40,9 @@ export async function showEmojiPicker(emojis: GitmojiInfo[]): Promise<QuickPickI
 /** 获取要插入的值 */
 export function getValueToAdd(selected: QuickPickItem, outputType?: keyof GitCommitType): string | undefined {
   const map: GitCommitType = {
-    emoji: selected.emoji || "",
-    code: selected.code,
-    "emoji-code": selected.emojiCode,
+    emoji: `${selected.emoji} `,
+    code: `${selected.code} `,
+    "emoji-code": `${selected.emojiCode} `,
   }
   return outputType ? map[outputType] : undefined
 }
