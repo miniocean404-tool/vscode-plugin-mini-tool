@@ -44,13 +44,13 @@
 
 ### 表情符号类型
 
-- `emojiType` - 配置表情符号的输出类型（默认为 `standard` 模式）。
+- `symbol` - 配置表情符号的输出类型（默认为 `standard` 模式）。
 
 示例配置：
 
 ```json
 {
-  "mini-tool.emojiType": "standard"
+  "mini-tool.symbol": "standard"
 }
 ```
 
@@ -58,13 +58,13 @@
 
 ### 表情符号输出类型
 
-- `gitCommitType` - 配置表情符号的输出类型（默认为 `emoji-code` 模式）。
+- `outputType` - 配置表情符号的输出类型（默认为 `emoji-code` 模式）。
 
 示例配置：
 
 ```json
 {
-  "mini-tool.gitCommitType": "emoji-code"
+  "mini-tool.outputType": "emoji-code"
 }
 ```
 
@@ -72,13 +72,13 @@
 
 ### 添加自定义表情符号
 
-- `customEmoji` - 添加自定义表情符号。
+- `addCustomEmoji` - 添加自定义表情符号。
 
 示例配置：
 
 ```json
 {
-  "mini-tool.customEmoji": [
+  "mini-tool.addCustomEmoji": [
     {
       "emoji": "🧵",
       "code": ":thread:",

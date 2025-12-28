@@ -64,7 +64,7 @@
       {
         "title": "",
         "properties": {
-          "mini-gitmoji.emojiType": {
+          "mini-gitmoji.symbol": {
             "type": "string",
             "default": "standard",
             "enum": [
@@ -73,13 +73,13 @@
               "only"
             ],
             "enumDescriptions": [
-              "%mini-gitmoji.emojiType.standard%",
-              "%mini-gitmoji.emojiType.gitmoji%",
-              "%mini-gitmoji.emojiType.only%"
+              "%mini-gitmoji.symbol.standard%",
+              "%mini-gitmoji.symbol.gitmoji%",
+              "%mini-gitmoji.symbol.only%"
             ],
-            "description": "%mini-gitmoji.emojiType%"
+            "description": "%mini-gitmoji.symbol%"
           },
-          "mini-gitmoji.gitCommitType": {
+          "mini-gitmoji.outputType": {
             "type": "string",
             "default": "emoji-code",
             "enum": [
@@ -88,18 +88,18 @@
               "emoji-code"
             ],
             "enumDescriptions": [
-              "%mini-gitmoji.gitCommitType.code%",
-              "%mini-gitmoji.gitCommitType.emoji%",
-              "%mini-gitmoji.gitCommitType.emoji-code%"
+              "%mini-gitmoji.outputType.code%",
+              "%mini-gitmoji.outputType.emoji%",
+              "%mini-gitmoji.outputType.emoji-code%"
             ],
-            "description": "%mini-gitmoji.gitCommitType%"
+            "description": "%mini-gitmoji.outputType%"
           },
-          "mini-gitmoji.customEmoji": {
+          "mini-gitmoji.addCustomEmoji": {
             "type": "array",
             "default": [],
             "items": {
               "type": "object",
-              "title": "%mini-gitmoji.customEmoji.items%",
+              "title": "%mini-gitmoji.addCustomEmoji.items%",
               "properties": {
                 "emoji": {
                   "type": [
@@ -121,7 +121,7 @@
                 }
               }
             },
-            "description": "%mini-gitmoji.customEmoji%"
+            "description": "%mini-gitmoji.addCustomEmoji%"
           },
           "mini-gitmoji.autoMatch": {
             "type": "boolean",
