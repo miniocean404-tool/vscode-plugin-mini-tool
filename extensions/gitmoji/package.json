@@ -15,10 +15,12 @@
     "build": "pnpm run check-types && node esbuild.js --production",
     "check-types": "tsc --noEmit",
     "build:vsce": "pnpm vsce package --no-dependencies",
+    "build:cursor": "pnpm ovsx package --no-dependencies",
     "publish:vsce": "pnpm vsce publish --no-dependencies",
+    "cursor:publish": "pnpm ovsx publish --no-dependencies",
     "patch-publish:vsce": "pnpm vsce publish patch --no-dependencies",
-    "cursor:publish": "ovsx publish -p miniocean404 mini-gitmoji-0.0.20.vsix",
-    "view:cursor-version": "ovsx view miniocean404.mini-gitmoji"
+    "patch-publish:cursor": "pnpm ovsx publish patch --no-dependencies",
+    "view:cursor-version": "pnpm ovsx view miniocean404.mini-gitmoji"
   },
   "displayName": "Mini Gitmoji",
   "main": "./dist/extension.js",

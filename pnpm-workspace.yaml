@@ -4,3 +4,5 @@ packages:
 
 catalog:
   "esbuild": 0.27.2
+  "ovsx": 0.10.7
+  "@vscode/vsce": 3.7.1
