@@ -19,8 +19,7 @@
     "publish:vsce": "pnpm vsce publish --no-dependencies",
     "cursor:publish": "pnpm ovsx publish --no-dependencies",
     "patch-publish:vsce": "pnpm vsce publish patch --no-dependencies",
-    "patch-publish:cursor": "pnpm ovsx publish patch --no-dependencies",
-    "view:cursor-version": "pnpm ovsx view miniocean404.mini-gitmoji"
+    "patch-publish:cursor": "pnpm ovsx publish patch --no-dependencies"
   },
   "displayName": "Mini Gitmoji",
   "main": "./dist/extension.js",

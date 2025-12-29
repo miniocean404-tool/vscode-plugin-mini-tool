@@ -15,8 +15,11 @@
     "build": "pnpm run check-types && node esbuild.js --production",
     "check-types": "tsc --noEmit",
     "build:vsce": "pnpm vsce package --no-dependencies",
+    "build:cursor": "pnpm ovsx package --no-dependencies",
     "publish:vsce": "pnpm vsce publish --no-dependencies",
-    "patch-publish:vsce": "pnpm vsce publish patch --no-dependencies"
+    "cursor:publish": "pnpm ovsx publish --no-dependencies",
+    "patch-publish:vsce": "pnpm vsce publish patch --no-dependencies",
+    "patch-publish:cursor": "pnpm ovsx publish patch --no-dependencies"
   },
   "displayName": "Mini Chinese Format",
   "main": "./dist/extension.js",
