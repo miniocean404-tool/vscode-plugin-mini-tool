@@ -12,7 +12,7 @@ export function addShowGitmojiCommand(context: vscode.ExtensionContext): vscode.
     const git = getGitExtension()
     if (!git) return vscode.window.showErrorMessage("不能加载 Git 扩展")
 
-    const { symbol, customEmoji, outputType, autoMatch, insertPosition } = getConfig()
+    const { symbol, customEmoji, outputType = "emoji-code", autoMatch, insertPosition } = getConfig()
 
     const emojis = getEmojisByConfig(symbol, customEmoji)
 
