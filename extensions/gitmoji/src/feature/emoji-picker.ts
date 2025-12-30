@@ -25,10 +25,10 @@ export function filterByAutoMatch(emojis: GitmojiInfo[], comment: string): Gitmo
 /** 构建 QuickPick 选项 */
 export function buildQuickPickItems(emojis: GitmojiInfo[]): QuickPickItem[] {
   return emojis.map(({ emoji = "", code = "", description = "", placeholder = "" }) => ({
-    label: `${emoji} ${placeholder || code} ${description}`.trim(),
+    label: `${emoji} ${placeholder} ${description}`.trim(),
     code,
     emoji,
-    emojiCode: `${emoji} ${placeholder || code.slice(1)}`.trim(),
+    emojiCode: `${emoji} ${placeholder}`.trim(),
   }))
 }
 

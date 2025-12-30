@@ -5,6 +5,7 @@ import { loadUsageCounts, sortEmojisByUsage, incrementUsageCount, clearUsageCoun
 import { getConfig, getEmojisByConfig, buildTokensToStrip } from "./feature/config"
 import { filterByAutoMatch, showEmojiPicker, getValueToAdd } from "./feature/emoji-picker"
 import { handleRepositoryInsert, handleAllRepositoriesInsert } from "./feature/repository"
+import { checkOutputType } from "./utils/validtor"
 
 export function addShowGitmojiCommand(context: vscode.ExtensionContext): vscode.Disposable {
   return vscode.commands.registerCommand(COMMAND_SHOW_GITMOJI, async (uri?) => {
@@ -12,17 +13,21 @@ export function addShowGitmojiCommand(context: vscode.ExtensionContext): vscode.
     if (!git) return vscode.window.showErrorMessage("不能加载 Git 扩展")
 
     const { symbol, customEmoji, outputType, autoMatch, insertPosition } = getConfig()
-    const allEmojis = getEmojisByConfig(symbol, customEmoji)
+
+    const emojis = getEmojisByConfig(symbol, customEmoji)
+
+    // 校验是否符合规范
+    if (!checkOutputType(emojis, outputType)) return
 
     // 加载使用频率并过滤/排序
     const usage = loadUsageCounts(context)
     // 获取仓库第 0 个输入框的值
     const comment = autoMatch && git.repositories.length > 0 ? git.repositories[0].inputBox.value : ""
     // 过滤/排序 emoji
-    const emojis = sortEmojisByUsage(filterByAutoMatch(allEmojis, comment), usage)
+    const sortEmojis = sortEmojisByUsage(filterByAutoMatch(emojis, comment), usage)
 
     // 显示选择器
-    const selected = await showEmojiPicker(emojis)
+    const selected = await showEmojiPicker(sortEmojis)
     if (!selected) return
 
     await incrementUsageCount(context, selected.code, selected.emoji, selected.emojiCode)
@@ -33,7 +38,7 @@ export function addShowGitmojiCommand(context: vscode.ExtensionContext): vscode.
     // 设置插入位置
     const preferCursor = insertPosition === "cursor"
     const useSuffix = insertPosition === "end"
-    const tokensToStrip = buildTokensToStrip(allEmojis)
+    const tokensToStrip = buildTokensToStrip(emojis)
 
     let targetIndex: number | undefined
 
