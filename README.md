@@ -77,3 +77,7 @@ const abc = {
 ## 📃 开源许可
 
 项目基于 MIT 许可证发布，详细说明请参阅 [LICENCE](https://github.com/miniocean404-tool/vscode-plugin-mini-tool/blob/main/LICENSE) 文件。
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=miniocean404-tool/vscode-plugin-mini-tool&type=date&legend=top-left)](https://www.star-history.com/#miniocean404-tool/vscode-plugin-mini-tool&type=date&legend=top-left)
