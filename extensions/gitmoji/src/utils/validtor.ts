@@ -19,7 +19,7 @@ export function checkOutputType(emojis: GitmojiInfo[], outputType: keyof GitComm
 
       return true
     case "emoji-code":
-      const hasEmojiCode = emojis.some((emoji) => !emoji.emoji?.trim() || !emoji.placeholder?.trim())
+      const hasEmojiCode = emojis.some((emoji) => !emoji.placeholder?.trim())
       if (hasEmojiCode) {
         vscode.window.showErrorMessage("emoji-code 模式必须都包含表情符号和占位符")
         return false
