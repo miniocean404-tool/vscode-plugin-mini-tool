@@ -34,14 +34,14 @@ extensions/live-host/src/
 
 职责：
 
-- 实例化 `HostTreeDataProvider`，注册到 VS Code 侧边栏视图 `liveHost`。
+- 实例化 `HostTreeDataProvider`，注册到 VS Code 侧边栏视图 `mini-live-host`。
 - 注册以下命令并委托给对应模块处理：
-  - `liveHost.add` — 新增 host 配置
-  - `liveHost.delete` — 删除 host 配置
-  - `liveHost.rename` — 重命名 host 配置
-  - `liveHost.choose` / `liveHost.unchoose` — 启用/禁用某套 host 配置
-  - `liveHost.edit` — 在编辑器中打开 `.host` 文件
-  - `liveHost.start` — 打开 GitHub Host 获取面板（`CatCodingPanel`）
+  - `mini-live-host.add` — 新增 host 配置
+  - `mini-live-host.delete` — 删除 host 配置
+  - `mini-live-host.rename` — 重命名 host 配置
+  - `mini-live-host.choose` / `mini-live-host.unchoose` — 启用/禁用某套 host 配置
+  - `mini-live-host.edit` — 在编辑器中打开 `.host` 文件
+  - `mini-live-host.start` — 打开 GitHub Host 获取面板（`CatCodingPanel`）
 - 监听文档保存事件：当保存的文件名包含 `.host` 时，调用 `syncChooseHost()` 将变更同步到系统 hosts 文件。
 
 ---
@@ -89,7 +89,7 @@ extensions/live-host/src/
 
 **日志输出通道封装**。
 
-- 创建名为 `liveHost` 的 VS Code Output Channel。
+- 创建名为 `mini-live-host` 的 VS Code Output Channel。
 - 提供静态方法 `appendLine(value)`：带时间戳（`YYYY-MM-DD HH:mm`）前缀写入日志，并自动显示输出面板。
 - 被 `FileUtil` 等模块用于记录 hosts 同步、文件创建等操作日志。
 

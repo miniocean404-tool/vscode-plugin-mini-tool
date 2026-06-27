@@ -3,10 +3,10 @@ import * as vscode from "vscode"
 
 /**
  * 输出通道封装
- * 统一管理 liveHost 扩展的日志输出
+ * 统一管理 mini-live-host 扩展的日志输出
  */
 export class OutputChannel {
-  private static outputChannel = vscode.window.createOutputChannel("liveHost")
+  private static outputChannel = vscode.window.createOutputChannel("mini-live-host")
 
   /**
    * 向输出通道追加一行带时间戳的日志

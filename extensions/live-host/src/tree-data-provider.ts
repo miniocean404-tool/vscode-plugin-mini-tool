@@ -58,7 +58,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
           new HostConfig(
             label,
             vscode.TreeItemCollapsibleState.None,
-            { command: "liveHost.edit", title: "", arguments: [uri] },
+            { command: "mini-live-host.edit", title: "", arguments: [uri] },
             `hostItem${metaInfo.cur.indexOf(label) > -1 ? 1 : 0}`,
             filePath,
             metaInfo.cur.indexOf(label) > -1,

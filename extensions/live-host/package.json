@@ -62,39 +62,39 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "liveHost",
+          "id": "mini-live-host",
           "title": "HOST 切换",
           "icon": "assets/host.png"
         }
       ]
     },
     "views": {
-      "liveHost": [
+      "mini-live-host": [
         {
-          "id": "liveHost",
+          "id": "mini-live-host",
           "name": "配置视图"
         }
       ]
     },
     "commands": [
       {
-        "command": "liveHost.choose",
+        "command": "mini-live-host.choose",
         "title": "选择"
       },
       {
-        "command": "liveHost.unchoose",
+        "command": "mini-live-host.unchoose",
         "title": "取消选择"
       },
       {
-        "command": "liveHost.rename",
+        "command": "mini-live-host.rename",
         "title": "重命名"
       },
       {
-        "command": "liveHost.delete",
+        "command": "mini-live-host.delete",
         "title": "删除"
       },
       {
-        "command": "liveHost.add",
+        "command": "mini-live-host.add",
         "title": "新增",
         "icon": {
           "light": "assets/light/add.svg",
@@ -102,42 +102,42 @@
         }
       },
       {
-        "command": "liveHost.edit",
+        "command": "mini-live-host.edit",
         "title": "编辑"
       }
     ],
     "menus": {
       "view/title": [
         {
-          "command": "liveHost.add",
-          "when": "view == liveHost",
+          "command": "mini-live-host.add",
+          "when": "view == 'mini-live-host'",
           "group": "navigation@1"
         }
       ],
       "view/item/context": [
         {
-          "command": "liveHost.unchoose",
-          "when": "view == liveHost && viewItem == hostItem1",
+          "command": "mini-live-host.unchoose",
+          "when": "view == 'mini-live-host' && viewItem == hostItem1",
           "group": "host@1"
         },
         {
-          "command": "liveHost.choose",
-          "when": "view == liveHost && viewItem == hostItem0",
+          "command": "mini-live-host.choose",
+          "when": "view == 'mini-live-host' && viewItem == hostItem0",
           "group": "host@1"
         },
         {
-          "command": "liveHost.rename",
-          "when": "view == liveHost && viewItem =~ /hostItem/i",
+          "command": "mini-live-host.rename",
+          "when": "view == 'mini-live-host' && viewItem =~ /hostItem/i",
           "group": "host@1"
         },
         {
-          "command": "liveHost.delete",
-          "when": "view == liveHost && viewItem =~ /hostItem/i",
+          "command": "mini-live-host.delete",
+          "when": "view == 'mini-live-host' && viewItem =~ /hostItem/i",
           "group": "host@1"
         },
         {
-          "command": "liveHost.add",
-          "when": "view == liveHost && viewItem =~ /hostItem/i",
+          "command": "mini-live-host.add",
+          "when": "view == 'mini-live-host' && viewItem =~ /hostItem/i",
           "group": "host@1"
         }
       ]

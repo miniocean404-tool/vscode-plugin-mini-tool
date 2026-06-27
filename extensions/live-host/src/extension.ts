@@ -10,46 +10,46 @@ export function activate(context: vscode.ExtensionContext) {
   const hostTreeDataProvider = new HostTreeDataProvider(context)
 
   // 注册侧边栏树视图
-  context.subscriptions.push(vscode.window.registerTreeDataProvider("liveHost", hostTreeDataProvider))
+  context.subscriptions.push(vscode.window.registerTreeDataProvider("mini-live-host", hostTreeDataProvider))
 
   // 注册「新增 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("liveHost.add", (item: HostConfig) => {
+    vscode.commands.registerCommand("mini-live-host.add", (item: HostConfig) => {
       hostTreeDataProvider.add(item)
     }),
   )
 
   // 注册「删除 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("liveHost.delete", (item: HostConfig) => {
+    vscode.commands.registerCommand("mini-live-host.delete", (item: HostConfig) => {
       hostTreeDataProvider.del(item)
     }),
   )
 
   // 注册「重命名 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("liveHost.rename", (item: HostConfig) => {
+    vscode.commands.registerCommand("mini-live-host.rename", (item: HostConfig) => {
       hostTreeDataProvider.rename(item)
     }),
   )
 
   // 注册「启用 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("liveHost.choose", (item: HostConfig) => {
+    vscode.commands.registerCommand("mini-live-host.choose", (item: HostConfig) => {
       hostTreeDataProvider.choose(item)
     }),
   )
 
   // 注册「禁用 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("liveHost.unchoose", (item: HostConfig) => {
+    vscode.commands.registerCommand("mini-live-host.unchoose", (item: HostConfig) => {
       hostTreeDataProvider.unchoose(item)
     }),
   )
 
   // 注册「编辑 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("liveHost.edit", (params) => {
+    vscode.commands.registerCommand("mini-live-host.edit", (params) => {
       hostTreeDataProvider.edit(params)
     }),
   )
