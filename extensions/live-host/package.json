@@ -1,0 +1,155 @@
+{
+  "name": "mini-live-host",
+  "version": "0.0.1",
+  "description": "快速编辑 host 文件，支持多组 host 文件切换",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool"
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run build",
+    "dev": "pnpm run check-types && node esbuild.ts",
+    "watch:dev": "node esbuild.ts --watch",
+    "build": "pnpm run check-types && node esbuild.ts --production",
+    "check-types": "tsc --noEmit",
+    "build:vsce": "pnpm vsce package --no-dependencies",
+    "publish:vsce": "pnpm vsce publish --no-dependencies",
+    "cursor:publish": "pnpm ovsx publish --no-dependencies",
+    "patch-publish:vsce": "pnpm vsce publish patch --no-dependencies"
+  },
+  "displayName": "Mini Live Host",
+  "main": "./dist/extension.js",
+  "icon": "./assets/host.png",
+  "publisher": "miniocean404",
+  "keywords": [
+    "mini",
+    "tool",
+    "mini-tool",
+    "minitool",
+    "mini live host",
+    "minilivehost",
+    "live host",
+    "host"
+  ],
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "host",
+        "extensions": [
+          ".host"
+        ],
+        "aliases": [
+          "host"
+        ]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "host",
+        "scopeName": "source.host",
+        "path": "./syntaxes/host.tmLanguage.json"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "liveHost",
+          "title": "HOST 切换",
+          "icon": "assets/host.png"
+        }
+      ]
+    },
+    "views": {
+      "liveHost": [
+        {
+          "id": "liveHost",
+          "name": "配置视图"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "liveHost.choose",
+        "title": "选择"
+      },
+      {
+        "command": "liveHost.unchoose",
+        "title": "取消选择"
+      },
+      {
+        "command": "liveHost.rename",
+        "title": "重命名"
+      },
+      {
+        "command": "liveHost.delete",
+        "title": "删除"
+      },
+      {
+        "command": "liveHost.add",
+        "title": "新增",
+        "icon": {
+          "light": "assets/light/add.svg",
+          "dark": "assets/dark/add.svg"
+        }
+      },
+      {
+        "command": "liveHost.edit",
+        "title": "编辑"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "liveHost.add",
+          "when": "view == liveHost",
+          "group": "navigation@1"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "liveHost.unchoose",
+          "when": "view == liveHost && viewItem == hostItem1",
+          "group": "host@1"
+        },
+        {
+          "command": "liveHost.choose",
+          "when": "view == liveHost && viewItem == hostItem0",
+          "group": "host@1"
+        },
+        {
+          "command": "liveHost.rename",
+          "when": "view == liveHost && viewItem =~ /hostItem/i",
+          "group": "host@1"
+        },
+        {
+          "command": "liveHost.delete",
+          "when": "view == liveHost && viewItem =~ /hostItem/i",
+          "group": "host@1"
+        },
+        {
+          "command": "liveHost.add",
+          "when": "view == liveHost && viewItem =~ /hostItem/i",
+          "group": "host@1"
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/node": "^26.0.1"
+  },
+  "dependencies": {
+    "@vscode/test-electron": "^3.0.0",
+    "dayjs": "1.11.21",
+    "glob": "^13.0.6"
+  }
+}

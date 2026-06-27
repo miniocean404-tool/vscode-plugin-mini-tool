@@ -1,9 +1,8 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "include": ["src/**/*.ts", "./package.nls.*.json"],
   "exclude": ["dist", "node_modules"],
   "compilerOptions": {
-    "baseUrl": "./",
     "rootDir": ".",
     "outDir": "./dist",
     "noEmit": true

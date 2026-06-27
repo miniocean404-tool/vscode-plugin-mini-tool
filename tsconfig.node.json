@@ -1,0 +1,30 @@
+{
+  // 继承基础配置
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "paths": {
+      "*": ["./*"]
+    },
+    // 将一个 TypeScript 项目标记为一个“复合项目”，这意味着它可以被其他项目所引用，并且它自身也可以引用其他复合项目, 可以使用 references 来声明所依赖的复合项目
+    "composite": true,
+    // node 脚本没有 dom 环境，因此只集成 esnext 库即可
+    "lib": ["ESNext", "ESNext.Temporal"],
+    // 集成 Node.js 库函数的类型声明
+    "types": ["node"],
+    // 脚本有时会以 js 编写，因此允许 js
+    "allowJs": true,
+    "incremental": true
+  },
+  "include": [
+    // 目前项目中暂时只有配置文件，如 vite.config.ts，以后会逐步增加
+    "scripts",
+    "packages/**/package.json"
+  ],
+  "exclude": [
+    "packages/**/src",
+    // 排除产物目录
+    "**/dist",
+    "**/node_modules"
+  ]
+}

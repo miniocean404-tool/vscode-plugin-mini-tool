@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "include": ["./src/**/*.ts", "./package.nls.*.json"],
   "compilerOptions": {
-    "rootDir": "."
+    "rootDir": ".",
+    "types": ["node"]
   }
 }

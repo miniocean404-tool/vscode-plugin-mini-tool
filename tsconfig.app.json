@@ -1,0 +1,13 @@
+{
+  // 继承基础配置
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    // 组件库依赖浏览器的 DOM API
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "ESNext.Temporal"],
+    "types": ["node"],
+    "incremental": true
+  },
+  "include": ["./extensions/**/*.ts", "./packages/**/*.ts", "./extensions/**/package.nls.*.json"],
+  "exclude": ["node_modules", "dist", "out", "test", "demo", "**/*.test.ts"]
+}

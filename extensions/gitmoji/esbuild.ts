@@ -1,13 +1,14 @@
-const esbuild = require("esbuild")
-const path = require("path")
+import esbuild, { type Plugin } from "esbuild"
+import path, { dirname } from "path"
+import { fileURLToPath } from "url"
+
+const __filename = (url: string) => fileURLToPath(url)
+const __dirname = (url: string) => dirname(__filename(url))
 
 const production = process.argv.includes("--production")
 const watch = process.argv.includes("--watch")
 
-/**
- * @type {import('esbuild').Plugin}
- */
-const esbuildProblemMatcherPlugin = {
+const esbuildProblemMatcherPlugin: Plugin = {
   name: "esbuild-problem-matcher",
 
   setup(build) {
@@ -17,7 +18,7 @@ const esbuildProblemMatcherPlugin = {
     build.onEnd((result) => {
       result.errors.forEach(({ text, location }) => {
         console.error(`🔴 [ERROR] ${text}`)
-        console.error(`    ${location.file}:${location.line}:${location.column}:`)
+        console.error(`    ${location?.file}:${location?.line}:${location?.column}:`)
       })
       console.log("[watch] build finished")
     })
@@ -27,7 +28,7 @@ const esbuildProblemMatcherPlugin = {
 async function main() {
   const ctx = await esbuild.context({
     alias: {
-      "@": path.join(__dirname, "src"),
+      "@": path.join(__dirname(import.meta.url), "src"),
     },
     entryPoints: ["src/extension.ts"],
     bundle: true,

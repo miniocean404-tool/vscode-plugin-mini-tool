@@ -58,6 +58,13 @@
       "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/json-fix"]
     },
     {
+      "name": "Live Host Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/extensions/live-host"]
+    },
+    {
       "name": "Vscode Region 折叠 Extension",
       "type": "extensionHost",
       "request": "launch",
