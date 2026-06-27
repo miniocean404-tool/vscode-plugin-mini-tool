@@ -2,6 +2,7 @@ import * as os from "os"
 import * as path from "path"
 import * as vscode from "vscode"
 import { HostFs } from "./host-fs"
+import { OutputChannel } from "./output-channel"
 
 /**
  * Host 配置侧边栏树视图数据提供者
@@ -20,14 +21,14 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
   constructor(private ctx: vscode.ExtensionContext) {
     // 检查 host 配置目录是否存在
     this.userRoot = os.homedir()
-    vscode.window.showInformationMessage(this.userRoot)
 
     if (!HostFs.pathExists(path.join(this.userRoot, ".host"))) {
       // 目录不存在时，从系统 hosts 创建默认配置
       try {
         HostFs.createDefaultFloder(this.userRoot)
       } catch (e) {
-        vscode.window.showInformationMessage("host need Administrator permission!")
+        const message = e instanceof Error ? e.message : String(e)
+        vscode.window.showWarningMessage(`创建 host 配置目录失败，可能需要管理员权限: ${message}`)
       }
     }
   }
@@ -80,13 +81,19 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
     if (item.filePath) {
       const metaInfo = HostFs.getMetaInfo(this.userRoot)
       if (metaInfo.cur.indexOf(item.label) > -1) {
-        vscode.window.showInformationMessage("This host is choosed areadly!")
+        void vscode.window.showInformationMessage("这个 host 已经启用。")
+        return
+      }
+
+      metaInfo.cur.push(item.label)
+      HostFs.setMetaInfo(this.userRoot, metaInfo)
+      const syncResult = HostFs.syncChoose(this.userRoot)
+      this._onDidChangeTreeData.fire(undefined)
+
+      if (syncResult.ok) {
+        void vscode.window.showInformationMessage("Host 启用成功。")
       } else {
-        metaInfo.cur.push(item.label)
-        HostFs.setMetaInfo(this.userRoot, metaInfo)
-        HostFs.syncChoose(this.userRoot)
-        this._onDidChangeTreeData.fire(undefined)
-        vscode.window.showInformationMessage("This host is choosed areadly!")
+        void this.showSyncHostsFailed()
       }
     }
   }
@@ -95,7 +102,10 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
    * 同步当前启用的 Host 配置到系统 hosts 文件
    */
   syncChooseHost(): void {
-    HostFs.syncChoose(this.userRoot)
+    const syncResult = HostFs.syncChoose(this.userRoot)
+    if (!syncResult.ok) {
+      void this.showSyncHostsFailed()
+    }
   }
 
   /**
@@ -109,9 +119,14 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
       if (labelIndex > -1) {
         metaInfo.cur.splice(labelIndex, 1)
         HostFs.setMetaInfo(this.userRoot, metaInfo)
-        HostFs.syncChoose(this.userRoot)
+        const syncResult = HostFs.syncChoose(this.userRoot)
         this._onDidChangeTreeData.fire(undefined)
-        vscode.window.showInformationMessage("UnChoose Host Success!")
+
+        if (syncResult.ok) {
+          void vscode.window.showInformationMessage("Host 禁用成功。")
+        } else {
+          void this.showSyncHostsFailed()
+        }
       }
     }
   }
@@ -133,7 +148,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
       if (value) {
         const files: string[] = HostFs.getConfigFileList(this.userRoot)
         if (files && files.indexOf(`${value}.host`) > -1) {
-          vscode.window.showInformationMessage("This name is aready exist!")
+          vscode.window.showInformationMessage("这个 host 名称已存在，请使用其他名称！")
         } else {
           HostFs.renameFile(this.userRoot, item.label, value)
           const metaInfo = HostFs.getMetaInfo(this.userRoot)
@@ -145,7 +160,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
           this._onDidChangeTreeData.fire(undefined)
         }
       } else {
-        vscode.window.showInformationMessage("Please enter your host name!")
+        vscode.window.showInformationMessage("请输入 host 名称！")
       }
     })
   }
@@ -178,6 +193,19 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
   del(item: HostConfig): void {
     HostFs.delete(this.userRoot, item)
     this._onDidChangeTreeData.fire(undefined)
+  }
+
+  private async showSyncHostsFailed(): Promise<Thenable<void>> {
+    const selection = await vscode.window.showWarningMessage(
+      "无法写入系统 hosts 文件。请以管理员身份运行 VS Code/Cursor 后重试。",
+      "查看日志",
+    )
+
+    if (selection === "查看日志") {
+      OutputChannel.show()
+    }
+
+    return
   }
 }
 

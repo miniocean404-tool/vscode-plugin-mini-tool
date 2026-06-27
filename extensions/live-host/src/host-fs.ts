@@ -4,6 +4,8 @@ import * as path from "path"
 import { SYSTEM_HOSTS_PATH } from "./consts"
 import { OutputChannel } from "./output-channel"
 
+export type SyncHostsResult = { ok: true } | { ok: false; error: string }
+
 /**
  * Host 配置文件读写工具类
  * 负责 ~/.host/ 目录及系统 hosts 文件的同步
@@ -95,7 +97,6 @@ export class HostFs {
    * @returns 配置文件名数组（含 .host 后缀）
    */
   public static getConfigFileList(root: string): any {
-    OutputChannel.info(`准备获取 ${path.join(root, ".host")} 目录下的有效 host 配置文件`)
     const hostFiles: string[] = fs.readdirSync(path.join(root, ".host"))
     const usefullHostFiles: string[] = new Array<string>()
     if (hostFiles && hostFiles.length > 0) {
@@ -106,7 +107,6 @@ export class HostFs {
         }
       })
     }
-    OutputChannel.info(`获取 ${path.join(root, ".host")} 目录下的有效 host 配置文件成功`)
     return usefullHostFiles
   }
 
@@ -114,7 +114,7 @@ export class HostFs {
    * 将当前启用的 host 配置合并写入系统 hosts 文件
    * @param root 用户主目录路径
    */
-  public static syncChoose(root: string): any {
+  public static syncChoose(root: string): SyncHostsResult {
     let data = ""
     const metaInfo = this.getMetaInfo(root)
     const files = this.getConfigFileList(root)
@@ -127,9 +127,16 @@ export class HostFs {
         }
       })
     }
-    fs.writeFileSync(this.currentHostPath, data)
 
-    OutputChannel.info(`同步启用的 host 配置成功: ${metaInfo.cur.join(",")}`)
+    try {
+      fs.writeFileSync(this.currentHostPath, data)
+      OutputChannel.info(`同步启用的 host 配置成功: ${metaInfo.cur.join(",") || "(none)"}`)
+      return { ok: true }
+    } catch (err) {
+      const error = err instanceof Error ? err.message : String(err)
+      OutputChannel.info(`同步系统 hosts 失败: ${error}`)
+      return { ok: false, error }
+    }
   }
 
   /**

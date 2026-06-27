@@ -13,7 +13,11 @@ export class OutputChannel {
    * @param value 日志内容
    */
   public static info(value: string) {
-    OutputChannel.outputChannel.show(true)
     OutputChannel.outputChannel.appendLine(`[INFO ${dayjs().format("YYYY-MM-DD HH:mm")}] host>> ${value}`)
+  }
+
+  /** 显示输出通道面板 */
+  public static show() {
+    OutputChannel.outputChannel.show(true)
   }
 }
