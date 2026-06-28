@@ -1,3 +1,11 @@
+/**
+ * 加载后立即执行函数
+ * @param cb 任意函数
+ */
+export function iife<T>(fn: () => T) {
+  return fn()
+}
+
 export type TryErrorResult<T> = [undefined, T] | [Error, undefined]
 
 /**

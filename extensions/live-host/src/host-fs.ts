@@ -3,11 +3,11 @@ import * as fs from "fs"
 import * as path from "path"
 import { Dirs, Files } from "./consts/paths"
 import { writeWithElevation } from "./elevation"
-import { OutputChannel } from "./output-channel"
+import { cLogger } from "./utils/logger"
 
 export type SyncHostsResult = { ok: true } | { ok: false; error: string }
 
-interface MetaInfo {
+export interface MetaInfo {
   current: string[]
 }
 
@@ -18,20 +18,6 @@ interface MetaInfo {
  * fs 部分可以修改为使用 vscode 的 context.globalState get 或者 set 方法来存储
  */
 export class HostFs {
-  /**
-   * 初始化 Host 配置目录
-   * 从系统 hosts 复制内容生成 default.host，并写入 meta.json
-   */
-  public static init() {
-    fs.mkdirSync(Dirs.host)
-
-    const data = fs.readFileSync(Files.SYSTEM_HOSTS_PATH)
-
-    fs.writeFileSync(Files.defaultHost, data)
-    // 设置默认启用的 host 配置
-    fs.writeFileSync(Files.metadata, JSON.stringify({ current: ["default"] }))
-  }
-
   /**
    * 读取 meta.json 元数据
    * @returns 元数据对象，包含 current（当前启用的配置名列表）
@@ -101,28 +87,32 @@ export class HostFs {
         const basename = path.basename(file, ".host")
         const defaultFile = path.basename(Files.defaultHost, ".host")
 
-        if (metaInfo.current.includes(basename) && basename !== defaultFile) {
+        if (metaInfo.current.includes(basename)) {
           const filePath = path.join(Dirs.host, file)
-          const curHostData = fs.readFileSync(filePath).toString()
+          const config = fs.readFileSync(filePath).toString()
 
-          data =
-            data +
-            dedent`
+          const isAppended = basename !== defaultFile
+          const template = dedent`
+            # ------------------------------------------------- host 配置 ${file} ------------------------------------------------
+            ${config}
+          `
 
-              /* ------------------------------------------------- host 配置 ${file} ------------------------------------------------ */
-              ${curHostData}
-            `
+          data = dedent`
+            ${data}
+
+            ${isAppended ? template : config}
+          `
         }
       })
     }
 
     try {
       await writeWithElevation(Files.SYSTEM_HOSTS_PATH, data)
-      OutputChannel.info(`同步启用的 host 配置成功: ${metaInfo.current.join(",") || "(none)"}`)
+      cLogger.info(`同步启用的 host 配置成功: ${metaInfo.current.join(",") || "(none)"}`)
       return { ok: true }
     } catch (err) {
       const error = err instanceof Error ? err.message : String(err)
-      OutputChannel.info(`同步系统 hosts 失败: ${error}`)
+      cLogger.error(`同步系统 hosts 失败: ${error}`)
       return { ok: false, error }
     }
   }

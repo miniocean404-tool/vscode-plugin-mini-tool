@@ -1,5 +1,25 @@
+import fs from "fs"
 import * as vscode from "vscode"
+import { Dirs, Files } from "./consts/paths"
 import { HostConfigFile, HostTreeDataProvider } from "./tree-data-provider"
+import { fileExists } from "./utils/fs"
+import { iife } from "./utils/function"
+import { openDocument } from "./utils/vscode"
+
+// 初始化时候处理基础配置
+iife(() => {
+  if (!fileExists(Dirs.host)) {
+    // 初始化 Host 配置目录
+    // 从系统 hosts 复制内容生成 default.host，并写入 meta.json
+    fs.mkdirSync(Dirs.host)
+
+    const data = fs.readFileSync(Files.SYSTEM_HOSTS_PATH)
+
+    fs.writeFileSync(Files.defaultHost, data)
+    // 设置默认启用的 host 配置
+    fs.writeFileSync(Files.metadata, JSON.stringify({ current: ["default"] }))
+  }
+})
 
 /**
  * 扩展激活入口
@@ -7,7 +27,7 @@ import { HostConfigFile, HostTreeDataProvider } from "./tree-data-provider"
  */
 export function activate(context: vscode.ExtensionContext) {
   /** Host 配置树数据提供者 */
-  const hostTreeDataProvider = new HostTreeDataProvider(context)
+  const hostTreeDataProvider = new HostTreeDataProvider()
 
   // 注册侧边栏树视图
   context.subscriptions.push(vscode.window.registerTreeDataProvider("mini-live-host", hostTreeDataProvider))
@@ -50,7 +70,7 @@ export function activate(context: vscode.ExtensionContext) {
   // 注册「编辑 Host 配置」命令
   context.subscriptions.push(
     vscode.commands.registerCommand("mini-live-host.edit", (params) => {
-      hostTreeDataProvider.edit(params)
+      openDocument(params)
     }),
   )
 
