@@ -71,11 +71,14 @@ export function activate(context: vscode.ExtensionContext) {
     }),
   )
 
-  // 注册「编辑 Host 配置」命令
+  // 注册「编辑 Host 配置」命令, getChildren 会触发这个命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("mini-live-host.edit", (params) => {
-      openDocument(params)
-    }),
+    vscode.commands.registerCommand(
+      "mini-live-host.edit",
+      (uri: vscode.Uri, options?: vscode.TextDocumentShowOptions) => {
+        openDocument(uri, options)
+      },
+    ),
   )
 
   // 监听文档保存：当 .host 文件保存时，同步到系统 hosts

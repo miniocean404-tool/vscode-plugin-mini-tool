@@ -16,6 +16,9 @@ export namespace Dirs {
 }
 
 export namespace Files {
+  /** 侧边栏中系统 hosts 默认项显示名称 */
+  export const SYSTEM_HOST_LABEL = "系统 Host"
+
   /**
    * 系统 hosts 文件路径常量（来自 helper_proto 模块）。
    */

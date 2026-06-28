@@ -1,7 +1,7 @@
 import fs from "fs"
 import * as path from "path"
 import * as vscode from "vscode"
-import { Dirs } from "./consts/paths"
+import { Dirs, Files } from "./consts/paths"
 import { HostFs } from "./host-fs"
 import { cLogger } from "./utils/logger"
 
@@ -31,10 +31,28 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
    * @returns Host 配置节点数组
    */
   getChildren(): Thenable<HostConfigFile[]> {
+    const hostConfigs = new Array<HostConfigFile>()
+    const systemHostUri = vscode.Uri.file(Files.SYSTEM_HOSTS_PATH)
+
+    hostConfigs.push(
+      new HostConfigFile(
+        Files.SYSTEM_HOST_LABEL,
+        vscode.TreeItemCollapsibleState.None,
+        // 发送到 "mini-live-host.edit" 的命令
+        {
+          command: "mini-live-host.edit",
+          title: "",
+          arguments: [systemHostUri, { preview: true }],
+        },
+        "systemHost",
+        Files.SYSTEM_HOSTS_PATH,
+      ),
+    )
+
     const files: string[] = HostFs.getConfigFileList()
     const metaInfo = HostFs.getMetaInfo()
+
     if (files && files.length > 0) {
-      const hostConfigs = new Array<HostConfigFile>()
       files.forEach((file) => {
         const filePath = path.join(Dirs.host, file)
         const uri = vscode.Uri.file(filePath)
@@ -45,17 +63,15 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
             label,
             vscode.TreeItemCollapsibleState.None,
             { command: "mini-live-host.edit", title: "", arguments: [uri] },
-            `hostItem${metaInfo.current.indexOf(label) > -1 ? 1 : 0}`,
+            `hostItem${metaInfo.current.includes(label) ? 1 : 0}`,
             filePath,
-            metaInfo.current.indexOf(label) > -1,
+            metaInfo.current.includes(label),
           ),
         )
       })
-
-      return Promise.resolve(hostConfigs)
-    } else {
-      return Promise.resolve([])
     }
+
+    return Promise.resolve(hostConfigs)
   }
 
   /**
@@ -157,7 +173,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
     })
 
     if (!a || a.length === 0) {
-      fs.writeFileSync(path.join(Dirs.host, `${value}.host`), `# 当前的 host 配置: ${value} \n`)
+      fs.writeFileSync(path.join(Dirs.host, `${value}.host`), "")
       this._onDidChangeTreeData.fire(undefined)
     }
   }

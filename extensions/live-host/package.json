@@ -44,11 +44,14 @@
     "languages": [
       {
         "id": "host",
+        "aliases": [
+          "host"
+        ],
         "extensions": [
           ".host"
         ],
-        "aliases": [
-          "host"
+        "filenames": [
+          "hosts"
         ]
       }
     ],
