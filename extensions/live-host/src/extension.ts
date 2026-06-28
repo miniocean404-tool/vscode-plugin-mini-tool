@@ -1,3 +1,7 @@
+/**
+ * @see https://github.com/oldj/SwitchHosts/tree/master/src-tauri/src/hosts_apply 提权参考, SwitchHosts 是一个 tauri 写的 host 配置管理工具
+ */
+
 import fs from "fs"
 import * as vscode from "vscode"
 import { Dirs, Files } from "./consts/paths"

@@ -1,8 +1,3 @@
-/**
- * @file elevation/index.ts
- * @see https://github.com/oldj/SwitchHosts/tree/master/src-tauri/src/hosts_apply 参考
- */
-
 import fs from "fs"
 import { tempFile } from "../utils/file"
 import { elevateCopyLinux } from "./platform/linux"
