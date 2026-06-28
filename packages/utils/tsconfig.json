@@ -2,13 +2,14 @@
   "extends": "../../tsconfig.base.json",
   "include": ["./src/**/*.ts"],
   "compilerOptions": {
-    "baseUrl": "./",
     "rootDir": "./src",
     "outDir": "./dist",
     "target": "ESNext",
     "noEmit": false,
     "emitDeclarationOnly": false,
     "allowImportingTsExtensions": false,
-    "declaration": true
+    "declaration": true,
+    "noUncheckedIndexedAccess": false, // 当你通过索引签名（如 obj[key]、arr[i]）访问属性或元素时，TypeScript 会自动在返回类型中联合 undefined
+    "types": ["node"]
   }
 }

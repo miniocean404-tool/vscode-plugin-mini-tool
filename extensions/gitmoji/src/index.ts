@@ -1,10 +1,10 @@
 import * as vscode from "vscode"
-import { COMMAND_SHOW_GITMOJI, COMMAND_CLEAR_USAGE } from "./constant"
-import { getGitExtension, focusScmInputForRepoIndex } from "./feature/git"
-import { loadUsageCounts, sortEmojisByUsage, incrementUsageCount, clearUsageCounts } from "./feature/usage-frequency"
-import { getConfig, getEmojisByConfig, buildTokensToStrip } from "./feature/config"
-import { filterByAutoMatch, showEmojiPicker, getValueToAdd } from "./feature/emoji-picker"
-import { handleRepositoryInsert, handleAllRepositoriesInsert } from "./feature/repository"
+import { COMMAND_CLEAR_USAGE, COMMAND_SHOW_GITMOJI } from "./constant"
+import { buildTokensToStrip, getConfig, getEmojisByConfig } from "./feature/config"
+import { filterByAutoMatch, getValueToAdd, showEmojiPicker } from "./feature/emoji-picker"
+import { focusScmInputForRepoIndex, getGitExtension } from "./feature/git"
+import { handleAllRepositoriesInsert, handleRepositoryInsert } from "./feature/repository"
+import { clearUsageCounts, incrementUsageCount, loadUsageCounts, sortEmojisByUsage } from "./feature/usage-frequency"
 import { checkOutputType } from "./utils/validtor"
 
 export function addShowGitmojiCommand(context: vscode.ExtensionContext): vscode.Disposable {
@@ -22,7 +22,7 @@ export function addShowGitmojiCommand(context: vscode.ExtensionContext): vscode.
     // 加载使用频率并过滤/排序
     const usage = loadUsageCounts(context)
     // 获取仓库第 0 个输入框的值
-    const comment = autoMatch && git.repositories.length > 0 ? git.repositories[0].inputBox.value : ""
+    const comment = autoMatch && git.repositories.length > 0 ? (git.repositories[0]?.inputBox.value ?? "") : ""
     // 过滤/排序 emoji
     const sortEmojis = sortEmojisByUsage(filterByAutoMatch(emojis, comment), usage)
 

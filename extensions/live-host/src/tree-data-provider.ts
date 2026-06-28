@@ -1,31 +1,27 @@
-import * as os from "os"
+import fs from "fs"
 import * as path from "path"
 import * as vscode from "vscode"
+import { Dirs } from "./consts/paths"
 import { HostFs } from "./host-fs"
 import { OutputChannel } from "./output-channel"
+import { fileExists } from "./utils/fs"
 
 /**
  * Host 配置侧边栏树视图数据提供者
  * 管理 ~/.host/ 目录下的配置文件列表及启用/禁用状态
  */
-export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig> {
+export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigFile> {
   /** 树数据变更事件发射器 */
-  private _onDidChangeTreeData: vscode.EventEmitter<HostConfig | undefined> = new vscode.EventEmitter<
-    HostConfig | undefined
-  >()
+  private _onDidChangeTreeData: vscode.EventEmitter<HostConfigFile | undefined> =
+    new vscode.EventEmitter<HostConfigFile>()
+
   /** 树数据变更事件，供 VS Code 监听刷新 */
-  readonly onDidChangeTreeData: vscode.Event<HostConfig | undefined> = this._onDidChangeTreeData.event
-  /** 用户主目录路径，Host 配置存储在 ~/.host/ 下 */
-  private userRoot: string
+  readonly onDidChangeTreeData: vscode.Event<HostConfigFile | undefined> = this._onDidChangeTreeData.event
 
   constructor(private ctx: vscode.ExtensionContext) {
-    // 检查 host 配置目录是否存在
-    this.userRoot = os.homedir()
-
-    if (!HostFs.pathExists(path.join(this.userRoot, ".host"))) {
-      // 目录不存在时，从系统 hosts 创建默认配置
+    if (!fileExists(Dirs.host)) {
       try {
-        HostFs.createDefaultFloder(this.userRoot)
+        HostFs.init()
       } catch (e) {
         const message = e instanceof Error ? e.message : String(e)
         vscode.window.showWarningMessage(`创建 host 配置目录失败，可能需要管理员权限: ${message}`)
@@ -37,7 +33,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
    * 获取树节点对应的 TreeItem
    * @param element Host 配置树节点
    */
-  getTreeItem(element: HostConfig): vscode.TreeItem {
+  getTreeItem(element: HostConfigFile): vscode.TreeItem {
     return element
   }
 
@@ -46,23 +42,24 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
    * @param element 父节点（根节点时为 undefined）
    * @returns Host 配置节点数组
    */
-  getChildren(element?: HostConfig): Thenable<HostConfig[]> {
-    const files: string[] = HostFs.getConfigFileList(this.userRoot)
-    const metaInfo = HostFs.getMetaInfo(this.userRoot)
+  getChildren(): Thenable<HostConfigFile[]> {
+    const files: string[] = HostFs.getConfigFileList()
+    const metaInfo = HostFs.getMetaInfo()
     if (files && files.length > 0) {
-      const hostConfigs = new Array<HostConfig>()
+      const hostConfigs = new Array<HostConfigFile>()
       files.forEach((file) => {
-        const filePath = path.join(this.userRoot, ".host", file)
+        const filePath = path.join(Dirs.host, file)
         const uri = vscode.Uri.file(filePath)
         const label = path.basename(file, ".host")
+
         hostConfigs.push(
-          new HostConfig(
+          new HostConfigFile(
             label,
             vscode.TreeItemCollapsibleState.None,
             { command: "mini-live-host.edit", title: "", arguments: [uri] },
-            `hostItem${metaInfo.cur.indexOf(label) > -1 ? 1 : 0}`,
+            `hostItem${metaInfo.current.indexOf(label) > -1 ? 1 : 0}`,
             filePath,
-            metaInfo.cur.indexOf(label) > -1,
+            metaInfo.current.indexOf(label) > -1,
           ),
         )
       })
@@ -74,20 +71,20 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
   }
 
   /**
-   * 启用指定 Host 配置（加入 meta.json 的 cur 列表并同步到系统 hosts）
+   * 启用指定 Host 配置（加入 meta.json 的 current 列表并同步到系统 hosts）
    * @param item Host 配置树节点
    */
-  choose(item: HostConfig): void {
+  async choose(item: HostConfigFile): Promise<void> {
     if (item.filePath) {
-      const metaInfo = HostFs.getMetaInfo(this.userRoot)
-      if (metaInfo.cur.indexOf(item.label) > -1) {
+      const metaInfo = HostFs.getMetaInfo()
+      if (metaInfo.current.indexOf(item.label) > -1) {
         void vscode.window.showInformationMessage("这个 host 已经启用。")
         return
       }
 
-      metaInfo.cur.push(item.label)
-      HostFs.setMetaInfo(this.userRoot, metaInfo)
-      const syncResult = HostFs.syncChoose(this.userRoot)
+      metaInfo.current.push(item.label)
+      HostFs.setMetaInfo(metaInfo)
+      const syncResult = await HostFs.syncChoose()
       this._onDidChangeTreeData.fire(undefined)
 
       if (syncResult.ok) {
@@ -101,25 +98,25 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
   /**
    * 同步当前启用的 Host 配置到系统 hosts 文件
    */
-  syncChooseHost(): void {
-    const syncResult = HostFs.syncChoose(this.userRoot)
+  async syncChooseHost(): Promise<void> {
+    const syncResult = await HostFs.syncChoose()
     if (!syncResult.ok) {
       void this.showSyncHostsFailed()
     }
   }
 
   /**
-   * 禁用指定 Host 配置（从 meta.json 的 cur 列表移除并同步）
+   * 禁用指定 Host 配置（从 meta.json 的 current 列表移除并同步）
    * @param item Host 配置树节点
    */
-  unchoose(item: HostConfig): void {
+  async unchoose(item: HostConfigFile): Promise<void> {
     if (item.filePath) {
-      const metaInfo = HostFs.getMetaInfo(this.userRoot)
-      const labelIndex = metaInfo.cur.indexOf(item.label)
+      const metaInfo = HostFs.getMetaInfo()
+      const labelIndex = metaInfo.current.indexOf(item.label)
       if (labelIndex > -1) {
-        metaInfo.cur.splice(labelIndex, 1)
-        HostFs.setMetaInfo(this.userRoot, metaInfo)
-        const syncResult = HostFs.syncChoose(this.userRoot)
+        metaInfo.current.splice(labelIndex, 1)
+        HostFs.setMetaInfo(metaInfo)
+        const syncResult = await HostFs.syncChoose()
         this._onDidChangeTreeData.fire(undefined)
 
         if (syncResult.ok) {
@@ -143,19 +140,20 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
    * 重命名 Host 配置
    * @param item Host 配置树节点
    */
-  rename(item: HostConfig): void {
-    vscode.window.showInputBox({ placeHolder: "Enter the new host name", value: item.label }).then((value) => {
+  rename(item: HostConfigFile): void {
+    vscode.window.showInputBox({ placeHolder: "请输入新的 Host 配置名称", value: item.label }).then((value) => {
       if (value) {
-        const files: string[] = HostFs.getConfigFileList(this.userRoot)
+        const files: string[] = HostFs.getConfigFileList()
         if (files && files.indexOf(`${value}.host`) > -1) {
           vscode.window.showInformationMessage("这个 host 名称已存在，请使用其他名称！")
         } else {
-          HostFs.renameFile(this.userRoot, item.label, value)
-          const metaInfo = HostFs.getMetaInfo(this.userRoot)
-          const labelIndex = metaInfo.cur.indexOf(item.label)
+          fs.renameSync(path.join(Dirs.host, `${item.label}.host`), path.join(Dirs.host, `${value}.host`))
+
+          const metaInfo = HostFs.getMetaInfo()
+          const labelIndex = metaInfo.current.indexOf(item.label)
           if (labelIndex > -1) {
-            metaInfo.cur[labelIndex] = value
-            HostFs.setMetaInfo(this.userRoot, metaInfo)
+            metaInfo.current[labelIndex] = value
+            HostFs.setMetaInfo(metaInfo)
           }
           this._onDidChangeTreeData.fire(undefined)
         }
@@ -167,31 +165,29 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
 
   /**
    * 新增 Host 配置
-   * @param item 触发命令的树节点（未使用）
    */
-  add(item: HostConfig): void {
-    vscode.window.showInputBox({ placeHolder: "Enter the new host name" }).then((value) => {
-      if (!value) {
-        return
-      }
-      const files: string[] = HostFs.getConfigFileList(this.userRoot)
-      const a = files.filter((file) => {
-        const basename = path.basename(file, ".host")
-        return basename === value
-      })
-      if (!a || a.length === 0) {
-        HostFs.createFile(this.userRoot, value)
-        this._onDidChangeTreeData.fire(undefined)
-      }
+  async add(): Promise<void> {
+    const value = await vscode.window.showInputBox({ placeHolder: "请输入新的 Host 配置名称" })
+    if (!value) return
+
+    const files = HostFs.getConfigFileList()
+    const a = files.filter((file) => {
+      const basename = path.basename(file, ".host")
+      return basename === value
     })
+
+    if (!a || a.length === 0) {
+      fs.writeFileSync(path.join(Dirs.host, `${value}.host`), `# 当前的 host 配置: ${value} \n`)
+      this._onDidChangeTreeData.fire(undefined)
+    }
   }
 
   /**
    * 删除 Host 配置
    * @param item Host 配置树节点
    */
-  del(item: HostConfig): void {
-    HostFs.delete(this.userRoot, item)
+  del(item: HostConfigFile): void {
+    HostFs.delete(item)
     this._onDidChangeTreeData.fire(undefined)
   }
 
@@ -213,7 +209,10 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfig>
  * Host 配置树节点
  * 继承 vscode.TreeItem，表示侧边栏中的一个 host 配置项
  */
-export class HostConfig extends vscode.TreeItem {
+export class HostConfigFile extends vscode.TreeItem {
+  // 是否为深色主题
+  private isDark = vscode.window.activeColorTheme.kind === vscode.ColorThemeKind.Dark
+
   /**
    * @param label 配置名称（不含 .host 后缀）
    * @param collapsibleState 折叠状态
@@ -233,18 +232,28 @@ export class HostConfig extends vscode.TreeItem {
     super(label, collapsibleState)
   }
 
-  // /** 鼠标悬停提示文本 */
-  // get tooltip(): string {
-  //   return `${this.label}`
-  // }
+  /** 鼠标悬停提示文本 */
+  // @ts-ignorec
+  get tooltip(): string {
+    return `${this.label}`
+  }
 
-  // /** 节点描述文本（当前不显示） */
-  // get description(): string | boolean {
-  //   return false
-  // }
+  /** 节点描述文本（当前不显示） */
+  // @ts-ignore
+  get description(): string | boolean {
+    return false
+  }
 
-  // /** 节点图标路径：已启用显示勾选，未启用显示未勾选 */
-  // get iconPath(): string {
-  //   return path.join(__filename, "..", "..", "assets", "light", this.chooseStatus ? "checked.svg" : "unchecked.svg")
-  // }
+  /** 节点图标路径：已启用显示勾选，未启用显示未勾选 */
+  // @ts-ignore
+  get iconPath(): string {
+    return path.join(
+      __filename,
+      "..",
+      "..",
+      "assets",
+      this.isDark ? "dark" : "light",
+      this.chooseStatus ? "checked.svg" : "unchecked.svg",
+    )
+  }
 }

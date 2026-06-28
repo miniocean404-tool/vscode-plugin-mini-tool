@@ -1,5 +1,5 @@
 import * as vscode from "vscode"
-import { HostConfig, HostTreeDataProvider } from "./tree-data-provider"
+import { HostConfigFile, HostTreeDataProvider } from "./tree-data-provider"
 
 /**
  * 扩展激活入口
@@ -14,36 +14,36 @@ export function activate(context: vscode.ExtensionContext) {
 
   // 注册「新增 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("mini-live-host.add", (item: HostConfig) => {
-      hostTreeDataProvider.add(item)
+    vscode.commands.registerCommand("mini-live-host.add", (item: HostConfigFile) => {
+      hostTreeDataProvider.add()
     }),
   )
 
   // 注册「删除 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("mini-live-host.delete", (item: HostConfig) => {
+    vscode.commands.registerCommand("mini-live-host.delete", (item: HostConfigFile) => {
       hostTreeDataProvider.del(item)
     }),
   )
 
   // 注册「重命名 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("mini-live-host.rename", (item: HostConfig) => {
+    vscode.commands.registerCommand("mini-live-host.rename", (item: HostConfigFile) => {
       hostTreeDataProvider.rename(item)
     }),
   )
 
   // 注册「启用 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("mini-live-host.choose", (item: HostConfig) => {
-      hostTreeDataProvider.choose(item)
+    vscode.commands.registerCommand("mini-live-host.choose", async (item: HostConfigFile) => {
+      await hostTreeDataProvider.choose(item)
     }),
   )
 
   // 注册「禁用 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("mini-live-host.unchoose", (item: HostConfig) => {
-      hostTreeDataProvider.unchoose(item)
+    vscode.commands.registerCommand("mini-live-host.unchoose", async (item: HostConfigFile) => {
+      await hostTreeDataProvider.unchoose(item)
     }),
   )
 
@@ -55,9 +55,9 @@ export function activate(context: vscode.ExtensionContext) {
   )
 
   // 监听文档保存：当 .host 文件保存时，同步到系统 hosts
-  vscode.workspace.onDidSaveTextDocument((e: vscode.TextDocument) => {
+  vscode.workspace.onDidSaveTextDocument(async (e: vscode.TextDocument) => {
     if (e.fileName && e.fileName.includes(".host")) {
-      hostTreeDataProvider.syncChooseHost()
+      await hostTreeDataProvider.syncChooseHost()
     }
   })
 }
