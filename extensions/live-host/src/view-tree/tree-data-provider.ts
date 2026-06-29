@@ -2,152 +2,166 @@ import fs from "fs"
 import * as path from "path"
 import * as vscode from "vscode"
 import { Dirs, Files } from "../consts/paths"
+import { tryError } from "../shared/function"
 import { cLogger } from "../shared/logger"
 import { DotHost } from "../utils/dot-host"
-import { add, Metadata, remove, rename } from "../utils/metadata"
+import { add, Metadata, remove as metaRemove, rename } from "../utils/metadata"
 import { getDotHostName } from "../utils/path"
 import { HostConfigFile } from "./tree-item"
 
 /**
  * Host 配置侧边栏树视图数据提供者
  * 管理 ~/.host/ 目录下的配置文件列表及启用/禁用状态
+ *
+ * this._onDidChangeTreeData.fire: 通知 VS Code 树形视图（Tree View）数据已发生变化，触发界面刷新。
+ * - fire() 无参 / fire(undefined)	刷新整棵树（从根节点开始重建）	配置文件变更、全局搜索、切换数据源
+ * - fire(element) 传入具体节点	仅刷新该节点及其子树	单个节点状态变更、懒加载完成、展开/折叠后内容更新
  */
 export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigFile> {
   /** 树数据变更事件发射器 */
-  private _onDidChangeTreeData: vscode.EventEmitter<HostConfigFile | undefined> =
-    new vscode.EventEmitter<HostConfigFile>()
-
+  private readonly _onDidChangeTreeData = new vscode.EventEmitter<HostConfigFile | undefined>()
   /** 树数据变更事件，供 VS Code 监听刷新 */
-  readonly onDidChangeTreeData: vscode.Event<HostConfigFile | undefined> = this._onDidChangeTreeData.event
+  readonly onDidChangeTreeData = this._onDidChangeTreeData.event
 
   getTreeItem(element: HostConfigFile): vscode.TreeItem {
     return element
   }
 
+  // 用于告诉 VS Code 树形视图在某个节点下应该显示哪些子节点。
   getChildren(): Thenable<HostConfigFile[]> {
-    const hostConfigs = new Array<HostConfigFile>()
     const systemHostUri = vscode.Uri.file(Files.SYSTEM_HOSTS_PATH)
+    const metaInfo = Metadata.read()
+    const files = DotHost.list()
 
-    hostConfigs.push(
+    return Promise.resolve([
       new HostConfigFile(
         Files.SYSTEM_HOST_LABEL,
         vscode.TreeItemCollapsibleState.None,
-        {
-          command: "mini-live-host.edit",
-          title: "",
-          arguments: [systemHostUri, { preview: true }],
-        },
+        { command: "mini-live-host.edit", title: "", arguments: [systemHostUri, { preview: true }] },
         "systemHost",
         Files.SYSTEM_HOSTS_PATH,
       ),
-    )
-
-    const files = DotHost.list()
-    const metaInfo = Metadata.read()
-
-    for (const file of files) {
-      const label = getDotHostName(file)
-      const filePath = path.join(Dirs.host, file)
-      const uri = vscode.Uri.file(filePath)
-
-      hostConfigs.push(
-        new HostConfigFile(
+      ...files.map((file) => {
+        const label = getDotHostName(file)
+        const filePath = path.join(Dirs.host, file)
+        const active = metaInfo.current.includes(label)
+        return new HostConfigFile(
           label,
           vscode.TreeItemCollapsibleState.None,
-          { command: "mini-live-host.edit", title: "", arguments: [uri] },
-          `hostItem${metaInfo.current.includes(label) ? 1 : 0}`,
+          { command: "mini-live-host.edit", title: "", arguments: [vscode.Uri.file(filePath)] },
+          `hostItem${active ? 1 : 0}`,
           filePath,
-          metaInfo.current.includes(label),
-        ),
-      )
-    }
-
-    return Promise.resolve(hostConfigs)
+          active,
+        )
+      }),
+    ])
   }
 
+  /**
+   * 启用指定的 Host 配置
+   * @param item Host 配置项
+   */
   async choose(item: HostConfigFile): Promise<void> {
-    if (item.filePath) {
-      const label = getDotHostName(item.label)
-      const metaInfo = Metadata.read()
-      if (metaInfo.current.includes(label)) {
-        void vscode.window.showInformationMessage("这个 host 已经启用。")
-        return
-      }
+    if (!item.filePath) return
 
-      Metadata.write(add(metaInfo, label))
-      try {
-        await DotHost.merge()
-        this._onDidChangeTreeData.fire(undefined)
-        void vscode.window.showInformationMessage("Host 启用成功。")
-      } catch (err) {
-        const error = err instanceof Error ? err.message : String(err)
-        cLogger.toast("error", `选择系统 hosts 失败: ${error}`)
-      }
+    const label = getDotHostName(item.label)
+    const metaInfo = Metadata.read()
+    if (metaInfo.current.includes(label)) {
+      void vscode.window.showInformationMessage("这个 host 已经启用。")
+      return
     }
-  }
-  async syncChooseHost(): Promise<void> {
-    try {
-      await DotHost.merge()
-    } catch (err) {
-      const error = err instanceof Error ? err.message : String(err)
-      cLogger.toast("error", `同步系统 hosts 失败: ${error}`)
-    }
+
+    Metadata.write(add(metaInfo, label))
+
+    await this.refresh()
+    vscode.window.showInformationMessage(`Host 启用成功。`)
   }
 
+  /**
+   * 取消选择
+   */
   async unchoose(item: HostConfigFile): Promise<void> {
-    if (item.filePath) {
-      const label = getDotHostName(item.label)
-      const metaInfo = Metadata.read()
-      if (metaInfo.current.includes(label)) {
-        Metadata.write(remove(metaInfo, label))
-        try {
-          await DotHost.merge()
+    if (!item.filePath) return
 
-          this._onDidChangeTreeData.fire(undefined)
-          void vscode.window.showInformationMessage("Host 禁用成功。")
-        } catch (err) {
-          const error = err instanceof Error ? err.message : String(err)
-          cLogger.toast("error", `取消选择系统 hosts 失败: ${error}`)
-        }
-      }
+    const label = getDotHostName(item.label)
+    const metaInfo = Metadata.read()
+    if (!metaInfo.current.includes(label)) return
+
+    Metadata.write(metaRemove(metaInfo, label))
+
+    await this.refresh()
+    vscode.window.showInformationMessage(`Host 禁用成功。`)
+  }
+
+  /**
+   * 重命名指定的 Host 配置
+   * @param item Host 配置项
+   */
+  async rename(item: HostConfigFile): Promise<void> {
+    const value = await vscode.window.showInputBox({ placeHolder: "请输入新的 Host 配置名称", value: item.label })
+
+    if (!value) {
+      vscode.window.showInformationMessage("请输入 host 名称！")
+      return
     }
+
+    const files = DotHost.list()
+    if (files.includes(`${value}.host`)) {
+      vscode.window.showInformationMessage("这个 host 名称已存在，请使用其他名称！")
+      return
+    }
+
+    fs.renameSync(path.join(Dirs.host, `${item.label}.host`), path.join(Dirs.host, `${value}.host`))
+
+    const metaInfo = Metadata.read()
+    const newLabel = getDotHostName(value)
+    if (metaInfo.current.includes(item.label)) {
+      Metadata.write(rename(metaInfo, item.label, newLabel))
+    }
+
+    this._onDidChangeTreeData.fire(undefined)
   }
 
-  rename(item: HostConfigFile): void {
-    vscode.window.showInputBox({ placeHolder: "请输入新的 Host 配置名称", value: item.label }).then((value) => {
-      if (value) {
-        const files = DotHost.list()
-        if (files.includes(`${value}.host`)) {
-          vscode.window.showInformationMessage("这个 host 名称已存在，请使用其他名称！")
-        } else {
-          fs.renameSync(path.join(Dirs.host, `${item.label}.host`), path.join(Dirs.host, `${value}.host`))
-
-          const metaInfo = Metadata.read()
-          const newLabel = getDotHostName(value)
-          if (metaInfo.current.includes(item.label)) {
-            Metadata.write(rename(metaInfo, item.label, newLabel))
-          }
-          this._onDidChangeTreeData.fire(undefined)
-        }
-      } else {
-        vscode.window.showInformationMessage("请输入 host 名称！")
-      }
-    })
-  }
-
+  /**
+   * 新增 Host 配置
+   */
   async add(): Promise<void> {
     const value = await vscode.window.showInputBox({ placeHolder: "请输入新的 Host 配置名称" })
     if (!value) return
 
     const files = DotHost.list()
-    if (!files.includes(`${value}.host`)) {
-      fs.writeFileSync(path.join(Dirs.host, `${value}.host`), "")
-      this._onDidChangeTreeData.fire(undefined)
+    if (files.includes(`${value}.host`)) {
+      vscode.window.showInformationMessage("这个 host 名称已存在，请使用其他名称！")
+      return
     }
+
+    const metaInfo = Metadata.read()
+    const filePath = path.join(Dirs.host, `${value}.host`)
+    fs.writeFileSync(filePath, "")
+    Metadata.write(add(metaInfo, getDotHostName(value)))
+
+    await this.refresh()
+    vscode.window.showInformationMessage(`Host 启用成功。`)
   }
 
-  del(item: HostConfigFile): void {
-    item.filePath && DotHost.remove({ label: item.label, filePath: item.filePath })
+  /**
+   * 删除指定的 Host 配置
+   * @param item Host 配置项
+   */
+  async remove(item: HostConfigFile): Promise<void> {
+    if (!item.filePath) return
+
+    DotHost.remove({ label: item.label, filePath: item.filePath })
+    await this.refresh()
+  }
+
+  /** 同步系统 hosts 并刷新树视图 */
+  async refresh(): Promise<void> {
+    const [err] = await tryError(DotHost.merge())
+    if (err) {
+      cLogger.toast("error", `同步系统 hosts 失败: ${err}`)
+    }
+
     this._onDidChangeTreeData.fire(undefined)
   }
 }

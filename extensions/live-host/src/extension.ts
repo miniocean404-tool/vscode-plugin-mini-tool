@@ -47,7 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
   // 注册「删除 Host 配置」命令
   context.subscriptions.push(
     vscode.commands.registerCommand("mini-live-host.delete", (item: HostConfigFile) => {
-      hostTreeDataProvider.del(item)
+      hostTreeDataProvider.remove(item)
     }),
   )
 
@@ -85,7 +85,7 @@ export function activate(context: vscode.ExtensionContext) {
   // 监听文档保存：当 .host 文件保存时，同步到系统 hosts
   vscode.workspace.onDidSaveTextDocument(async (e: vscode.TextDocument) => {
     if (e.fileName && e.fileName.includes(".host")) {
-      await hostTreeDataProvider.syncChooseHost()
+      await hostTreeDataProvider.refresh()
     }
   })
 }

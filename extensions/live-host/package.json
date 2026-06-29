@@ -148,11 +148,6 @@
           "command": "mini-live-host.delete",
           "when": "view == 'mini-live-host' && viewItem =~ /hostItem/i",
           "group": "host@1"
-        },
-        {
-          "command": "mini-live-host.add",
-          "when": "view == 'mini-live-host' && viewItem =~ /hostItem/i",
-          "group": "host@1"
         }
       ]
     }
