@@ -49,6 +49,12 @@ function select() {
   // const contents = new vscode.MarkdownString(`[Add comment](${commentCommandUri})`);
 }
 
+function config() {
+  // 获取配置
+  // 用于 package.json 的 contributes.configuration 注册后，用户在 Settings UI 里能看到和编辑。
+  vscode.workspace.getConfiguration()
+}
+
 function openFile() {
   const viewType = "dotnet-interactive"
   const fileName = "Untitled-1.json"

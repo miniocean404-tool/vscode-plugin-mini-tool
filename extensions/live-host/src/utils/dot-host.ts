@@ -16,8 +16,6 @@ export interface MetaInfo {
 /**
  * Host 配置文件读写工具类
  * 负责 ~/.host/ 目录及系统 hosts 文件的同步
- *
- * fs 部分可以修改为使用 vscode 的 context.globalState get 或者 set 方法来存储
  */
 
 export interface DotHostElemet {

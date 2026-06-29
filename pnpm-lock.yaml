@@ -140,16 +140,6 @@ importers:
       dedent:
         specifier: 1.7.2
         version: 1.7.2
-      glob:
-        specifier: ^13.0.6
-        version: 13.0.6
-    devDependencies:
-      '@types/glob':
-        specifier: ^9.0.0
-        version: 9.0.0
-      '@types/node':
-        specifier: ^26.0.1
-        version: 26.0.1
 
   extensions/mini-tool: {}
 
@@ -608,10 +598,6 @@ packages:
 
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
-
-  '@types/glob@9.0.0':
-    resolution: {integrity: sha512-00UxlRaIUvYm4R4W9WYkN8/J+kV8fmOQ7okeH6YFtGWFMt3odD45tpG5yA5wnL7HE6lLgjaTW5n14ju2hl2NNA==}
-    deprecated: This is a stub types definition. glob provides its own type definitions, so you do not need this installed.
 
   '@types/node@26.0.1':
     resolution: {integrity: sha512-fc3KiUoBt6kie0N9bIW3E47vZsuaMf0PM2AaUpLCLT0s/LvX1nxAim6Fc049cNxODPpGm6qRAuUOB86SkRuPQw==}
@@ -2770,10 +2756,6 @@ snapshots:
     dependencies:
       tslib: 2.8.1
     optional: true
-
-  '@types/glob@9.0.0':
-    dependencies:
-      glob: 13.0.6
 
   '@types/node@26.0.1':
     dependencies:

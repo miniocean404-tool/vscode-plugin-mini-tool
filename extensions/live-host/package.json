@@ -40,14 +40,10 @@
   "dependencies": {
     "@vscode/test-electron": "^3.0.0",
     "dayjs": "1.11.21",
-    "glob": "^13.0.6",
     "@vscode/sudo-prompt": "9.3.2",
     "dedent": "1.7.2"
   },
-  "devDependencies": {
-    "@types/glob": "^9.0.0",
-    "@types/node": "^26.0.1"
-  },
+  "devDependencies": {},
   "activationEvents": [
     "onStartupFinished"
   ],
@@ -118,6 +114,14 @@
       {
         "command": "mini-live-host.edit",
         "title": "编辑"
+      },
+      {
+        "command": "mini-live-host.sync",
+        "title": "同步到系统",
+        "icon": {
+          "light": "assets/light/sync.svg",
+          "dark": "assets/dark/sync.svg"
+        }
       }
     ],
     "menus": {
@@ -126,6 +130,11 @@
           "command": "mini-live-host.add",
           "when": "view == 'mini-live-host'",
           "group": "navigation@1"
+        },
+        {
+          "command": "mini-live-host.sync",
+          "when": "view == 'mini-live-host'",
+          "group": "navigation@2"
         }
       ],
       "view/item/context": [
