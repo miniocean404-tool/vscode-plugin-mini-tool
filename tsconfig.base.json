@@ -37,7 +37,10 @@
 
     "emitDeclarationOnly": true, // 只生成声明文件
     "skipLibCheck": true, // 检查类型时是否跳过类型声明文件，可以提升编译速度
-    "verbatimModuleSyntax": true, // 使用 import type 和 export type 必须明确用于类型导入，false 时，可以省略 type 关键字并且 TypeScript 会自动将只用于类型的导入转换为 import type
+    // 使用 import type 和 export type 必须明确用于类型导入，
+    // false 时，可以省略 type 关键字并且
+    // true 时 TypeScript 会自动将只用于类型的导入转换为 import type(会自动导入 type 关键字, 但是可能会错误, 最好还是使用 oxc 的 lint 修复)
+    "verbatimModuleSyntax": false,
 
     "experimentalDecorators": true, // 启用装饰器
     "emitDecoratorMetadata": true, // 启用装饰器元数据

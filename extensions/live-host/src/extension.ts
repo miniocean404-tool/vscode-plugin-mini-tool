@@ -5,10 +5,11 @@
 import fs from "fs"
 import * as vscode from "vscode"
 import { Dirs, Files } from "./consts/paths"
-import { HostConfigFile, HostTreeDataProvider } from "./tree-data-provider"
-import { fileExists } from "./utils/fs"
-import { iife } from "./utils/function"
-import { openDocument } from "./utils/vscode"
+import { fileExists } from "./shared/fs"
+import { iife } from "./shared/function"
+import { openDocument } from "./shared/vscode"
+import { HostTreeDataProvider } from "./view-tree/tree-data-provider"
+import type { HostConfigFile } from "./view-tree/tree-item"
 
 // 初始化时候处理基础配置
 iife(() => {

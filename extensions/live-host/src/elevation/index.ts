@@ -1,5 +1,5 @@
 import fs from "fs"
-import { tempFile } from "../utils/file"
+import { tempFile } from "../shared/file"
 import { elevateCopyLinux } from "./platform/linux"
 import { elevateCopyMacos } from "./platform/macos"
 import { elevateCopyWindows } from "./platform/windows"
