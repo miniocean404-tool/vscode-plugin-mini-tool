@@ -1,5 +1,5 @@
 import { createTempFile } from "@mini-tool/utils/fs"
-import { EXTENSION_NAME } from "../consts/extension"
+import { ExtensionMetadata } from "../consts/extension"
 import { elevateCopyLinux } from "./platform/linux"
 import { elevateCopyMacos } from "./platform/macos"
 import { elevateCopyWindows } from "./platform/windows"
@@ -24,6 +24,6 @@ async function elevateCopy(src: string, dst: string): Promise<void> {
  * 调用方有责任仅在直接写入因权限错误失败后才回退到此函数。
  */
 export async function writeWithElevation(target: string, data: string): Promise<void> {
-  using tmp = createTempFile({ prefix: EXTENSION_NAME, data })
+  using tmp = createTempFile({ prefix: ExtensionMetadata.name, data })
   await elevateCopy(tmp.absolute, target)
 }
