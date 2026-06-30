@@ -2,12 +2,13 @@ import { tryError } from "@mini-tool/utils/function"
 import fs from "fs"
 import * as path from "path"
 import * as vscode from "vscode"
+import { ExtensionMetadata } from "../consts/extension"
 import { Dirs, Files } from "../consts/paths"
 import { DotHost } from "../utils/dot-host"
+import { cLogger } from "../utils/logger"
 import { add, Metadata, remove as metaRemove, rename } from "../utils/metadata"
 import { getDotHostName } from "../utils/path"
 import { HostConfigFile } from "./tree-item"
-import { cLogger } from "../utils/logger"
 
 /**
  * Host 配置侧边栏树视图数据提供者
@@ -37,7 +38,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
       new HostConfigFile(
         Files.SYSTEM_HOST_LABEL,
         vscode.TreeItemCollapsibleState.None,
-        { command: "mini-live-host.edit", title: "", arguments: [systemHostUri, { preview: true }] },
+        { command: ExtensionMetadata.commands.edit, title: "", arguments: [systemHostUri, { preview: true }] },
         "systemHost",
         Files.SYSTEM_HOSTS_PATH,
       ),
@@ -48,7 +49,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
         return new HostConfigFile(
           label,
           vscode.TreeItemCollapsibleState.None,
-          { command: "mini-live-host.edit", title: "", arguments: [vscode.Uri.file(filePath)] },
+          { command: ExtensionMetadata.commands.edit, title: "", arguments: [vscode.Uri.file(filePath)] },
           `hostItem${active ? 1 : 0}`,
           filePath,
           active,

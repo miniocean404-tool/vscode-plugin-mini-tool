@@ -8,6 +8,7 @@ import { openDocument } from "@mini-tool/utils/vscode"
 
 import fs from "fs"
 import * as vscode from "vscode"
+import { ExtensionMetadata } from "./consts/extension"
 import { Dirs, Files } from "./consts/paths"
 import { HostTreeDataProvider } from "./view-tree/tree-data-provider"
 import { HostConfigFile } from "./view-tree/tree-item"
@@ -36,39 +37,39 @@ export function activate(context: vscode.ExtensionContext) {
   const hostTreeDataProvider = new HostTreeDataProvider()
 
   // 注册侧边栏树视图
-  context.subscriptions.push(vscode.window.registerTreeDataProvider("mini-live-host", hostTreeDataProvider))
+  context.subscriptions.push(vscode.window.registerTreeDataProvider(ExtensionMetadata.name, hostTreeDataProvider))
 
   // 注册「新增 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("mini-live-host.add", (item: HostConfigFile) => {
+    vscode.commands.registerCommand(ExtensionMetadata.commands.add, (item: HostConfigFile) => {
       hostTreeDataProvider.add()
     }),
   )
 
   // 注册「删除 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("mini-live-host.delete", (item: HostConfigFile) => {
+    vscode.commands.registerCommand(ExtensionMetadata.commands.delete, (item: HostConfigFile) => {
       hostTreeDataProvider.remove(item)
     }),
   )
 
   // 注册「重命名 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("mini-live-host.rename", (item: HostConfigFile) => {
+    vscode.commands.registerCommand(ExtensionMetadata.commands.rename, (item: HostConfigFile) => {
       hostTreeDataProvider.rename(item)
     }),
   )
 
   // 注册「启用 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("mini-live-host.choose", async (item: HostConfigFile) => {
+    vscode.commands.registerCommand(ExtensionMetadata.commands.choose, async (item: HostConfigFile) => {
       await hostTreeDataProvider.choose(item)
     }),
   )
 
   // 注册「禁用 Host 配置」命令
   context.subscriptions.push(
-    vscode.commands.registerCommand("mini-live-host.unchoose", async (item: HostConfigFile) => {
+    vscode.commands.registerCommand(ExtensionMetadata.commands.unchoose, async (item: HostConfigFile) => {
       await hostTreeDataProvider.unchoose(item)
     }),
   )
@@ -76,7 +77,7 @@ export function activate(context: vscode.ExtensionContext) {
   // 注册「编辑 Host 配置」命令, getChildren 会触发这个命令
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      "mini-live-host.edit",
+      ExtensionMetadata.commands.edit,
       (uri: vscode.Uri, options?: vscode.TextDocumentShowOptions) => {
         openDocument(uri, options)
       },

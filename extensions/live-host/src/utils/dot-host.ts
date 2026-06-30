@@ -5,9 +5,9 @@ import * as fs from "fs"
 import * as path from "path"
 import { Dirs, Files } from "../consts/paths"
 import { writeWithElevation } from "../elevation"
-import { cLogger } from "../shared/logger"
 import { Metadata } from "./metadata"
 import { getDotHostName } from "./path"
+import { cLogger } from "./logger.ts"
 
 export interface MetaInfo {
   current: string[]

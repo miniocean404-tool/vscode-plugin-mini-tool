@@ -1,5 +1,5 @@
-import fs from "fs"
-import { tempFile } from "../shared/file"
+import { createTempFile } from "@mini-tool/utils/fs"
+import { EXTENSION_NAME } from "../consts/extension"
 import { elevateCopyLinux } from "./platform/linux"
 import { elevateCopyMacos } from "./platform/macos"
 import { elevateCopyWindows } from "./platform/windows"
@@ -23,14 +23,7 @@ async function elevateCopy(src: string, dst: string): Promise<void> {
  * 使用 OS 原生提权将 `content` 写入 `target`。
  * 调用方有责任仅在直接写入因权限错误失败后才回退到此函数。
  */
-export async function writeWithElevation(target: string, content: string): Promise<void> {
-  const tmpPath = tempFile(content)
-  try {
-    await elevateCopy(tmpPath, target)
-  } finally {
-    // 尽力清理；忽略失败，因为临时目录由 OS 管理且文件很小。
-    try {
-      fs.unlinkSync(tmpPath)
-    } catch {}
-  }
+export async function writeWithElevation(target: string, data: string): Promise<void> {
+  using tmp = createTempFile({ prefix: EXTENSION_NAME, data })
+  await elevateCopy(tmp.absolute, target)
 }
