@@ -5,8 +5,12 @@ import * as vscode from "vscode"
  * 输出通道封装
  * 统一管理 mini-live-host 扩展的日志输出
  */
-class Logger {
-  private logger = vscode.window.createOutputChannel("mini-live-host")
+export class Logger {
+  private logger: vscode.OutputChannel
+
+  constructor(pluginName: string, languageId?: string) {
+    this.logger = vscode.window.createOutputChannel(pluginName, languageId)
+  }
 
   /** 获取输出通道名称 */
   get name() {
@@ -39,7 +43,7 @@ class Logger {
         break
     }
 
-    if (selection) cLogger.show()
+    if (selection) this.show()
   }
 
   /**
@@ -97,5 +101,3 @@ class Logger {
     return `${timestamp} [${level}] > ${content}`
   }
 }
-
-export const cLogger = new Logger()

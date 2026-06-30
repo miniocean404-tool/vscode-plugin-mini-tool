@@ -1,6 +1,6 @@
-import * as prettier from "prettier/standalone"
 import pluginBabel from "prettier/plugins/babel"
 import pluginEstree from "prettier/plugins/estree"
+import * as prettier from "prettier/standalone"
 
 export async function jsonBeautify(code: string): Promise<string> {
   const format = await prettier.format(code, {

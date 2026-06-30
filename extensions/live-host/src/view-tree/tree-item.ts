@@ -1,3 +1,5 @@
+import { getTheme } from "@mini-tool/utils/vscode"
+
 import path from "path"
 import * as vscode from "vscode"
 
@@ -6,9 +8,6 @@ import * as vscode from "vscode"
  * 继承 vscode.TreeItem，表示侧边栏中的一个 host 配置项
  */
 export class HostConfigFile extends vscode.TreeItem {
-  /** 是否深色主题（静态，避免每实例重复判断） */
-  readonly isDark = vscode.window.activeColorTheme.kind === vscode.ColorThemeKind.Dark
-
   /**
    * @param label 配置名称（不含 .host 后缀）
    * @param collapsibleState 折叠状态
@@ -37,7 +36,7 @@ export class HostConfigFile extends vscode.TreeItem {
       "..",
       "..",
       "assets",
-      this.isDark ? "dark" : "light",
+      getTheme().isDark ? "dark" : "light",
       chooseStatus ? "checked.svg" : "unchecked.svg",
     )
 

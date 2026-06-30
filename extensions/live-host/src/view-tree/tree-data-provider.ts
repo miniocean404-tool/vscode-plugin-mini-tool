@@ -1,13 +1,13 @@
+import { tryError } from "@mini-tool/utils/function"
 import fs from "fs"
 import * as path from "path"
 import * as vscode from "vscode"
 import { Dirs, Files } from "../consts/paths"
-import { tryError } from "../shared/function"
-import { cLogger } from "../shared/logger"
 import { DotHost } from "../utils/dot-host"
 import { add, Metadata, remove as metaRemove, rename } from "../utils/metadata"
 import { getDotHostName } from "../utils/path"
 import { HostConfigFile } from "./tree-item"
+import { cLogger } from "../utils/logger"
 
 /**
  * Host 配置侧边栏树视图数据提供者

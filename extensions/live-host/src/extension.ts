@@ -2,14 +2,15 @@
  * @see https://github.com/oldj/SwitchHosts/tree/master/src-tauri/src/hosts_apply 提权参考, SwitchHosts 是一个 tauri 写的 host 配置管理工具
  */
 
+import { fileExists } from "@mini-tool/utils/fs"
+import { debounce, iife } from "@mini-tool/utils/function"
+import { openDocument } from "@mini-tool/utils/vscode"
+
 import fs from "fs"
 import * as vscode from "vscode"
 import { Dirs, Files } from "./consts/paths"
-import { fileExists } from "./shared/fs"
-import { iife } from "./shared/function"
-import { openDocument } from "./shared/vscode"
 import { HostTreeDataProvider } from "./view-tree/tree-data-provider"
-import type { HostConfigFile } from "./view-tree/tree-item"
+import { HostConfigFile } from "./view-tree/tree-item"
 
 // 初始化时候处理基础配置
 iife(() => {
@@ -82,12 +83,21 @@ export function activate(context: vscode.ExtensionContext) {
     ),
   )
 
-  // 监听文档保存：当 .host 文件保存时，同步到系统 hosts
-  vscode.workspace.onDidSaveTextDocument(async (e: vscode.TextDocument) => {
+  // 防抖保存监听：500ms 内的连续保存合并为一次 merge，消除 /etc/hosts 竞态
+  const debouncedRefresh = debounce(() => hostTreeDataProvider.refresh(), 500)
+
+  vscode.workspace.onDidSaveTextDocument((e: vscode.TextDocument) => {
     if (e.fileName && e.fileName.includes(".host")) {
-      await hostTreeDataProvider.refresh()
+      debouncedRefresh()
     }
   })
+
+  // 主题变更时更新图标并刷新视图
+  context.subscriptions.push(
+    vscode.window.onDidChangeActiveColorTheme(() => {
+      hostTreeDataProvider.refresh()
+    }),
+  )
 }
 
 /** 扩展停用时调用（当前无清理逻辑） */

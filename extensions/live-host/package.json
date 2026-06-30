@@ -39,9 +39,9 @@
   },
   "dependencies": {
     "@vscode/test-electron": "^3.0.0",
-    "dayjs": "1.11.21",
     "@vscode/sudo-prompt": "9.3.2",
-    "dedent": "1.7.2"
+    "dedent": "1.7.2",
+    "@mini-tool/utils": "workspace:*"
   },
   "devDependencies": {},
   "activationEvents": [
@@ -122,11 +122,6 @@
           "command": "mini-live-host.add",
           "when": "view == 'mini-live-host'",
           "group": "navigation@1"
-        },
-        {
-          "command": "mini-live-host.sync",
-          "when": "view == 'mini-live-host'",
-          "group": "navigation@2"
         }
       ],
       "view/item/context": [

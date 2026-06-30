@@ -47,12 +47,9 @@ export function list(): string[] {
   const metaBasename = path.basename(Files.metadata)
 
   return fs
-    .readdirSync(Dirs.host)
-    .filter((file) => file !== metaBasename)
-    .filter((file) => {
-      const filePath = path.join(Dirs.host, file)
-      return fs.statSync(filePath).isFile()
-    })
+    .readdirSync(Dirs.host, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name !== metaBasename)
+    .map((entry) => entry.name)
 }
 
 /**

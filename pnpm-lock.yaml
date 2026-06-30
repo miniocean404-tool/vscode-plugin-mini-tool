@@ -128,15 +128,15 @@ importers:
 
   extensions/live-host:
     dependencies:
+      '@mini-tool/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@vscode/sudo-prompt':
         specifier: 9.3.2
         version: 9.3.2
       '@vscode/test-electron':
         specifier: ^3.0.0
         version: 3.0.0
-      dayjs:
-        specifier: 1.11.21
-        version: 1.11.21
       dedent:
         specifier: 1.7.2
         version: 1.7.2
@@ -151,7 +151,11 @@ importers:
 
   extensions/snippets: {}
 
-  packages/utils: {}
+  packages/utils:
+    dependencies:
+      dayjs:
+        specifier: 1.11.21
+        version: 1.11.21
 
 packages:
 

@@ -1,6 +1,12 @@
 // 数组去重
 export function unique<T extends { [key: string]: any }>(arr: T[]) {
-  function equals(value1: T, value2: T) {
+  function equals(value1: unknown, value2: unknown): boolean {
+    // 函数比较：通过 toString 比较
+    if (typeof value1 === "function" && typeof value2 === "function") {
+      return value1.toString() === value2.toString()
+    }
+
+    // 对象比较
     if (value1 instanceof Object && value2 instanceof Object) {
       const keys1 = Object.keys(value1)
       const keys2 = Object.keys(value2)
@@ -8,13 +14,13 @@ export function unique<T extends { [key: string]: any }>(arr: T[]) {
 
       for (const k of keys1) {
         if (!keys2.includes(k)) return false
-        if (!equals(value1[k], value2[k])) return false
+        if (!equals((value1 as any)[k], (value2 as any)[k])) return false
       }
 
       return true
-    } else {
-      return value1 === value2
     }
+
+    return value1 === value2
   }
 
   const newArr = [...arr]

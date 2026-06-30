@@ -8,34 +8,20 @@
   "browser": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "node": "./dist/index.js",
-      "require": "./dist/index.js",
-      "default": "./dist/index.js",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./array": {
-      "default": "./dist/array.js",
-      "types": "./dist/array.d.ts"
-    },
-    "./vscode": {
-      "default": "./dist/vscode.js",
-      "types": "./dist/vscode.d.ts"
-    },
-    "./format": {
-      "default": "./dist/format.js",
-      "types": "./dist/format.d.ts"
-    },
-    "./pref": {
-      "default": "./dist/pref.js",
-      "types": "./dist/pref.d.ts"
+    "./*": {
+      "node": "./dist/*/index.js",
+      "require": "./dist/*/index.js",
+      "default": "./dist/*/index.js",
+      "import": "./dist/*/index.js",
+      "types": "./dist/*/index.d.ts"
     },
     "./package.json": "./package.json"
   },
   "typesVersions": {
     "*": {
-      "*": ["./src/*"]
+      "*": [
+        "./src/*"
+      ]
     }
   },
   "files": [
@@ -48,5 +34,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dayjs": "1.11.21"
+  }
 }
