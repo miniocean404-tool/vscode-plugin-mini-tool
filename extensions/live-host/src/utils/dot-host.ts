@@ -5,9 +5,9 @@ import * as fs from "fs"
 import * as path from "path"
 import { Dirs, Files } from "../consts/paths"
 import { writeWithElevation } from "../elevation"
+import { cLogger } from "./logger.ts"
 import { Metadata } from "./metadata"
 import { getDotHostName } from "./path"
-import { cLogger } from "./logger.ts"
 
 export interface MetaInfo {
   current: string[]
@@ -75,7 +75,7 @@ export async function merge(): Promise<void> {
         ${config}
       `
       const body = getDotHostName(file) === defaultHost ? config : separator
-      return acc + "\n\n" + body
+      return acc + "\n" + body
     }, "")
 
   await writeWithElevation(Files.SYSTEM_HOSTS_PATH, merged)

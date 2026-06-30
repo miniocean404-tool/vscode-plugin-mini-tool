@@ -9,5 +9,8 @@ export const ExtensionMetadata = {
     choose: `${EXTENSION_NAME}.choose`,
     unchoose: `${EXTENSION_NAME}.unchoose`,
     edit: `${EXTENSION_NAME}.edit`,
+    copySystemHostPath: `${EXTENSION_NAME}.copySystemHostPath`,
+    copySystemHostRelativePath: `${EXTENSION_NAME}.copySystemHostRelativePath`,
+    revealSystemHost: `${EXTENSION_NAME}.revealSystemHost`,
   },
 }

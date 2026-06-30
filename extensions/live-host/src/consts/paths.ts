@@ -1,5 +1,6 @@
 import os from "os"
 import path from "path"
+import * as vscode from "vscode"
 
 /**
  * 获取 Windows 系统 hosts 文件路径。
@@ -26,4 +27,15 @@ export namespace Files {
   export const defaultHost = path.join(Dirs.host, "default.host")
   // 元数据文件，记录当前启用的 host 配置列表
   export const metadata = path.join(Dirs.host, "metadata.json")
+}
+
+export namespace Uris {
+  /** 系统 hosts 虚拟文档 URI（path 与 SYSTEM_HOSTS_PATH 一致，文件名 hosts 匹配语法高亮） */
+  export const systemHostFile = vscode.Uri.file(Files.SYSTEM_HOSTS_PATH)
+  export const systemHost = systemHostFile.with({ scheme: "host" })
+}
+
+/** 是否为系统 hosts 虚拟文档 URI */
+export function isSystemHostUri(uri: vscode.Uri): boolean {
+  return uri.scheme === "host" && uri.path === Uris.systemHostFile.path
 }

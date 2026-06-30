@@ -69,6 +69,22 @@
         "path": "./syntaxes/host.tmLanguage.json"
       }
     ],
+    "configurationDefaults": {
+      "files.readonlyInclude": {
+        "/etc/hosts": true,
+        "**/drivers/etc/hosts": true,
+        "**/Drivers/etc/hosts": true
+      }
+    },
+    "resourceLabelFormatters": [
+      {
+        "scheme": "host",
+        "formatting": {
+          "label": "系统 Host",
+          "tooltip": "${path}"
+        }
+      }
+    ],
     "viewsContainers": {
       "activitybar": [
         {
@@ -114,9 +130,67 @@
       {
         "command": "mini-live-host.edit",
         "title": "编辑"
+      },
+      {
+        "command": "mini-live-host.copySystemHostPath",
+        "title": "复制路径"
+      },
+      {
+        "command": "mini-live-host.copySystemHostRelativePath",
+        "title": "复制相对路径"
+      },
+      {
+        "command": "mini-live-host.revealSystemHost",
+        "title": "在文件管理器中显示"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "mini-live-host.copySystemHostPath",
+        "key": "shift+alt+c",
+        "when": "resourceScheme == host && editorTextFocus"
+      },
+      {
+        "command": "mini-live-host.copySystemHostRelativePath",
+        "key": "ctrl+m ctrl+shift+c",
+        "when": "resourceScheme == host && editorTextFocus"
       }
     ],
     "menus": {
+      "editor/context": [
+        {
+          "command": "mini-live-host.copySystemHostPath",
+          "when": "resourceScheme == host",
+          "group": "9_cutcopypaste@7"
+        },
+        {
+          "command": "mini-live-host.copySystemHostRelativePath",
+          "when": "resourceScheme == host",
+          "group": "9_cutcopypaste@8"
+        },
+        {
+          "command": "mini-live-host.revealSystemHost",
+          "when": "resourceScheme == host",
+          "group": "2_workspace@2"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "mini-live-host.copySystemHostPath",
+          "when": "resourceScheme == host",
+          "group": "9_cutcopypaste@7"
+        },
+        {
+          "command": "mini-live-host.copySystemHostRelativePath",
+          "when": "resourceScheme == host",
+          "group": "9_cutcopypaste@8"
+        },
+        {
+          "command": "mini-live-host.revealSystemHost",
+          "when": "resourceScheme == host",
+          "group": "2_workspace@2"
+        }
+      ],
       "view/title": [
         {
           "command": "mini-live-host.add",

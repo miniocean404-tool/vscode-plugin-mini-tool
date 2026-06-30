@@ -3,7 +3,8 @@ import fs from "fs"
 import * as path from "path"
 import * as vscode from "vscode"
 import { ExtensionMetadata } from "../consts/extension"
-import { Dirs, Files } from "../consts/paths"
+import { Dirs, Files, Uris } from "../consts/paths"
+import { systemHostFileProvider } from "../filesystem-provider"
 import { DotHost } from "../utils/dot-host"
 import { cLogger } from "../utils/logger"
 import { add, Metadata, remove as metaRemove, rename } from "../utils/metadata"
@@ -30,15 +31,16 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
 
   // 用于告诉 VS Code 树形视图在某个节点下应该显示哪些子节点。
   getChildren(): Thenable<HostConfigFile[]> {
-    const systemHostUri = vscode.Uri.file(Files.SYSTEM_HOSTS_PATH)
     const metaInfo = Metadata.read()
     const files = DotHost.list()
+
+    this.syncSystemHostView()
 
     return Promise.resolve([
       new HostConfigFile(
         Files.SYSTEM_HOST_LABEL,
         vscode.TreeItemCollapsibleState.None,
-        { command: ExtensionMetadata.commands.edit, title: "", arguments: [systemHostUri, { preview: true }] },
+        { command: ExtensionMetadata.commands.edit, title: "", arguments: [Uris.systemHost, { preview: true }] },
         "systemHost",
         Files.SYSTEM_HOSTS_PATH,
       ),
@@ -163,6 +165,13 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
       cLogger.toast("error", `同步系统 hosts 失败: ${err}`)
     }
 
+    this.syncSystemHostView()
     this._onDidChangeTreeData.fire(undefined)
+  }
+
+  /** 将磁盘上的系统 hosts 同步到虚拟文档，并通知已打开的编辑器刷新 */
+  private syncSystemHostView(): void {
+    const content = fs.readFileSync(Files.SYSTEM_HOSTS_PATH, "utf-8")
+    systemHostFileProvider.updateFile(Uris.systemHost, content)
   }
 }
