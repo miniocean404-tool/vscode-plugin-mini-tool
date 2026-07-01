@@ -1,19 +1,19 @@
 import { tryError } from "@mini-tool/utils/function"
-import fs from "fs"
-import * as path from "path"
 import * as vscode from "vscode"
 import { ExtensionMetadata } from "../consts/extension"
-import { Dirs, Files, Uris } from "../consts/paths"
+import { Files, Uris } from "../consts/paths"
 import { systemHostFileProvider } from "../filesystem-provider"
+import * as fs from "fs"
 import { DotHost } from "../utils/dot-host"
 import { cLogger } from "../utils/logger"
 import { add, Metadata, remove as metaRemove, rename } from "../utils/metadata"
 import { getDotHostName } from "../utils/path"
+import { getHostUri, getStorage, hostFilename } from "../utils/storage"
 import { HostConfigFile } from "./tree-item"
 
 /**
  * Host 配置侧边栏树视图数据提供者
- * 管理 ~/.host/ 目录下的配置文件列表及启用/禁用状态
+ * 基于 context.globalStorageUri 管理 host 配置文件列表及启用/禁用状态
  *
  * this._onDidChangeTreeData.fire: 通知 VS Code 树形视图（Tree View）数据已发生变化，触发界面刷新。
  * - fire() 无参 / fire(undefined)	刷新整棵树（从根节点开始重建）	配置文件变更、全局搜索、切换数据源
@@ -30,13 +30,13 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
   }
 
   // 用于告诉 VS Code 树形视图在某个节点下应该显示哪些子节点。
-  getChildren(): Thenable<HostConfigFile[]> {
-    const metaInfo = Metadata.read()
-    const files = DotHost.list()
+  async getChildren(): Promise<HostConfigFile[]> {
+    const metaInfo = await Metadata.read()
+    const files = await DotHost.list()
 
     this.syncSystemHostView()
 
-    return Promise.resolve([
+    return [
       new HostConfigFile(
         Files.SYSTEM_HOST_LABEL,
         vscode.TreeItemCollapsibleState.None,
@@ -46,18 +46,18 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
       ),
       ...files.map((file) => {
         const label = getDotHostName(file)
-        const filePath = path.join(Dirs.host, file)
-        const active = metaInfo.current.includes(label)
+        const fileUri = getHostUri(label)
+        const active = metaInfo.includes(label)
         return new HostConfigFile(
           label,
           vscode.TreeItemCollapsibleState.None,
-          { command: ExtensionMetadata.commands.edit, title: "", arguments: [vscode.Uri.file(filePath)] },
+          { command: ExtensionMetadata.commands.edit, title: "", arguments: [fileUri] },
           `hostItem${active ? 1 : 0}`,
-          filePath,
+          fileUri.fsPath,
           active,
         )
       }),
-    ])
+    ]
   }
 
   /**
@@ -68,13 +68,13 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
     if (!item.filePath) return
 
     const label = getDotHostName(item.label)
-    const metaInfo = Metadata.read()
-    if (metaInfo.current.includes(label)) {
+    const metaInfo = await Metadata.read()
+    if (metaInfo.includes(label)) {
       void vscode.window.showInformationMessage("这个 host 已经启用。")
       return
     }
 
-    Metadata.write(add(metaInfo, label))
+    await Metadata.write(add(metaInfo, label))
 
     await this.refresh()
     vscode.window.showInformationMessage(`Host 启用成功。`)
@@ -87,10 +87,10 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
     if (!item.filePath) return
 
     const label = getDotHostName(item.label)
-    const metaInfo = Metadata.read()
-    if (!metaInfo.current.includes(label)) return
+    const metaInfo = await Metadata.read()
+    if (!metaInfo.includes(label)) return
 
-    Metadata.write(metaRemove(metaInfo, label))
+    await Metadata.write(metaRemove(metaInfo, label))
 
     await this.refresh()
     vscode.window.showInformationMessage(`Host 禁用成功。`)
@@ -108,18 +108,17 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
       return
     }
 
-    const files = DotHost.list()
+    const files = await DotHost.list()
     if (files.includes(`${value}.host`)) {
       vscode.window.showInformationMessage("这个 host 名称已存在，请使用其他名称！")
       return
     }
 
-    fs.renameSync(path.join(Dirs.host, `${item.label}.host`), path.join(Dirs.host, `${value}.host`))
+    await getStorage().rename(hostFilename(item.label), hostFilename(value), { overwrite: false })
 
-    const metaInfo = Metadata.read()
-    const newLabel = getDotHostName(value)
-    if (metaInfo.current.includes(item.label)) {
-      Metadata.write(rename(metaInfo, item.label, newLabel))
+    const metaInfo = await Metadata.read()
+    if (metaInfo.includes(item.label)) {
+      await Metadata.write(rename(metaInfo, item.label, getDotHostName(value)))
     }
 
     this._onDidChangeTreeData.fire(undefined)
@@ -132,16 +131,15 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
     const value = await vscode.window.showInputBox({ placeHolder: "请输入新的 Host 配置名称" })
     if (!value) return
 
-    const files = DotHost.list()
+    const files = await DotHost.list()
     if (files.includes(`${value}.host`)) {
       vscode.window.showInformationMessage("这个 host 名称已存在，请使用其他名称！")
       return
     }
 
-    const metaInfo = Metadata.read()
-    const filePath = path.join(Dirs.host, `${value}.host`)
-    fs.writeFileSync(filePath, "")
-    Metadata.write(add(metaInfo, getDotHostName(value)))
+    const metaInfo = await Metadata.read()
+    await getStorage().writeText(hostFilename(value), "")
+    await Metadata.write(add(metaInfo, getDotHostName(value)))
 
     await this.refresh()
     vscode.window.showInformationMessage(`Host 启用成功。`)
@@ -154,7 +152,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
   async remove(item: HostConfigFile): Promise<void> {
     if (!item.filePath) return
 
-    DotHost.remove({ label: item.label, filePath: item.filePath })
+    await DotHost.remove({ label: item.label, filePath: item.filePath })
     await this.refresh()
   }
 

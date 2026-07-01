@@ -1,40 +1,35 @@
 export * as Metadata from "./metadata.ts"
 
-import fs from "fs"
-import { Files } from "../consts/paths"
-import { MetaInfo } from "./dot-host.ts"
+import { getStorage, METADATA_STATE_KEY } from "./storage"
 
-// --- 元数据读写（副作用封装） ---
+/** 已启用的 host 配置名列表 */
+export type CurrentHosts = string[]
 
-/** 读取 meta.json 元数据 */
-export function read(): MetaInfo {
-  return JSON.parse(fs.readFileSync(Files.metadata).toString())
+// --- 元数据读写（基于 context.globalState 键值存储） ---
+
+/** 读取已启用的 host 配置列表（未设置时返回空数组） */
+export function read(): CurrentHosts {
+  return getStorage().getState<CurrentHosts>(METADATA_STATE_KEY, [])
 }
 
-/** 写入 meta.json 元数据 */
-export function write(data: MetaInfo): void {
-  fs.writeFileSync(Files.metadata, JSON.stringify(data))
+/** 写入已启用的 host 配置列表 */
+export async function write(data: CurrentHosts): Promise<void> {
+  await getStorage().setState<CurrentHosts>(METADATA_STATE_KEY, data)
 }
 
-// --- 纯函数：不可变元数据操作 ---
+// --- 纯函数：不可变列表操作 ---
 
-/** 将指定 host 名加入 current 列表 */
-export function add(meta: MetaInfo, hostLabel: string): MetaInfo {
-  return { ...meta, current: [...meta.current, hostLabel] }
+/** 将指定 host 名加入启用列表 */
+export function add(meta: CurrentHosts, hostLabel: string): CurrentHosts {
+  return [...meta, hostLabel]
 }
 
-/** 从 current 列表中移除指定 host 名 */
-export function remove(meta: MetaInfo, hostLabel: string): MetaInfo {
-  return {
-    ...meta,
-    current: meta.current.filter((h) => h !== hostLabel),
-  }
+/** 从启用列表中移除指定 host 名 */
+export function remove(meta: CurrentHosts, hostLabel: string): CurrentHosts {
+  return meta.filter((h) => h !== hostLabel)
 }
 
-/** 将 current 列表中的旧名替换为新名 */
-export function rename(meta: MetaInfo, oldLabel: string, newLabel: string): MetaInfo {
-  return {
-    ...meta,
-    current: meta.current.map((h) => (h === oldLabel ? newLabel : h)),
-  }
+/** 将启用列表中的旧名替换为新名 */
+export function rename(meta: CurrentHosts, oldLabel: string, newLabel: string): CurrentHosts {
+  return meta.map((h) => (h === oldLabel ? newLabel : h))
 }

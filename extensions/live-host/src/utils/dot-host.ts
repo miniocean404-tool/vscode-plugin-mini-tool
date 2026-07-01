@@ -1,22 +1,13 @@
 export * as DotHost from "./dot-host.ts"
 
 import dedent from "dedent"
-import * as fs from "fs"
-import * as path from "path"
-import { Dirs, Files } from "../consts/paths"
+import * as vscode from "vscode"
+import { Files } from "../consts/paths"
 import { writeWithElevation } from "../elevation"
 import { cLogger } from "./logger.ts"
 import { Metadata } from "./metadata"
 import { getDotHostName } from "./path"
-
-export interface MetaInfo {
-  current: string[]
-}
-
-/**
- * Host 配置文件读写工具类
- * 负责 ~/.host/ 目录及系统 hosts 文件的同步
- */
+import { DEFAULT_HOST_NAME, getStorage, hostFilename, HOST_EXT } from "./storage"
 
 export interface DotHostElemet {
   label: string
@@ -27,29 +18,27 @@ export interface DotHostElemet {
  * 删除 Host 配置文件
  * @param item 待删除的节点项 { label, filePath }
  */
-export function remove(item: DotHostElemet): void {
+export async function remove(item: DotHostElemet): Promise<void> {
   const label = getDotHostName(item.label)
 
-  const meta = Metadata.read()
+  const meta = await Metadata.read()
 
-  if (meta.current.includes(label)) {
-    Metadata.write(Metadata.remove(meta, label))
+  if (meta.includes(label)) {
+    await Metadata.write(Metadata.remove(meta, label))
   }
 
-  if (fs.existsSync(item.filePath)) fs.unlinkSync(item.filePath)
+  await getStorage().delete(hostFilename(label), { ignoreNotFound: true })
 }
 
 /**
- * 获取 ~/.host/ 目录下所有有效的 host 配置文件名
+ * 列出 globalStorage 目录下所有有效的 host 配置文件名
  * @returns 配置文件名数组（含 .host 后缀）
  */
-export function list(): string[] {
-  const metaBasename = path.basename(Files.metadata)
-
-  return fs
-    .readdirSync(Dirs.host, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name !== metaBasename)
-    .map((entry) => entry.name)
+export async function list(): Promise<string[]> {
+  const entries = await getStorage().readDirectory()
+  return entries
+    .filter(([name, type]) => type === vscode.FileType.File && name.endsWith(HOST_EXT))
+    .map(([name]) => name)
 }
 
 /**
@@ -57,29 +46,28 @@ export function list(): string[] {
  * @throws {Error} 写入失败时抛出
  */
 export async function merge(): Promise<void> {
-  const meta = Metadata.read()
-  const files = list()
-  const defaultHost = getDotHostName(Files.defaultHost)
+  const meta = await Metadata.read()
+  const files = await list()
+  const enabled = files.filter((file) => meta.includes(getDotHostName(file)))
 
-  const merged = files
-    .filter((file) => meta.current.includes(getDotHostName(file)))
-    .map((file) => {
-      const hostLabel = getDotHostName(file)
-      const filePath = path.join(Dirs.host, file)
-      const config = fs.readFileSync(filePath).toString()
-      return { file, hostLabel, config }
-    })
-    .reduce<string>((acc, { file, config }) => {
-      const separator = dedent`
+  const parts: string[] = []
+  for (const file of enabled) {
+    const hostLabel = getDotHostName(file)
+    const config = await getStorage().readText(hostFilename(hostLabel))
 
-        # ------------------------------------------------- host 配置 ${file} ------------------------------------------------
-        ${config}
-      `
-      const body = getDotHostName(file) === defaultHost ? config : `\n${separator}`
-      return acc + body
-    }, "")
+    if (hostLabel === DEFAULT_HOST_NAME) {
+      parts.push(config)
+    } else {
+      parts.push(
+        dedent.withOptions({ trimWhitespace: false })`
+          # ------------------------------------------------- host 配置 ${file} ------------------------------------------------
+          ${config}
+        `,
+      )
+    }
+  }
 
-  await writeWithElevation(Files.SYSTEM_HOSTS_PATH, merged)
+  await writeWithElevation(Files.SYSTEM_HOSTS_PATH, parts.join(""))
 
-  cLogger.info(`同步启用的 host 配置成功: ${meta.current.join(",") || "(none)"}`)
+  cLogger.info(`同步启用的 host 配置成功: ${meta.join(",") || "(none)"}`)
 }

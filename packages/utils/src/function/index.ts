@@ -8,6 +8,15 @@ export function iife<T>(fn: () => T) {
   return fn()
 }
 
+export function lazy<F extends (...args: any[]) => any>(fn: F) {
+  let result: ReturnType<F>
+
+  return function (this: unknown, ...args: Parameters<F>): ReturnType<F> {
+    result ??= fn.apply(this, args)
+    return result
+  }
+}
+
 type PerfFunction<T> = {
   (this: T, args: any[]): void
   (this: T, ...args: any[]): void

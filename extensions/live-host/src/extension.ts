@@ -2,39 +2,41 @@
  * @see https://github.com/oldj/SwitchHosts/tree/master/src-tauri/src/hosts_apply 提权参考, SwitchHosts 是一个 tauri 写的 host 配置管理工具
  */
 
-import { fileExists } from "@mini-tool/utils/fs"
-import { debounce, iife } from "@mini-tool/utils/function"
+import { debounce } from "@mini-tool/utils/function"
 import { openDocument } from "@mini-tool/utils/vscode"
 
-import fs from "fs"
+import * as fs from "fs"
 import * as vscode from "vscode"
 import { ExtensionMetadata } from "./consts/extension"
-import { Dirs, Files } from "./consts/paths"
+import { Files } from "./consts/paths"
 import { systemHostFileProvider } from "./filesystem-provider"
+import {
+  DEFAULT_HOST_NAME,
+  getStorage,
+  hostFilename,
+  init as initStorage,
+  METADATA_STATE_KEY,
+} from "./utils/storage"
 import { overrideCopyFilePath, revealSystemHostInOS } from "./utils/system-host-clipboard"
 import { HostTreeDataProvider } from "./view-tree/tree-data-provider"
 import { HostConfigFile } from "./view-tree/tree-item"
-
-// 初始化时候处理基础配置
-iife(() => {
-  if (!fileExists(Dirs.host)) {
-    // 初始化 Host 配置目录
-    // 从系统 hosts 复制内容生成 default.host，并写入 meta.json
-    fs.mkdirSync(Dirs.host)
-
-    const data = fs.readFileSync(Files.SYSTEM_HOSTS_PATH)
-
-    fs.writeFileSync(Files.defaultHost, data)
-    // 设置默认启用的 host 配置
-    fs.writeFileSync(Files.metadata, JSON.stringify({ current: ["default"] }))
-  }
-})
 
 /**
  * 扩展激活入口
  * 注册侧边栏树视图、命令，并监听 host 配置文件保存事件
  */
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
+  // 初始化 globalStorage 目录，并首次激活时写入 default.host + 元数据
+  await initStorage(context)
+
+  const storage = getStorage()
+  if (storage.getState<string[]>(METADATA_STATE_KEY) === undefined) {
+    // 首次激活：从系统 hosts 复制内容生成 default.host，并写入默认启用列表
+    const sysData = fs.readFileSync(Files.SYSTEM_HOSTS_PATH)
+    await storage.writeRaw(hostFilename(DEFAULT_HOST_NAME), sysData)
+    await storage.setState<string[]>(METADATA_STATE_KEY, [DEFAULT_HOST_NAME])
+  }
+
   /** Host 配置树数据提供者 */
   const hostTreeDataProvider = new HostTreeDataProvider()
 
