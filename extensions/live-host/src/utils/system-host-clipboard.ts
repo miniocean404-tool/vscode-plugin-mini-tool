@@ -1,6 +1,7 @@
 import * as path from "path"
 import * as vscode from "vscode"
-import { isSystemHostUri, Uris } from "../consts/paths"
+import { Uris } from "../consts/paths"
+import { isSystemHostUri } from "./uri"
 
 /** 系统 hosts 原生绝对路径（Windows 为反斜杠，Unix 为 /etc/hosts） */
 export function getSystemHostNativePath(): string {
@@ -23,33 +24,13 @@ export async function overrideCopyFilePath(uri?: vscode.Uri): Promise<void> {
   await vscode.env.clipboard.writeText(target.fsPath)
 }
 
-/**
- * Override 内置 `copyRelativePath` 命令。
- * `host://` 系统 hosts 文档基于工作区计算相对路径；其余 scheme 回退默认行为。
- */
-export async function overrideCopyRelativePath(uri?: vscode.Uri): Promise<void> {
-  const target = resolveTargetUri(uri)
-  if (!target) return
-
-  const nativePath =
-    target.scheme === "host" && isSystemHostUri(target) ? getSystemHostNativePath() : target.fsPath
-
-  const folder = vscode.workspace.getWorkspaceFolder(target)
-  if (!folder) {
-    await vscode.env.clipboard.writeText(nativePath)
-    return
-  }
-
-  const relativePath = path.relative(folder.uri.fsPath, nativePath)
-  if (!relativePath || relativePath.startsWith("..") || path.isAbsolute(relativePath)) {
-    await vscode.env.clipboard.writeText(nativePath)
-    return
-  }
-
-  // 与 VS Code 一致：相对路径使用正斜杠
-  await vscode.env.clipboard.writeText(relativePath.split(path.sep).join("/"))
-}
-
 function resolveTargetUri(uri?: vscode.Uri): vscode.Uri | undefined {
   return uri ?? vscode.window.activeTextEditor?.document.uri
+}
+
+/** "在系统文件管理器中显示" 系统 hosts 文件（host:// scheme 下内置 revealFileInOS 无法定位真实路径，转 file URI 复用内置跨平台能力） */
+export async function revealSystemHostInOS(resource?: vscode.Uri): Promise<void> {
+  const target = resolveTargetUri(resource)
+  if (!target || !isSystemHostUri(target)) return
+  await vscode.commands.executeCommand("revealFileInOS", Uris.systemHostFile)
 }

@@ -9,5 +9,7 @@ export const ExtensionMetadata = {
     choose: `${EXTENSION_NAME}.choose`,
     unchoose: `${EXTENSION_NAME}.unchoose`,
     edit: `${EXTENSION_NAME}.edit`,
+    // "在系统文件管理器中显示"
+    revealSystemHost: `${EXTENSION_NAME}.revealSystemHost`,
   },
 }

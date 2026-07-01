@@ -11,7 +11,7 @@ import * as vscode from "vscode"
 import { ExtensionMetadata } from "./consts/extension"
 import { Dirs, Files } from "./consts/paths"
 import { systemHostFileProvider } from "./filesystem-provider"
-import { overrideCopyFilePath, overrideCopyRelativePath } from "./utils/system-host-clipboard"
+import { overrideCopyFilePath, revealSystemHostInOS } from "./utils/system-host-clipboard"
 import { HostTreeDataProvider } from "./view-tree/tree-data-provider"
 import { HostConfigFile } from "./view-tree/tree-item"
 
@@ -38,6 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
   /** Host 配置树数据提供者 */
   const hostTreeDataProvider = new HostTreeDataProvider()
 
+  // 注册 host:// scheme 的文件系统提供者，提供系统 hosts 虚拟文档
   context.subscriptions.push(
     vscode.workspace.registerFileSystemProvider("host", systemHostFileProvider, {
       isReadonly: false,
@@ -45,8 +46,10 @@ export function activate(context: vscode.ExtensionContext) {
   )
 
   context.subscriptions.push(
+    // 重写内置 `copyFilePath` 命令，host:// scheme 下复制真实磁盘路径
     vscode.commands.registerCommand("copyFilePath", overrideCopyFilePath),
-    vscode.commands.registerCommand("copyRelativePath", overrideCopyRelativePath),
+    // "在系统文件管理器中显示" 系统 hosts 文件
+    vscode.commands.registerCommand(ExtensionMetadata.commands.revealSystemHost, revealSystemHostInOS),
   )
 
   // 注册侧边栏树视图
