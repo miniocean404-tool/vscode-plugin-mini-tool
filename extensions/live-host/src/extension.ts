@@ -40,7 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // 注册 host:// scheme 的文件系统提供者，提供系统 hosts 虚拟文档
   context.subscriptions.push(
-    vscode.workspace.registerFileSystemProvider("host", systemHostFileProvider, {
+    vscode.workspace.registerFileSystemProvider(ExtensionMetadata.fileSystemProvider.host, systemHostFileProvider, {
       isReadonly: false,
     }),
   )

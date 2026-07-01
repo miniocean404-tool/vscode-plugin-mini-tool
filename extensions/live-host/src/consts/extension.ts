@@ -12,4 +12,7 @@ export const ExtensionMetadata = {
     // "在系统文件管理器中显示"
     revealSystemHost: `${EXTENSION_NAME}.revealSystemHost`,
   },
+  fileSystemProvider: {
+    host: "host",
+  },
 }
