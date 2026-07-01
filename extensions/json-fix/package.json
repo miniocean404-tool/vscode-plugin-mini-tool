@@ -51,7 +51,7 @@
     ]
   },
   "dependencies": {
-    "jsonrepair": "^3.8.0",
+    "jsonrepair": "^3.14.1",
     "@mini-tool/utils": "workspace:*"
   },
   "devDependencies": {
