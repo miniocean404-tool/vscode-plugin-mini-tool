@@ -1,7 +1,7 @@
 {
   "name": "mini-tool",
   "description": "自用工具合集 包含 Git emoji 日志提交图标、中文排版、JSON 修复美化、css prettier 忽略添加、Vscode 快速折叠行及标记 等",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "author": "miniocean404",
   "license": "MIT",
   "homepage": "https://github.com/miniocean404-tool/vscode-plugin-mini-tool/blob/master/README.md",
@@ -43,11 +43,12 @@
     "Extension Packs"
   ],
   "extensionPack": [
-    "miniocean404.mini-better-align",
+    "miniocean404.mini-gitmoji",
+    "miniocean404.mini-live-host",
     "miniocean404.mini-chinese-format",
+    "miniocean404.mini-better-align",
     "miniocean404.mini-code-snap",
     "miniocean404.mini-css-px-ignore",
-    "miniocean404.mini-gitmoji",
     "miniocean404.mini-json-fix",
     "miniocean404.mini-region",
     "miniocean404.mini-snippets"
