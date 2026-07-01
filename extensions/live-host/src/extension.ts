@@ -11,13 +11,9 @@ import * as vscode from "vscode"
 import { ExtensionMetadata } from "./consts/extension"
 import { Dirs, Files } from "./consts/paths"
 import { systemHostFileProvider } from "./filesystem-provider"
+import { overrideCopyFilePath, overrideCopyRelativePath } from "./utils/system-host-clipboard"
 import { HostTreeDataProvider } from "./view-tree/tree-data-provider"
 import { HostConfigFile } from "./view-tree/tree-item"
-import {
-  copySystemHostPath,
-  copySystemHostRelativePath,
-  revealSystemHostInOS,
-} from "./utils/system-host-clipboard"
 
 // 初始化时候处理基础配置
 iife(() => {
@@ -44,17 +40,13 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.workspace.registerFileSystemProvider("host", systemHostFileProvider, {
-      isReadonly: true,
+      isReadonly: false,
     }),
   )
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(ExtensionMetadata.commands.copySystemHostPath, copySystemHostPath),
-    vscode.commands.registerCommand(
-      ExtensionMetadata.commands.copySystemHostRelativePath,
-      copySystemHostRelativePath,
-    ),
-    vscode.commands.registerCommand(ExtensionMetadata.commands.revealSystemHost, revealSystemHostInOS),
+    vscode.commands.registerCommand("copyFilePath", overrideCopyFilePath),
+    vscode.commands.registerCommand("copyRelativePath", overrideCopyRelativePath),
   )
 
   // 注册侧边栏树视图

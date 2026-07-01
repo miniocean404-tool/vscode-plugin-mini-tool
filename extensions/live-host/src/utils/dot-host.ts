@@ -71,11 +71,12 @@ export async function merge(): Promise<void> {
     })
     .reduce<string>((acc, { file, config }) => {
       const separator = dedent`
+
         # ------------------------------------------------- host 配置 ${file} ------------------------------------------------
         ${config}
       `
-      const body = getDotHostName(file) === defaultHost ? config : separator
-      return acc + "\n" + body
+      const body = getDotHostName(file) === defaultHost ? config : `\n${separator}`
+      return acc + body
     }, "")
 
   await writeWithElevation(Files.SYSTEM_HOSTS_PATH, merged)
