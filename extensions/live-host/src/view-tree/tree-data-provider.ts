@@ -5,10 +5,10 @@ import { ExtensionMetadata } from "../consts/extension"
 import { Files, Uris } from "../consts/paths"
 import { systemHostFileProvider } from "../filesystem-provider"
 import { DotHost } from "../utils/dot-host"
-import { cLogger } from "../utils/logger"
+import { cLogger, storage } from "../utils/instance"
 import { add, Metadata, remove as metaRemove, rename } from "../utils/metadata"
-import { getDotHostName, getHostUri, hostFilename } from "../utils/path"
-import { storage } from "../utils/storage"
+import { getDotHostName, hostFilename } from "../utils/path"
+import { getHostUri } from "../utils/uri"
 import { HostConfigFile } from "./tree-item"
 
 /**
@@ -68,7 +68,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
     if (!item.filePath) return
 
     const label = getDotHostName(item.label)
-    const metaInfo = await Metadata.read()
+    const metaInfo = Metadata.read()
     if (metaInfo.includes(label)) {
       void vscode.window.showInformationMessage("这个 host 已经启用。")
       return
@@ -116,7 +116,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
 
     await storage().rename(hostFilename(item.label), hostFilename(value), { overwrite: false })
 
-    const metaInfo = await Metadata.read()
+    const metaInfo = Metadata.read()
     if (metaInfo.includes(item.label)) {
       await Metadata.write(rename(metaInfo, item.label, getDotHostName(value)))
     }
@@ -137,7 +137,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
       return
     }
 
-    const metaInfo = await Metadata.read()
+    const metaInfo = Metadata.read()
     await storage().writeText(hostFilename(value), "")
     await Metadata.write(add(metaInfo, getDotHostName(value)))
 

@@ -4,10 +4,9 @@ import dedent from "dedent"
 import * as vscode from "vscode"
 import { Files } from "../consts/paths"
 import { writeWithElevation } from "../elevation"
-import { cLogger } from "./logger.ts"
+import { cLogger, storage } from "./instance.ts"
 import { Metadata } from "./metadata"
-import { getDotHostName, hostFilename } from "./path"
-import { DEFAULT_HOST_NAME, HOST_EXT, storage } from "./storage"
+import { getDotHostName, hostFilename, isDotHostFile } from "./path"
 
 export interface DotHostElemet {
   label: string
@@ -36,9 +35,7 @@ export async function remove(item: DotHostElemet): Promise<void> {
  */
 export async function list(): Promise<string[]> {
   const entries = await storage().readDirectory()
-  return entries
-    .filter(([name, type]) => type === vscode.FileType.File && name.endsWith(HOST_EXT))
-    .map(([name]) => name)
+  return entries.filter(([name, type]) => type === vscode.FileType.File && isDotHostFile(name)).map(([name]) => name)
 }
 
 /**
@@ -55,7 +52,7 @@ export async function merge(): Promise<void> {
     const hostLabel = getDotHostName(file)
     const config = await storage().readText(hostFilename(hostLabel))
 
-    if (hostLabel === DEFAULT_HOST_NAME) {
+    if (hostLabel === Metadata.DEFAULT_HOST_NAME) {
       parts.push(config)
     } else {
       parts.push(

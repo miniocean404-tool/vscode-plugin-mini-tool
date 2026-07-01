@@ -10,8 +10,9 @@ import * as vscode from "vscode"
 import { ExtensionMetadata } from "./consts/extension"
 import { Files } from "./consts/paths"
 import { systemHostFileProvider } from "./filesystem-provider"
+import { storage } from "./utils/instance"
+import { Metadata } from "./utils/metadata"
 import { hostFilename } from "./utils/path"
-import { DEFAULT_HOST_NAME, METADATA_STATE_KEY, storage } from "./utils/storage"
 import { overrideCopyFilePath, revealSystemHostInOS } from "./utils/system-host-clipboard"
 import { HostTreeDataProvider } from "./view-tree/tree-data-provider"
 import { HostConfigFile } from "./view-tree/tree-item"
@@ -25,11 +26,11 @@ export async function activate(context: vscode.ExtensionContext) {
   const s = storage(context)
   await s.init()
 
-  if (s.getState<string[]>(METADATA_STATE_KEY) === undefined) {
+  if (!s.getState<string[]>(Metadata.STORAGE_KEY)) {
     // 首次激活：从系统 hosts 复制内容生成 default.host，并写入默认启用列表
     const sysData = fs.readFileSync(Files.SYSTEM_HOSTS_PATH)
-    await s.writeRaw(hostFilename(DEFAULT_HOST_NAME), sysData)
-    await s.setState<string[]>(METADATA_STATE_KEY, [DEFAULT_HOST_NAME])
+    await s.writeRaw(hostFilename(Metadata.DEFAULT_HOST_NAME), sysData)
+    await s.setState<string[]>(Metadata.STORAGE_KEY, [Metadata.DEFAULT_HOST_NAME])
   }
 
   /** Host 配置树数据提供者 */

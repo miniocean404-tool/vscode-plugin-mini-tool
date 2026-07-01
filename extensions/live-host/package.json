@@ -1,6 +1,6 @@
 {
   "name": "mini-live-host",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "快速编辑 host 文件，支持多组 host 文件切换",
   "repository": {
     "type": "git",
