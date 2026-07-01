@@ -1,6 +1,6 @@
 export * as Metadata from "./metadata.ts"
 
-import { getStorage, METADATA_STATE_KEY } from "./storage"
+import { METADATA_STATE_KEY, storage } from "./storage"
 
 /** 已启用的 host 配置名列表 */
 export type CurrentHosts = string[]
@@ -9,12 +9,12 @@ export type CurrentHosts = string[]
 
 /** 读取已启用的 host 配置列表（未设置时返回空数组） */
 export function read(): CurrentHosts {
-  return getStorage().getState<CurrentHosts>(METADATA_STATE_KEY, [])
+  return storage().getState<CurrentHosts>(METADATA_STATE_KEY, [])
 }
 
 /** 写入已启用的 host 配置列表 */
 export async function write(data: CurrentHosts): Promise<void> {
-  await getStorage().setState<CurrentHosts>(METADATA_STATE_KEY, data)
+  await storage().setState<CurrentHosts>(METADATA_STATE_KEY, data)
 }
 
 // --- 纯函数：不可变列表操作 ---

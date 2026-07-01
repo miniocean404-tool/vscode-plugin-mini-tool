@@ -10,13 +10,8 @@ import * as vscode from "vscode"
 import { ExtensionMetadata } from "./consts/extension"
 import { Files } from "./consts/paths"
 import { systemHostFileProvider } from "./filesystem-provider"
-import {
-  DEFAULT_HOST_NAME,
-  getStorage,
-  hostFilename,
-  init as initStorage,
-  METADATA_STATE_KEY,
-} from "./utils/storage"
+import { hostFilename } from "./utils/path"
+import { DEFAULT_HOST_NAME, METADATA_STATE_KEY, storage } from "./utils/storage"
 import { overrideCopyFilePath, revealSystemHostInOS } from "./utils/system-host-clipboard"
 import { HostTreeDataProvider } from "./view-tree/tree-data-provider"
 import { HostConfigFile } from "./view-tree/tree-item"
@@ -27,14 +22,14 @@ import { HostConfigFile } from "./view-tree/tree-item"
  */
 export async function activate(context: vscode.ExtensionContext) {
   // 初始化 globalStorage 目录，并首次激活时写入 default.host + 元数据
-  await initStorage(context)
+  const s = storage(context)
+  await s.init()
 
-  const storage = getStorage()
-  if (storage.getState<string[]>(METADATA_STATE_KEY) === undefined) {
+  if (s.getState<string[]>(METADATA_STATE_KEY) === undefined) {
     // 首次激活：从系统 hosts 复制内容生成 default.host，并写入默认启用列表
     const sysData = fs.readFileSync(Files.SYSTEM_HOSTS_PATH)
-    await storage.writeRaw(hostFilename(DEFAULT_HOST_NAME), sysData)
-    await storage.setState<string[]>(METADATA_STATE_KEY, [DEFAULT_HOST_NAME])
+    await s.writeRaw(hostFilename(DEFAULT_HOST_NAME), sysData)
+    await s.setState<string[]>(METADATA_STATE_KEY, [DEFAULT_HOST_NAME])
   }
 
   /** Host 配置树数据提供者 */
@@ -42,9 +37,13 @@ export async function activate(context: vscode.ExtensionContext) {
 
   // 注册 host:// scheme 的文件系统提供者，提供系统 hosts 虚拟文档
   context.subscriptions.push(
-    vscode.workspace.registerFileSystemProvider(ExtensionMetadata.fileSystemProvider.host, systemHostFileProvider, {
-      isReadonly: false,
-    }),
+    vscode.workspace.registerFileSystemProvider(
+      ExtensionMetadata.host.fileSystemProvider.host,
+      systemHostFileProvider,
+      {
+        isReadonly: false,
+      },
+    ),
   )
 
   context.subscriptions.push(

@@ -1,14 +1,14 @@
 import { tryError } from "@mini-tool/utils/function"
+import * as fs from "fs"
 import * as vscode from "vscode"
 import { ExtensionMetadata } from "../consts/extension"
 import { Files, Uris } from "../consts/paths"
 import { systemHostFileProvider } from "../filesystem-provider"
-import * as fs from "fs"
 import { DotHost } from "../utils/dot-host"
 import { cLogger } from "../utils/logger"
 import { add, Metadata, remove as metaRemove, rename } from "../utils/metadata"
-import { getDotHostName } from "../utils/path"
-import { getHostUri, getStorage, hostFilename } from "../utils/storage"
+import { getDotHostName, getHostUri, hostFilename } from "../utils/path"
+import { storage } from "../utils/storage"
 import { HostConfigFile } from "./tree-item"
 
 /**
@@ -31,14 +31,14 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
 
   // 用于告诉 VS Code 树形视图在某个节点下应该显示哪些子节点。
   async getChildren(): Promise<HostConfigFile[]> {
-    const metaInfo = await Metadata.read()
+    const metaInfo = Metadata.read()
     const files = await DotHost.list()
 
     this.syncSystemHostView()
 
     return [
       new HostConfigFile(
-        Files.SYSTEM_HOST_LABEL,
+        ExtensionMetadata.host.label,
         vscode.TreeItemCollapsibleState.None,
         { command: ExtensionMetadata.commands.edit, title: "", arguments: [Uris.systemHost, { preview: true }] },
         "systemHost",
@@ -87,7 +87,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
     if (!item.filePath) return
 
     const label = getDotHostName(item.label)
-    const metaInfo = await Metadata.read()
+    const metaInfo = Metadata.read()
     if (!metaInfo.includes(label)) return
 
     await Metadata.write(metaRemove(metaInfo, label))
@@ -114,7 +114,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
       return
     }
 
-    await getStorage().rename(hostFilename(item.label), hostFilename(value), { overwrite: false })
+    await storage().rename(hostFilename(item.label), hostFilename(value), { overwrite: false })
 
     const metaInfo = await Metadata.read()
     if (metaInfo.includes(item.label)) {
@@ -138,7 +138,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
     }
 
     const metaInfo = await Metadata.read()
-    await getStorage().writeText(hostFilename(value), "")
+    await storage().writeText(hostFilename(value), "")
     await Metadata.write(add(metaInfo, getDotHostName(value)))
 
     await this.refresh()

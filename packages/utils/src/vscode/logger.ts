@@ -8,7 +8,7 @@ import * as vscode from "vscode"
 export class Logger {
   private logger: vscode.OutputChannel
 
-  constructor(pluginName: string, languageId?: string) {
+  constructor(pluginName: string, languageId: string = "log") {
     this.logger = vscode.window.createOutputChannel(pluginName, languageId)
   }
 
