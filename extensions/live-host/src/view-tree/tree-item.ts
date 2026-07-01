@@ -46,7 +46,7 @@ export class HostConfigFile extends vscode.TreeItem {
 
   getIconName(): string {
     if (this.contextValue === "systemHost") {
-      return "hosts.svg"
+      return "host.svg"
     }
 
     if (this.chooseStatus) {
