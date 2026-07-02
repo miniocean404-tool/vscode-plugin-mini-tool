@@ -19,11 +19,21 @@
      :: 3. 确认权限已生效, 输出包含 Everyone:(F) 则为生效
      gsudo icacls C:\Windows\System32\drivers\etc\hosts
 
-     :: cmd 执行恢复命令(powershell 第二个命令会报错)
-     gsudo icacls C:\Windows\System32\drivers\etc /reset
+     :: cmd 执行恢复命令(powershell 第二个命令会报错), 实在不行(目前已知软连接会导致无法恢复)
      gsudo icacls C:\Windows\System32\drivers\etc\hosts /reset
      gsudo icacls C:\Windows\System32\drivers\etc\hosts /grant "NT AUTHORITY\SYSTEM:(F)"
-     # gsudo attrib +R C:\Windows\System32\drivers\etc\hosts
+
+     :: 恢复实在不行, 重新创建文件然后写入
+     gsudo New-Item -Path "C:\Windows\System32\drivers\etc\hosts" -ItemType File
+   ```
+
+   ```powershell
+   # C:\Windows\System32\drivers\etc\hosts 管理员原本权限参考:
+   C:\Windows\System32\drivers\etc\hosts NT AUTHORITY\SYSTEM:(I)(F)
+                          BUILTIN\Administrators:(I)(F)
+                          BUILTIN\Users:(I)(RX)
+                          APPLICATION PACKAGE AUTHORITY\ALL APPLICATION PACKAGES:(I)(RX)
+                          APPLICATION PACKAGE AUTHORITY\所有受限制的应用程序包:(I)(RX)
    ```
 
 3. Linux 我不用暂时未知
@@ -33,13 +43,8 @@
 1. Windows 的提权在 [SwitchHosts](https://github.com/oldj/SwitchHosts) 中也会有同样的情况
 2. MacOS 手动设置一次权限即可
 3. Linux 我不用暂时未知
-
-恢复
+   恢复
 
 ```
-C:\Windows\System32\drivers\etc\hosts NT AUTHORITY\SYSTEM:(I)(F)
-                                           BUILTIN\Administrators:(I)(F)
-                                           BUILTIN\Users:(I)(RX)
-                                           APPLICATION PACKAGE AUTHORITY\ALL APPLICATION PACKAGES:(I)(RX)
-                                           APPLICATION PACKAGE AUTHORITY\所有受限制的应用程序包:(I)(RX)
+
 ```
