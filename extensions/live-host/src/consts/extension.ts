@@ -12,6 +12,8 @@ export const ExtensionMetadata = {
     edit: `${EXTENSION_NAME}.edit`,
     // "在系统文件管理器中显示"
     revealSystemHost: `${EXTENSION_NAME}.revealSystemHost`,
+    // "打开系统 hosts 文件"
+    openSystemHost: `${EXTENSION_NAME}.openSystemHost`,
   },
   host: {
     /** 系统 hosts 默认项显示名称 */
@@ -20,5 +22,12 @@ export const ExtensionMetadata = {
     fileSystemProvider: {
       host: "host",
     },
+  },
+  click: {
+    editClickTracker: new Map<string, number>(),
+    doubleClickMs: 500,
+  },
+  save: {
+    debounceMs: 500,
   },
 }

@@ -135,6 +135,10 @@
       {
         "command": "mini-live-host.revealSystemHost",
         "title": "在文件管理器中显示"
+      },
+      {
+        "command": "mini-live-host.openSystemHost",
+        "title": "打开系统 Host"
       }
     ],
     "keybindings": [
@@ -169,6 +173,11 @@
           "command": "mini-live-host.add",
           "when": "view == 'mini-live-host'",
           "group": "navigation@1"
+        },
+        {
+          "command": "mini-live-host.openSystemHost",
+          "when": "view == 'mini-live-host'",
+          "group": "host@1"
         }
       ],
       "view/item/context": [

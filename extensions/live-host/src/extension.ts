@@ -8,7 +8,7 @@ import { openDocument } from "@mini-tool/utils/vscode"
 import * as fs from "fs"
 import * as vscode from "vscode"
 import { ExtensionMetadata } from "./consts/extension"
-import { Files } from "./consts/paths"
+import { Files, Uris } from "./consts/paths"
 import { SystemHostFileSystemProvider } from "./filesystem-provider"
 import { storage } from "./utils/instance"
 import { Metadata } from "./utils/metadata"
@@ -54,78 +54,60 @@ export async function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("copyFilePath", overrideCopyFilePath),
     // "在系统文件管理器中显示" 系统 hosts 文件
     vscode.commands.registerCommand(ExtensionMetadata.commands.revealSystemHost, revealSystemHostInOS),
-  )
-
-  // 注册侧边栏树视图
-  context.subscriptions.push(vscode.window.registerTreeDataProvider(ExtensionMetadata.name, hostTreeDataProvider))
-
-  // 注册「新增 Host 配置」命令
-  context.subscriptions.push(
+    // "打开系统 hosts 文件"：在编辑器中打开 host:// 虚拟文档
+    vscode.commands.registerCommand(ExtensionMetadata.commands.openSystemHost, () => {
+      openDocument(Uris.systemHost)
+    }),
+    // 注册侧边栏树视图
+    vscode.window.registerTreeDataProvider(ExtensionMetadata.name, hostTreeDataProvider),
+    // 注册「新增 Host 配置」命令
     vscode.commands.registerCommand(ExtensionMetadata.commands.add, (item: HostConfigFile) => {
       hostTreeDataProvider.add()
     }),
-  )
-
-  // 注册「删除 Host 配置」命令
-  context.subscriptions.push(
+    // 注册「删除 Host 配置」命令
     vscode.commands.registerCommand(ExtensionMetadata.commands.delete, (item: HostConfigFile) => {
       hostTreeDataProvider.remove(item)
     }),
-  )
-
-  // 注册「重命名 Host 配置」命令
-  context.subscriptions.push(
+    // 注册「重命名 Host 配置」命令
     vscode.commands.registerCommand(ExtensionMetadata.commands.rename, (item: HostConfigFile) => {
       hostTreeDataProvider.rename(item)
     }),
-  )
-
-  // 注册「启用 Host 配置」命令
-  context.subscriptions.push(
+    // 注册「启用 Host 配置」命令
     vscode.commands.registerCommand(ExtensionMetadata.commands.choose, async (item: HostConfigFile) => {
       await hostTreeDataProvider.choose(item)
     }),
-  )
-
-  // 注册「禁用 Host 配置」命令
-  context.subscriptions.push(
+    // 注册「禁用 Host 配置」命令
     vscode.commands.registerCommand(ExtensionMetadata.commands.unchoose, async (item: HostConfigFile) => {
       await hostTreeDataProvider.unchoose(item)
     }),
-  )
 
-  // 注册「编辑 Host 配置」命令, getChildren 会触发这个命令
-  // 单击以预览模式打开，双击（500ms 内再次点击同一项）以钉住模式打开
-  const editClickTracker = new Map<string, number>()
-  const DOUBLE_CLICK_MS = 500
-  context.subscriptions.push(
+    // 注册「编辑 Host 配置」命令, getChildren 会触发这个命令
+    // 单击以预览模式打开，双击（500ms 内再次点击同一项）以钉住模式打开
     vscode.commands.registerCommand(
       ExtensionMetadata.commands.edit,
       (uri: vscode.Uri, options?: vscode.TextDocumentShowOptions) => {
         const key = uri.toString()
         const now = Date.now()
-        const isDoubleClick = now - (editClickTracker.get(key) ?? 0) < DOUBLE_CLICK_MS
-        editClickTracker.set(key, now)
+        const isDoubleClick =
+          now - (ExtensionMetadata.click.editClickTracker.get(key) ?? 0) < ExtensionMetadata.click.doubleClickMs
+        ExtensionMetadata.click.editClickTracker.set(key, now)
         openDocument(uri, { ...options, preview: !isDoubleClick })
       },
     ),
+
+    // 主题变更时更新图标并刷新视图
+    vscode.window.onDidChangeActiveColorTheme(() => {
+      hostTreeDataProvider.refresh()
+    }),
   )
 
   // 防抖保存监听：500ms 内的连续保存合并为一次 merge，消除 /etc/hosts 竞态
-  const debouncedRefresh = debounce(() => hostTreeDataProvider.refresh(), 500)
-
+  const debouncedRefresh = debounce(() => hostTreeDataProvider.refresh(), ExtensionMetadata.save.debounceMs)
   vscode.workspace.onDidSaveTextDocument((e: vscode.TextDocument) => {
     if (e.fileName && e.fileName.includes(".host")) {
       debouncedRefresh()
     }
   })
-
-  // 主题变更时更新图标并刷新视图
-  context.subscriptions.push(
-    vscode.window.onDidChangeActiveColorTheme(() => {
-      hostTreeDataProvider.refresh()
-    }),
-  )
 }
 
 /** 扩展停用时调用（当前无清理逻辑） */
