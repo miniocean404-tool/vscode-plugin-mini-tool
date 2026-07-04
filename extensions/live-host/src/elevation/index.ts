@@ -1,4 +1,5 @@
-import { createTempFile } from "@mini-tool/utils/fs"
+import { createTempFile, isWriteable } from "@mini-tool/utils/fs"
+import fs from "fs"
 import { ExtensionMetadata } from "../consts/extension"
 import { elevateCopyLinux } from "./platform/linux"
 import { elevateCopyMacos } from "./platform/macos"
@@ -25,5 +26,13 @@ async function elevateCopy(src: string, dst: string): Promise<void> {
  */
 export async function writeWithElevation(target: string, data: string): Promise<void> {
   using tmp = createTempFile({ prefix: ExtensionMetadata.name, data })
+
+  // 首先尝试是否具有权限, 否则提权执行
+  const isWrite = isWriteable(target)
+  if (isWrite) {
+    fs.copyFileSync(tmp.absolute, target)
+    return
+  }
+
   await elevateCopy(tmp.absolute, target)
 }

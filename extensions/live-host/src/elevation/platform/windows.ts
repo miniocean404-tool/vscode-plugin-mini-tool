@@ -1,17 +1,8 @@
-import { isWriteable } from "@mini-tool/utils/fs"
 import sudo from "@vscode/sudo-prompt"
 import fs from "fs"
 
 export function elevateCopyWindows(src: string, dst: string) {
   const { promise, resolve, reject } = Promise.withResolvers<void>()
-
-  const isWrite = isWriteable(dst)
-
-  if (isWrite) {
-    fs.copyFileSync(src, dst)
-    resolve()
-    return
-  }
 
   const cmd = `copy /Y "${src}" "${dst}"`
   sudo.exec(cmd, { name: "VSCode Live Host" }, (error, stdout, stderr) => {

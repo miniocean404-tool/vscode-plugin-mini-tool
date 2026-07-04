@@ -9,7 +9,7 @@ import * as fs from "fs"
 import * as vscode from "vscode"
 import { ExtensionMetadata } from "./consts/extension"
 import { Files } from "./consts/paths"
-import { systemHostFileProvider } from "./filesystem-provider"
+import { SystemHostFileSystemProvider } from "./filesystem-provider"
 import { storage } from "./utils/instance"
 import { Metadata } from "./utils/metadata"
 import { hostFilename } from "./utils/path"
@@ -22,6 +22,11 @@ import { HostConfigFile } from "./view-tree/tree-item"
  * 注册侧边栏树视图、命令，并监听 host 配置文件保存事件
  */
 export async function activate(context: vscode.ExtensionContext) {
+  // 系统 hosts 虚拟只读文件系统（host: scheme）
+  const systemHostFileProvider = new SystemHostFileSystemProvider()
+  /** Host 配置树数据提供者 */
+  const hostTreeDataProvider = new HostTreeDataProvider(systemHostFileProvider)
+
   // 初始化 globalStorage 目录，并首次激活时写入 default.host + 元数据
   const s = storage(context)
   await s.init()
@@ -32,9 +37,6 @@ export async function activate(context: vscode.ExtensionContext) {
     await s.writeRaw(hostFilename(Metadata.DEFAULT_HOST_NAME), sysData)
     await s.setState<string[]>(Metadata.STORAGE_KEY, [Metadata.DEFAULT_HOST_NAME])
   }
-
-  /** Host 配置树数据提供者 */
-  const hostTreeDataProvider = new HostTreeDataProvider()
 
   // 注册 host:// scheme 的文件系统提供者，提供系统 hosts 虚拟文档
   context.subscriptions.push(

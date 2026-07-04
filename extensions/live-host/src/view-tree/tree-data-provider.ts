@@ -1,9 +1,8 @@
 import { tryError } from "@mini-tool/utils/function"
-import * as fs from "fs"
 import * as vscode from "vscode"
 import { ExtensionMetadata } from "../consts/extension"
 import { Files, Uris } from "../consts/paths"
-import { systemHostFileProvider } from "../filesystem-provider"
+import { SystemHostFileSystemProvider } from "../filesystem-provider"
 import { DotHost } from "../utils/dot-host"
 import { cLogger, storage } from "../utils/instance"
 import { add, Metadata, remove as metaRemove, rename } from "../utils/metadata"
@@ -25,6 +24,8 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
   /** 树数据变更事件，供 VS Code 监听刷新 */
   readonly onDidChangeTreeData = this._onDidChangeTreeData.event
 
+  constructor(private systemHostFileProvider: SystemHostFileSystemProvider) {}
+
   getTreeItem(element: HostConfigFile): vscode.TreeItem {
     return element
   }
@@ -34,7 +35,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
     const metaInfo = Metadata.read()
     const files = await DotHost.list()
 
-    this.syncSystemHostView()
+    this.systemHostFileProvider.flush()
 
     return [
       new HostConfigFile(
@@ -163,13 +164,9 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
       cLogger.toast("error", `同步系统 hosts 失败: ${err}`)
     }
 
-    this.syncSystemHostView()
+    this.systemHostFileProvider.flush()
     this._onDidChangeTreeData.fire(undefined)
   }
 
   /** 将磁盘上的系统 hosts 同步到虚拟文档，并通知已打开的编辑器刷新 */
-  private syncSystemHostView(): void {
-    const content = fs.readFileSync(Files.SYSTEM_HOSTS_PATH, "utf-8")
-    systemHostFileProvider.updateFile(Uris.systemHost, content)
-  }
 }

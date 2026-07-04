@@ -45,6 +45,7 @@
   },
   "devDependencies": {},
   "activationEvents": [
+    "onFileSystem:host",
     "onStartupFinished"
   ],
   "contributes": {
