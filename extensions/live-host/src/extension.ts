@@ -95,11 +95,18 @@ export async function activate(context: vscode.ExtensionContext) {
   )
 
   // 注册「编辑 Host 配置」命令, getChildren 会触发这个命令
+  // 单击以预览模式打开，双击（500ms 内再次点击同一项）以钉住模式打开
+  const editClickTracker = new Map<string, number>()
+  const DOUBLE_CLICK_MS = 500
   context.subscriptions.push(
     vscode.commands.registerCommand(
       ExtensionMetadata.commands.edit,
       (uri: vscode.Uri, options?: vscode.TextDocumentShowOptions) => {
-        openDocument(uri, options)
+        const key = uri.toString()
+        const now = Date.now()
+        const isDoubleClick = now - (editClickTracker.get(key) ?? 0) < DOUBLE_CLICK_MS
+        editClickTracker.set(key, now)
+        openDocument(uri, { ...options, preview: !isDoubleClick })
       },
     ),
   )

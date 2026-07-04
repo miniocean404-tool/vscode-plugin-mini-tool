@@ -185,12 +185,12 @@
         {
           "command": "mini-live-host.rename",
           "when": "view == 'mini-live-host' && viewItem =~ /hostItem/i",
-          "group": "host@1"
+          "group": "host@2"
         },
         {
           "command": "mini-live-host.delete",
           "when": "view == 'mini-live-host' && viewItem =~ /hostItem/i",
-          "group": "host@1"
+          "group": "host@3"
         }
       ]
     }

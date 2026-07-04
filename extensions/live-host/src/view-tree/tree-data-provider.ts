@@ -41,7 +41,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
       new HostConfigFile(
         ExtensionMetadata.host.label,
         vscode.TreeItemCollapsibleState.None,
-        { command: ExtensionMetadata.commands.edit, title: "", arguments: [Uris.systemHost, { preview: true }] },
+        { command: ExtensionMetadata.commands.edit, title: "", arguments: [Uris.systemHost] },
         "systemHost",
         Files.SYSTEM_HOSTS_PATH,
       ),
