@@ -35,7 +35,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
     const metaInfo = Metadata.read()
     const files = await DotHost.list()
 
-    this.systemHostFileProvider.flush()
+    await this.systemHostFileProvider.flush()
 
     return [
       new HostConfigFile(
@@ -164,7 +164,7 @@ export class HostTreeDataProvider implements vscode.TreeDataProvider<HostConfigF
       cLogger.toast("error", `同步系统 hosts 失败: ${err}`)
     }
 
-    this.systemHostFileProvider.flush()
+    await this.systemHostFileProvider.flush()
     this._onDidChangeTreeData.fire(undefined)
   }
 

@@ -8,11 +8,7 @@ export class SystemHostFileSystemProvider implements vscode.FileSystemProvider {
   private readonly _emitter = new vscode.EventEmitter<vscode.FileChangeEvent[]>()
   readonly onDidChangeFile = this._emitter.event
 
-  constructor() {
-    // 立即填充系统 hosts 虚拟文档内容，确保 VSCode 启动恢复编辑器时
-    // host:// 文档已存在，避免「由于意外错误，无法打开编辑器」
-    this.flush()
-  }
+  constructor() {}
 
   readFile(uri: vscode.Uri): Uint8Array {
     const data = this.files.get(uri.toString())
@@ -70,13 +66,11 @@ export class SystemHostFileSystemProvider implements vscode.FileSystemProvider {
   }
 
   /**
-   * 读取磁盘上的系统 hosts 文件并刷新到虚拟文档提供者。
-   * 在扩展激活早期调用，确保 VSCode 恢复编辑器时 host:// 文档已存在，
-   * 避免「由于意外错误，无法打开编辑器」的提示。
-   * package.json 中 activationEvents 需要添加: "onFileSystem:host", 事件
+   * 异步读取磁盘上的系统 hosts 文件并刷新到虚拟文档提供者。
+   * 在扩展激活时调用，确保 host:// 文档已存在。
    */
-  flush(): void {
-    const content = fs.readFileSync(Files.SYSTEM_HOSTS_PATH, "utf-8")
+  async flush(): Promise<void> {
+    const content = await fs.promises.readFile(Files.SYSTEM_HOSTS_PATH, "utf-8")
     this.updateFile(Uris.systemHost, content)
   }
 }

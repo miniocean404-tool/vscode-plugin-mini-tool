@@ -5,10 +5,9 @@
 import { debounce } from "@mini-tool/utils/function"
 import { openDocument } from "@mini-tool/utils/vscode"
 
-import * as fs from "fs"
 import * as vscode from "vscode"
 import { ExtensionMetadata } from "./consts/extension"
-import { Files, Uris } from "./consts/paths"
+import { Uris } from "./consts/paths"
 import { SystemHostFileSystemProvider } from "./filesystem-provider"
 import { storage } from "./utils/instance"
 import { Metadata } from "./utils/metadata"
@@ -31,9 +30,12 @@ export async function activate(context: vscode.ExtensionContext) {
   const s = storage(context)
   await s.init()
 
+  // 异步读取系统 hosts 并填充虚拟文档（替代原构造函数中的同步 flush）
+  await systemHostFileProvider.flush()
+
   if (!s.getState<string[]>(Metadata.STORAGE_KEY)) {
-    // 首次激活：从系统 hosts 复制内容生成 default.host，并写入默认启用列表
-    const sysData = fs.readFileSync(Files.SYSTEM_HOSTS_PATH)
+    // 首次激活：复用 flush 已缓存的系统 hosts 内容生成 default.host
+    const sysData = systemHostFileProvider.readFile(Uris.systemHost)
     await s.writeRaw(hostFilename(Metadata.DEFAULT_HOST_NAME), sysData)
     await s.setState<string[]>(Metadata.STORAGE_KEY, [Metadata.DEFAULT_HOST_NAME])
   }
